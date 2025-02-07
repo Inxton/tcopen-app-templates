@@ -21,7 +21,7 @@ jobs:
           fetch-depth: 0
       - name: Cake
         env:
-          gh-public-repos: ${{ secrets.TCOPENTEMPLATESPAT  }}
-          TCOOPENNUGETDOTORGPAT : ${{ secrets.TCOOPENNUGETDOTORGPAT  }}
+          gh-public-repos: ${{ secrets.GH_TOKEN  }}
+          TCOOPENNUGETDOTORGPAT : ${{ secrets.NUGET_TCOPEN  }}
         run: >
           .\build.ps1  

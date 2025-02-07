@@ -20,7 +20,7 @@ To get early access to the packages from TcOpen we advise you to get access to a
 If you do not have a GitHub account please consider creating one by signing up at https://github.com.
 
 ~~~PowerShell
-dotnet nuget add source --username <GITHUBUSERNAME> --password <PAT> --store-password-in-clear-text --name github-tcopen "https://nuget.pkg.github.com/TcOpenGroup/index.json"
+dotnet nuget add source --username <GITHUBUSERNAME> --password <PAT> --store-password-in-clear-text --name github-tcopen "https://nuget.pkg.github.com/inxton/index.json"
 ~~~
 
 How to create your Personal Access Token (PAT) read [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).

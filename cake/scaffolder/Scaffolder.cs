@@ -117,7 +117,7 @@ namespace Build.Scaffolder
                     context.DotNetNuGetPush(nugetFile.FullName,
                         new Cake.Common.Tools.DotNet.NuGet.Push.DotNetNuGetPushSettings()
                         {
-                            Source = "https://nuget.pkg.github.com/TcOpenGroup/index.json",
+                            Source = "https://nuget.pkg.github.com/inxton/index.json",
                             ApiKey = System.Environment.GetEnvironmentVariable("gh-public-repos"),
                             SkipDuplicate = true
                         });
@@ -157,7 +157,7 @@ namespace Build.Scaffolder
                 githubClient.Credentials = new Credentials(githubToken);
 
                 var release = githubClient.Repository.Release.Create(
-                    "TcOpenGroup",
+                    "Inxton",
                     "tcopen-app-templates",
                     new NewRelease($"{GitVersionInformation.SemVer}")
                     {

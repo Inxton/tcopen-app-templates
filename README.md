@@ -104,7 +104,6 @@ tco --project-name MyNewProject --template-name mts-s-template --source reposito
 |    Template id    |                                           Description                                            |
 | ----------------- | ------------------------------------------------------------------------------------------------ |
 | mts-s-template    | Standard template for [MTS](https://www.mts.sk/en/) more in the readme of the template  [templates\mts-s-template](templates/mts-s-template/t/README.md)|
-| more coming soon | -                                                                                                |
 
 
 

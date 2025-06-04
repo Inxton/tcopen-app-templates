@@ -415,6 +415,9 @@ END_IF;
 IF (Step(150, TRUE, '<#START MEASURE CT TRIGGER#>')) THEN
     //-------------------------------------    
     StartCleanCycleTime();
+
+	CustomObserver.DefineControledUnit(THIS^.Station.CuId);
+	
     StepCompleteWhen(TRUE);
     //-------------------------------------
 END_IF
@@ -551,6 +554,7 @@ IF (Step(10000, TRUE, 'WAIT FOR PARALELL TASK TO FINISH')) THEN
 
     IF _paralellTask.Task.Done THEN
         _paralellTask.Restore();
+		
     END_IF
     //-------------------------------------	
 END_IF
@@ -558,8 +562,10 @@ END_IF
 IF (Step(20000, _dataClose, 'WAIT FOR IF DATA FINALIZE IS DONE')) THEN
     //-------------------------------------
     StepCompleteWhen(Station.UpdateEntityTask.Done);
+	CustomObserver.SetCycleId(Station.ProcessDataManager.Data._EntityId);
     //-------------------------------------	
 END_IF
+
 
 
 //monitor if conseccutive failures occur during automatic cycle. System monitor two basic types like are arbitrary failure in seqence, or  same(equal) failure in sequence
@@ -574,9 +580,12 @@ THIS^.MonitorSameRecurringFailure(22100,THIS^.Station._settings.SameRecurringFai
 
 IF (Step(30000, TRUE, 'LAST STEP')) THEN
     //-------------------------------------
-    IF (_loop) THEN
-        CompleteSequence();
-    END_IF;
+
+		IF (_loop) THEN
+			CompleteSequence();
+		END_IF;
+
+
     //-------------------------------------	
 END_IF
 

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcoCustomTimeStruct" Id="{c752a31a-4b9c-4ade-a760-f62e46f31888}">
+    <Declaration><![CDATA[TYPE
+    TcoCustomTimeStruct :
+    STRUCT
+        Year : WORD;
+        Month : WORD;
+
+        Day : WORD;
+        Hour : WORD;
+        Minute : WORD;
+        Second : WORD;
+        Milliseconds : WORD;
+    END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

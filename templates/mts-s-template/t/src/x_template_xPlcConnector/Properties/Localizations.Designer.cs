@@ -3137,6 +3137,15 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to READY TO START OPERATIONS.
+        /// </summary>
+        public static string ___READY_TO_START_OPERATIONS__ {
+            get {
+                return ResourceManager.GetString("___READY_TO_START_OPERATIONS__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recipe.
         /// </summary>
         public static string ___Recipe__ {
@@ -3214,6 +3223,16 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___Recovered__ {
             get {
                 return ResourceManager.GetString("___Recovered__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requested carrier is out of range of internal storage. Max number of carriers is.
+        /// </summary>
+        public static string ___Requested_carrier_is_out_of_range_of_internal_storage__Max_number_of_carriers_is__ {
+            get {
+                return ResourceManager.GetString("___Requested_carrier_is_out_of_range_of_internal_storage__Max_number_of_carriers_" +
+                        "is__", resourceCulture);
             }
         }
         
@@ -3640,6 +3659,33 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Step description.
+        /// </summary>
+        public static string ___Step_description__ {
+            get {
+                return ResourceManager.GetString("___Step_description__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step duration.
+        /// </summary>
+        public static string ___Step_duration__ {
+            get {
+                return ResourceManager.GetString("___Step_duration__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step ID.
+        /// </summary>
+        public static string ___Step_ID__ {
+            get {
+                return ResourceManager.GetString("___Step_ID__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Step mode.
         /// </summary>
         public static string ___Step_mode__ {
@@ -3798,6 +3844,15 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___Test_positions__ {
             get {
                 return ResourceManager.GetString("___Test_positions__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time Stamp Struct.
+        /// </summary>
+        public static string ___Time_Stamp_Struct__ {
+            get {
+                return ResourceManager.GetString("___Time_Stamp_Struct__", resourceCulture);
             }
         }
         

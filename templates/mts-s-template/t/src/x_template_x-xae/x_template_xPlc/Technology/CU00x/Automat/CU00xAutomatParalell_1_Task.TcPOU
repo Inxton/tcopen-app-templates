@@ -40,6 +40,7 @@ IF (Step(1200, TRUE, 'PARALELL STEP - EXAMPLE OF TIMERS')) THEN
     //-------------------------------------
 END_IF
 
+
 IF THIS^.IsFreshState THEN
 	_customTimer(IN:=FALSE);
 END_IF

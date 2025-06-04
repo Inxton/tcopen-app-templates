@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="TcoCustomSequencerObserver" Id="{cd363be8-7987-47d8-942b-2af93780a771}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TcoCustomSequencerObserver EXTENDS TcoObject 
+VAR
+    _data            : TcoCustomExportSeqData;
+	_dataToExport            : TcoCustomExportSeqData;
+	
+//	_stepsToExport            : ARRAY[0..MAX_STEPS] OF TcoCustomStepDetails;
+//	_cycleId:STRING(254);
+//	_cuId:UINT;
+//	_startTime:TcoCustomTimeStruct;
+//	_endTime:TcoCustomTimeStruct;
+//	_startTimeToExport:TcoCustomTimeStruct;
+//	_endTimeToExport:TcoCustomTimeStruct;
+	
+	_exportSeqData:TcoCore.TcoRemoteTask(THIS^);
+	_order:UINT;
+END_VAR
+
+VAR CONSTANT
+    MAX_STEPS : UINT := 150;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[_exportSeqData();]]></ST>
+    </Implementation>
+    <Method Name="Clear" Id="{9d3f92c6-bc3b-4d09-ae5f-03645a1d54b3}">
+      <Declaration><![CDATA[{attribute 'hide'}
+METHOD Clear : BOOL
+VAR 
+	i : INT;
+	blank : TcoCustomStepDetails;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[{warning disable C0196}
+FOR i := 0 TO MAX_STEPS DO
+{warning enable C0196}
+	_data.Steps[i] := blank;	
+END_FOR
+_order:=0;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="CompleteSequence" Id="{a5b40465-d212-49b8-9995-598855caf101}">
+      <Declaration><![CDATA[METHOD CompleteSequence
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+_dataToExport:=_data;
+
+IF _exportSeqData._isInitialized  THEN
+	
+	_exportSeqData.Restore();
+	_exportSeqData.Invoke();
+  
+	
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DefineControledUnit" Id="{3ca4b05b-1c8f-4a45-aacc-bc42502700d6}">
+      <Declaration><![CDATA[METHOD DefineControledUnit
+VAR_INPUT
+	inCuid: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_data.CuId:=inCuid;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DefineEndTime" Id="{c3cf1523-3de8-45b4-843f-79abb19fb187}">
+      <Declaration><![CDATA[METHOD DefineEndTime
+VAR_INPUT
+	inTime:Tc2_Utilities.TIMESTRUCT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_data.EndTime.Year :=  inTime.wYear;
+_data.EndTime.Month :=  inTime.wMonth;
+_data.endTime.Day :=  inTime.wDay;
+_data.endTime.Hour :=  inTime.wHour;
+_data.endTime.Minute :=  inTime.wMinute;
+_data.endTime.Second :=  inTime.wSecond;
+_data.endTime.Milliseconds :=  inTime.wMilliseconds;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="DefineStartTime" Id="{a7c03d50-8d55-4bb6-9e93-c9ff16a92522}">
+      <Declaration><![CDATA[METHOD DefineStartTime
+VAR_INPUT
+	inTime:Tc2_Utilities.TIMESTRUCT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_data.startTime.Year :=  inTime.wYear;
+_data.startTime.Month :=  inTime.wMonth;
+_data.startTime.Day :=  inTime.wDay;
+_data.startTime.Hour :=  inTime.wHour;
+_data.startTime.Minute :=  inTime.wMinute;
+_data.startTime.Second :=  inTime.wSecond;
+_data.startTime.Milliseconds :=  inTime.wMilliseconds;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="ExportSeqData" Id="{3027a78f-31f9-450a-a4ae-492c9754d4bf}">
+      <Declaration><![CDATA[PROPERTY ExportSeqData : REFERENCE TO TcoCore.TcoRemoteTask]]></Declaration>
+      <Get Name="Get" Id="{a83e8a65-bb52-4ce8-a5c7-a514151e901d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ExportSeqData ref=_exportSeqData;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Observe" Id="{1215cd12-3c65-41b0-841f-700f5b664e4b}">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Provides the mechanism to observe steps in the sequence and to gather basic infomation about step status and perfomance.
+		</summary>			
+	</docu>	
+~*)
+METHOD Observe
+VAR_INPUT
+	
+	(*~
+	<docu>
+		<summary>
+			Step identification number.
+		</summary>	
+		<remarks>			
+ 			<note type="important">
+				This number must be unique throughout the complete sequence. It is required to uniquely identify the step of the sequence.
+			</note>
+			<para>
+				The <see cref="PlcDocu.TcoCore.TcoSequencer.RequestStep"/> method is using this number to jump to the required step.
+			</para>
+		</remarks>
+	</docu>	
+	~*)
+		{attribute addProperty Name "<#Step ID#>"}
+		inID: INT;
+
+
+	(*~
+		<docu>
+			<summary>
+				Step description text.
+			</summary>				
+		</docu>	
+	~*)
+		{attribute addProperty Name "<#Step description#>"}
+		inDescription: STRING(254);
+
+	(*~
+		<docu>
+			<summary>
+				Step duration time.
+			</summary>				
+		</docu>	
+	~*)	
+		{attribute addProperty Name "<#Step duration#>"}
+		inDuration : TIME;	
+
+
+END_VAR
+
+VAR
+	_timeStruct: Tc2_Utilities.TIMESTRUCT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+IF(_order <= MAX_STEPS)  THEN
+	_data.Steps[_order].ID := inID;
+	_data.Steps[_order].Description := inDescription;
+	_data.Steps[_order].Duration := inDuration;
+	_timeStruct:=Context.RealTimeClock.NowLocalAsTIMESTRUCT();
+	
+	_data.Steps[_order].TimeStamp.Year :=  _timeStruct.wYear;
+	_data.Steps[_order].TimeStamp.Month :=  _timeStruct.wMonth;
+	_data.Steps[_order].TimeStamp.Day :=  _timeStruct.wDay;
+	_data.Steps[_order].TimeStamp.Hour :=  _timeStruct.wHour;
+	_data.Steps[_order].TimeStamp.Minute :=  _timeStruct.wMinute;
+	_data.Steps[_order].TimeStamp.Second :=  _timeStruct.wSecond;
+	_data.Steps[_order].TimeStamp.Milliseconds :=  _timeStruct.wMilliseconds;
+
+
+		
+	
+	_order:=_order+1;
+END_IF;	]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SetCycleId" Id="{5f12283b-b444-4743-a199-ea64b37a461d}">
+      <Declaration><![CDATA[METHOD SetCycleId
+VAR_INPUT
+	inId:string(254);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_data.CycleId:=inId;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

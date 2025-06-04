@@ -38,6 +38,8 @@ using x_template_xReworkInstructor.Instructor;
 using x_template_xReworkInstructor.Instructor.View;
 using System.Collections.Generic;
 using TcoCore;
+using TcoData.Models;
+using TcoData.Helpers;
 
 namespace x_template_xHmi.Wpf
 {
@@ -387,6 +389,42 @@ namespace x_template_xHmi.Wpf
             CuxInstructor = new InstructorController(_instructionPlanHandler, new InstructableSequencer(x_template_xPlc.MAIN._technology._cu00x._automatTask));
             CuxParalellInstructor = new InstructorController(_instructionPlanHandler, new InstructableSequencer(x_template_xPlc.MAIN._technology._cu00x._automatTask._paralellTask));
 
+            ValidateDataDelegate<PlainProcessData> validator = data =>
+            {
+                return new DataItemValidation[]
+                {
+                    new DataItemValidation($"'{nameof(data.CU00x.BoltDimensionPresenceInspector._data.RequiredMin)}' must be greater than 0", data.CU00x.BoltDimensionPresenceInspector._data.RequiredMin <= 0),
+
+                    new DataItemValidation($"'{nameof(data.CU00x.BoltDimensionPresenceInspector._data.RequiredMax)}' must be less than 100", data.CU00x.BoltDimensionPresenceInspector._data.RequiredMax >= 100)
+                };
+            };
+
+            BulkModel = new BulkTraversalModel<PlainProcessData, BulkDataItem>(new RavenDbRepository<PlainProcessData>(ProcessDataRepoSettings),
+             validator
+                    );
+            BulkModel.UpdateFromDataTemplate((symbol, value) =>
+            {
+                var editable = BulkItemStatus.Undefined;
+
+                var editableMembers = PropertyHelper.GetPropertiesNames(new PlainProcessData(), p => p.CU00x.BoltDimensionPresenceInspector);
+
+                if (editableMembers.Any(member => symbol.Contains(member)))
+                {
+                    editable = BulkItemStatus.Editable;
+                }
+
+                return new BulkDataItem
+                {
+                    Symbol = symbol,
+                    Value = value,
+                    Status = editable,
+                    WriteStatus = BulkItemWriteStatus.NoChange,
+                    OriginalValue = value
+                };
+            });
+
+            var _Handler = RepositoryDataSetHandler<InstructionItem>.CreateSet(new RavenDbRepository<EntitySet<InstructionItem>>(new RavenDbRepositorySettings<EntitySet<InstructionItem>>(new string[] { Entry.Settings.GetConnectionString() }, "Instructions", "", "")));
+
         }
    
 
@@ -448,6 +486,44 @@ namespace x_template_xHmi.Wpf
             x_template_xPlc.MAIN._technology._cu00x._components.ReworkInstructionTask.InitializeExclusively(getReworkInstruction);
 
             Log.Information(@"Initialize Rework instructor repository... Done");
+
+            ValidateDataDelegate<PlainProcessData> validator = data =>
+            {
+                return new DataItemValidation[]
+                {
+        new DataItemValidation($"'{nameof(data.CU00x.BoltDimensionPresenceInspector._data.RequiredMin)}' must be greater than 0", data.CU00x.BoltDimensionPresenceInspector._data.RequiredMin <= 0),
+
+        new DataItemValidation($"'{nameof(data.CU00x.BoltDimensionPresenceInspector._data.RequiredMax)}' must be less than 100", data.CU00x.BoltDimensionPresenceInspector._data.RequiredMax >= 100)
+                };
+            };
+
+            BulkModel = new BulkTraversalModel<PlainProcessData, BulkDataItem>(new MongoDbRepository<PlainProcessData>(ProcessDataRepoSettings),validator
+                    );
+            BulkModel.UpdateFromDataTemplate((symbol, value) =>
+            {
+                var editable = BulkItemStatus.Undefined;
+
+                var editableMembers = PropertyHelper.GetPropertiesNames(new TcoInspectors.PlainTcoAnalogueInspectorData(), p => p.RequiredMax, p => p.RequiredMin, p=>p.FailureDescription);  //PropertyHelper.GetPropertiesNames(new PlainProcessData(), p => p.CU00x.BoltDimensionPresenceInspector);
+
+                if (editableMembers.Any(member => symbol.Contains(member)))
+                {
+                    editable = BulkItemStatus.Editable;
+                }
+
+                return new BulkDataItem
+                {
+                    Symbol = symbol,
+                    Value = value,
+                    Status = editable,
+                    WriteStatus = BulkItemWriteStatus.NoChange,
+                    OriginalValue = value
+                };
+            });
+
+
+            var _seqHandler = RepositoryDataSetHandler<SequencerData>.CreateSet(new MongoDbRepository<EntitySet<SequencerData>>(new MongoDbRepositorySettings<EntitySet<SequencerData>>(Entry.Settings.GetConnectionString(), Entry.Settings.DbName, "SeqData")));
+
+            x_template_xPlc.MAIN._technology._cu00x._automatTask.WithDataExport(_seqHandler);
 
         }
 
@@ -518,6 +594,7 @@ namespace x_template_xHmi.Wpf
         public bool DataExchangeActive { get; private set; } = true;
         public static ReworkInstructorController CuxReworkInstructor { get; private set; }
         public List<TcoComponent> ListOfComponents { get; private set; }
+        public static BulkTraversalModel<PlainProcessData, BulkDataItem> BulkModel { get; private set; }
 
 
         /// <summary>

@@ -787,6 +787,15 @@ IF seq.Step(40,TRUE,'VYCHODIZA POLOHA - ZASUNUTIE P5</value>
   <data name="___Normal__" xml:space="preserve">
     <value>Normal</value>
   </data>
+  <data name="___Step_ID__" xml:space="preserve">
+    <value>Step ID</value>
+  </data>
+  <data name="___Step_description__" xml:space="preserve">
+    <value>Step description</value>
+  </data>
+  <data name="___Step_duration__" xml:space="preserve">
+    <value>Step duration</value>
+  </data>
   <data name="___Process_data_not_selected__" xml:space="preserve">
     <value>Process data not selected</value>
   </data>
@@ -801,6 +810,9 @@ IF seq.Step(40,TRUE,'VYCHODIZA POLOHA - ZASUNUTIE P5</value>
   </data>
   <data name="___Production_planer_completed_required_plan___" xml:space="preserve">
     <value>Production planer completed required plan!</value>
+  </data>
+  <data name="___READY_TO_START_OPERATIONS__" xml:space="preserve">
+    <value>READY TO START OPERATIONS</value>
   </data>
   <data name="___START_MEASURE_CT_TRIGGER__" xml:space="preserve">
     <value>START MEASURE CT TRIGGER</value>
@@ -867,6 +879,9 @@ IF seq.Step(40,TRUE,'VYCHODIZA POLOHA - ZASUNUTIE P5</value>
   </data>
   <data name="___RECOVER_ANY_COMPONENTS__" xml:space="preserve">
     <value>RECOVER ANY COMPONENTS</value>
+  </data>
+  <data name="___Requested_carrier_is_out_of_range_of_internal_storage__Max_number_of_carriers_is__" xml:space="preserve">
+    <value>Requested carrier is out of range of internal storage. Max number of carriers is</value>
   </data>
   <data name="___Start_manual_Service_mode__" xml:space="preserve">
     <value>Start manual/Service mode</value>
@@ -1584,6 +1599,9 @@ IF seq.Step(40,TRUE,'VYCHODIZA POLOHA - ZASUNUTIE P5</value>
   </data>
   <data name="___Average_cycle_time_filter_constant__" xml:space="preserve">
     <value>Average cycle time filter constant</value>
+  </data>
+  <data name="___Time_Stamp_Struct__" xml:space="preserve">
+    <value>Time Stamp Struct</value>
   </data>
   <data name="___CU00x__" xml:space="preserve">
     <value>CU00x</value>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcoCustomStepDetails" Id="{62c2578b-77d2-0347-3811-ab38bb53c346}">
+    <Declaration><![CDATA[
+TYPE TcoCustomStepDetails :
+STRUCT
+
+	{attribute addProperty Name "<#Step ID#>"}
+	ID: INT;
+
+	{attribute addProperty Name "<#Step description#>"}
+	Description: STRING(254);
+
+	{attribute addProperty Name "<#Step duration#>"}
+	Duration : TIME;
+	
+	{attribute addProperty Name "<#Time Stamp Struct#>"}
+	TimeStamp : TcoCustomTimeStruct;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

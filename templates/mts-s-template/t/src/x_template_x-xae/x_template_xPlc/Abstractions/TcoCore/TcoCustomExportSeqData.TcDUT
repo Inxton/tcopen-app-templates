@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcoCustomExportSeqData" Id="{116c563e-3e64-422a-b063-63030b973be9}">
+    <Declaration><![CDATA[TYPE
+    TcoCustomExportSeqData :
+    STRUCT
+
+        Steps : ARRAY[0..TcoCustomSequencerObserver.MAX_STEPS] OF TcoCustomStepDetails;
+        CycleId : STRING(254);
+        CuId : UINT;
+        StartTime : TcoCustomTimeStruct;
+        EndTime : TcoCustomTimeStruct;
+    END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

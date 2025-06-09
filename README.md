@@ -40,13 +40,13 @@ dotnet tool install TcOpen.tco --global --version --prerelease
 
 Installing specific version:
 ~~~Powershell
-dotnet tool install TcOpen.tco --global --version 0.3.0-preview.5
+dotnet tool install TcOpen.tco --global --version 0.3.0-release.154
 ~~~
 
 ## Updating to specific version
 
 ~~~Powershell
-dotnet tool update TcOpen.tco --global --version 0.3.0-preview.5
+dotnet tool update TcOpen.tco --global --version 0.3.0-release.154
 ~~~
 
 ## Uninstalling global tool

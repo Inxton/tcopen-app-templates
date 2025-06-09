@@ -74,7 +74,7 @@ namespace TcOpen.Scaffold
             {                
                 using (var client = new WebClient())
                 {
-                    client.DownloadFile($"https://github.com/TcOpenGroup/tcopen-app-templates/archive/refs/tags/{Options.BranchOrTag}.zip", $"{zippedBranchFile}");
+                    client.DownloadFile($"https://github.com/Inxton/tcopen-app-templates/archive/refs/tags/{Options.BranchOrTag}.zip", $"{zippedBranchFile}");
                 }
 
                 Console.WriteLine($"Unpacking '{zippedBranchFile}' to '{CurrentDirectory}'");
@@ -92,7 +92,7 @@ namespace TcOpen.Scaffold
             {
                 using (var client = new WebClient())
                 {
-                    client.DownloadFile($"https://github.com/TcOpenGroup/tcopen-app-templates/archive/refs/heads/{Options.BranchOrTag}.zip", $"{zippedBranchFile}");                    
+                    client.DownloadFile($"https://github.com/Inxton/tcopen-app-templates/archive/refs/heads/{Options.BranchOrTag}.zip", $"{zippedBranchFile}");                    
                 }
 
                 Console.WriteLine($"Unpacking '{zippedBranchFile}' to '{CurrentDirectory}'");
@@ -117,7 +117,7 @@ namespace TcOpen.Scaffold
           
             using (var client = new WebClient())
             {
-                client.DownloadFile($"https://github.com/TcOpenGroup/tcopen-app-templates/releases/download/{Options.Release}/{Options.TemplateName}.zip", $"{zippedReleaseFile}");
+                client.DownloadFile($"https://github.com/Inxton/tcopen-app-templates/releases/download/{Options.Release}/{Options.TemplateName}.zip", $"{zippedReleaseFile}");
             }
 
             Console.WriteLine($"Unpacking '{zippedReleaseFile}' to '{unpackFolder}'");

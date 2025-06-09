@@ -86,34 +86,34 @@
     <Compile Include="Abstractions\Components\MtsFeeding\Blisters\TcoFeeding_Status_v_1_x_x.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Abstractions\Components\MtsFeeding\Components\OscilatingConveyorFeeder\eTcoOscilatingConveyorOscilationModes.TcDUT">
+    <Compile Include="Abstractions\Components\MtsFeeding\OscilatingFeeder\eTcoOscilatingConveyorOscilationModes.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Abstractions\Components\MtsFeeding\Components\OscilatingConveyorFeeder\eTcoOscilatingConveyorStatus.TcDUT">
+    <Compile Include="Abstractions\Components\MtsFeeding\OscilatingFeeder\eTcoOscilatingConveyorStatus.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Abstractions\Components\MtsFeeding\Components\OscilatingConveyorFeeder\TcoOscilatingConveyorFeeder.TcPOU">
+    <Compile Include="Abstractions\Components\MtsFeeding\OscilatingFeeder\TcoOscilatingConveyorFeeder.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Abstractions\Components\MtsFeeding\Components\OscilatingConveyorFeeder\TcoOscilatingConveyorFeederComponents.TcDUT">
+    <Compile Include="Abstractions\Components\MtsFeeding\OscilatingFeeder\TcoOscilatingConveyorFeederComponents.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Abstractions\Components\MtsFeeding\Components\OscilatingConveyorFeeder\TcoOscilatingConveyorFeeder_Config_v_1_x_x.TcDUT">
+    <Compile Include="Abstractions\Components\MtsFeeding\OscilatingFeeder\TcoOscilatingConveyorFeeder_Config_v_1_x_x.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Abstractions\Components\MtsFeeding\Components\OscilatingConveyorFeeder\TcoOscilatingConveyorFeeder_Control_v_1_x_x.TcDUT">
+    <Compile Include="Abstractions\Components\MtsFeeding\OscilatingFeeder\TcoOscilatingConveyorFeeder_Control_v_1_x_x.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Abstractions\Components\MtsFeeding\Components\OscilatingConveyorFeeder\TcoOscilatingConveyorFeeder_DesignerSpecificData.TcPOU">
+    <Compile Include="Abstractions\Components\MtsFeeding\OscilatingFeeder\TcoOscilatingConveyorFeeder_DesignerSpecificData.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Abstractions\Components\MtsFeeding\Components\OscilatingConveyorFeeder\TcoOscilatingConveyorFeeder_PcToPlc.TcDUT">
+    <Compile Include="Abstractions\Components\MtsFeeding\OscilatingFeeder\TcoOscilatingConveyorFeeder_PcToPlc.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Abstractions\Components\MtsFeeding\Components\OscilatingConveyorFeeder\TcoOscilatingConveyorFeeder_PlcToPc.TcDUT">
+    <Compile Include="Abstractions\Components\MtsFeeding\OscilatingFeeder\TcoOscilatingConveyorFeeder_PlcToPc.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Abstractions\Components\MtsFeeding\Components\OscilatingConveyorFeeder\TcoOscilatingConveyorFeeder_Status_v_1_x_x.TcDUT">
+    <Compile Include="Abstractions\Components\MtsFeeding\OscilatingFeeder\TcoOscilatingConveyorFeeder_Status_v_1_x_x.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Abstractions\Components\MtsFeeding\TcoFeedingSequenceTask.TcPOU">
@@ -551,8 +551,7 @@
     <Folder Include="Abstractions\Components\MtsFeeding\Blisters\Plb" />
     <Folder Include="Abstractions\Components\MtsFeeding\Blisters\Plr" />
     <Folder Include="Abstractions\Components\MtsFeeding\Blisters\Pls" />
-    <Folder Include="Abstractions\Components\MtsFeeding\Components" />
-    <Folder Include="Abstractions\Components\MtsFeeding\Components\OscilatingConveyorFeeder" />
+    <Folder Include="Abstractions\Components\MtsFeeding\OscilatingFeeder" />
     <Folder Include="Abstractions\Components\Rework" />
     <Folder Include="Abstractions\Components\TS" />
     <Folder Include="Abstractions\Components\TS\EqTransfer" />

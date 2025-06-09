@@ -40,13 +40,13 @@ dotnet tool install TcOpen.tco --global --version --prerelease
 
 Installing specific version:
 ~~~Powershell
-dotnet tool install TcOpen.tco --global --version 0.3.0-release.154
+dotnet tool install TcOpen.tco --global --version 0.3.0-release.155
 ~~~
 
 ## Updating to specific version
 
 ~~~Powershell
-dotnet tool update TcOpen.tco --global --version 0.3.0-release.154
+dotnet tool update TcOpen.tco --global --version 0.3.0-release.155
 ~~~
 
 ## Uninstalling global tool
@@ -82,7 +82,7 @@ PS C:\> .\tco.exe --help
 
 Get mts-s-template from the repository
 ~~~Powershell
-tco --project-name MyNewProject --template-name mts-s-template --source repository --release 0.3.0-release.154
+tco --project-name MyNewProject --template-name mts-s-template --source repository --release 0.3.0-release.155
 ~~~
 ### Important!  
   Project name must comply with C# identifier rules.It must start with a letter (not number or other characters except for `@`). For details see [here](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/lexical-structure#643-identifiers).

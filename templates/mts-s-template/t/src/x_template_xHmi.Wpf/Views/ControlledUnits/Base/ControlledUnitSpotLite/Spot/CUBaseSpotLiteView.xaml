@@ -52,6 +52,14 @@
 
             <Button.ContextMenu>
                 <ContextMenu Background="{StaticResource Surface}">
+                    <ContextMenu.Resources>
+                        <Style TargetType="MenuItem">
+
+                            <!-- Controls Width -->
+                            <Setter Property="MinHeight" Value="80"/>
+
+                        </Style>
+                    </ContextMenu.Resources>
                     <TextBlock
                         Grid.Row="0"
                         FontSize="15"

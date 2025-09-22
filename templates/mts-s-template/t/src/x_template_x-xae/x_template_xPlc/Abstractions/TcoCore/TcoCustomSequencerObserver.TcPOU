@@ -3,17 +3,12 @@
   <POU Name="TcoCustomSequencerObserver" Id="{cd363be8-7987-47d8-942b-2af93780a771}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK TcoCustomSequencerObserver EXTENDS TcoObject 
 VAR
+	//~
     _data            : TcoCustomExportSeqData;
+	//~
 	_dataToExport            : TcoCustomExportSeqData;
 	
-//	_stepsToExport            : ARRAY[0..MAX_STEPS] OF TcoCustomStepDetails;
-//	_cycleId:STRING(254);
-//	_cuId:UINT;
-//	_startTime:TcoCustomTimeStruct;
-//	_endTime:TcoCustomTimeStruct;
-//	_startTimeToExport:TcoCustomTimeStruct;
-//	_endTimeToExport:TcoCustomTimeStruct;
-	
+
 	_exportSeqData:TcoCore.TcoRemoteTask(THIS^);
 	_order:UINT;
 END_VAR

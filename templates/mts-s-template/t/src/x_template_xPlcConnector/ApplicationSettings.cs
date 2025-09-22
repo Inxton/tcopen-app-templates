@@ -5,11 +5,11 @@ namespace x_template_xPlcConnector
     public class ApplicationSettings
     {
 
-        public DeployMode DeployMode{ get; set; } = DeployMode.Plc;
+        public DeployMode DeployMode { get; set; } = DeployMode.Plc;
         public DatabaseEngine DatabaseEngine { get; set; } = DatabaseEngine.MongoDb;
 
 
-        public string PlcAmsId =Environment.GetEnvironmentVariable("Tc3Target");
+        public string PlcAmsId = Environment.GetEnvironmentVariable("Tc3Target");
         public bool ShowConsoleOutput { get; set; } = true;
 
         public int ReadWriteCycleDelay { get; set; } = 100;
@@ -17,15 +17,23 @@ namespace x_template_xPlcConnector
         public bool DataExchange { get; set; } = true;
 
         public string DbName { get; set; } = "tcomtsx_template_x";
-        public string MongoPath {get;set;} = @"C:\Program Files\MongoDB\Server\7.0\bin\mongod.exe";
+        public string MongoPath { get; set; } = @"C:\Program Files\MongoDB\Server\7.0\bin\mongod.exe";
         public string MongoArgs { get; set; } = "--dbpath D:\\DATA\\DB\\ --bind_ip_all";
         public bool MongoDbRun { get; set; } = true;
-        private string MongoDbLocal { get; set; } = @"mongodb://localhost:27017";
-        private string MongoDbProduction { get; set; } = @"mongodb://localhost:27017";
-        private string RavenDbLocal { get; set; } = @"http://localhost:8080";
+        public string MongoDbLocal { get; set; } = @"mongodb://localhost:27017";
+        public string MongoDbProduction { get; set; } = @"mongodb://localhost:27017";
+        public string RavenDbLocal { get; set; } = @"http://localhost:8080";
         private string RavenDbProduction { get; set; } = @"http://localhost:8080";
 
         public string RfidChipPortName { get; set; } = @"COM3";
+
+        public bool SynologyStatusActive { get; set; } = true;
+        public string SynologyIp { get; set; }//@"10.0.134.250:5001";
+        public string SynologyUserName { get; set; } = "MTSAdmin";
+        public string SynologyUserPass { get; set; } = "MTSservis";
+        public int SynologyUpdateIntervalMinutes { get; set; } = 5;
+ 
+        public ApplicationWindowStyle WindowStyle { get; set; } = ApplicationWindowStyle.SingleBorderWindow;
 
         //Verbose - tracing information and debugging minutiae; generally only switched on in unusual situations
         //Debug - internal control flow and diagnostic state dumps to facilitate pinpointing of recognised problems

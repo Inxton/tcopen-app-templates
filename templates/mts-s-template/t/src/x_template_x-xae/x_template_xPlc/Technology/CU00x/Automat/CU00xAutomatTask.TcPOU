@@ -6,9 +6,10 @@ VAR
 
     _missingProcessSettingMessage : TcoCore.TcoMessenger(THIS^);
     _paralellTask : CU00xAutomatParalell_1_Task(THIS^, TcoCore.eRestoreMode.None);
-
+	
+	//~
     _sb : TcoCore.StringBuilder;
-
+	//~
     _customizedContentInput : CU00xDialogContent(THIS^);
 END_VAR
 

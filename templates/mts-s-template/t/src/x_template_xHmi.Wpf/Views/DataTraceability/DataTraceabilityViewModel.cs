@@ -1,3 +1,4 @@
+using x_template_xHmi.Wpf.Data.MongoExport;
 using x_template_xHmi.Wpf.Properties;
 using x_template_xHmi.Wpf.Views.Data.OfflineReworkData;
 using x_template_xHmi.Wpf.Views.Data.ProcessTraceability;
@@ -11,6 +12,7 @@ namespace x_template_xHmi.Wpf.DataTraceability
             this.Title = strings.ProductionData;
             this.AddCommand(typeof(ProcessTraceabilityView), strings.ProductionData);
             this.AddCommand(typeof(OfflineReworkDataView), strings.ReworkOfflineData);
+            AddCommand(typeof(MongoExportView), "MongoExport");
         }
     }
 }

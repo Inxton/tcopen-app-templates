@@ -71,7 +71,7 @@ namespace x_template_xHmi.Wpf
             if (!RepositoryEntry.IsDebug())
                 DataExchangeActive = Entry.Settings.DataExchange;
             else
-                DataExchangeActive = true; //should be true  ,do  exchange data are hanlded by this instance 
+                DataExchangeActive = true; //should be true  ,  exchange data are hanlded by this instance 
 
             Console.WriteLine("-------------------------------Settings-----------------------------------");
             Console.WriteLine(JsonConvert.SerializeObject(Entry.Settings, Formatting.Indented));
@@ -168,8 +168,12 @@ namespace x_template_xHmi.Wpf
             SetUpExternalAuthenticationDevice();
 
 
+            SecurityManager.Manager.Service.OnUserAuthenticateSuccess += Service_OnUserAuthenticateSuccess;
+            SecurityManager.Manager.Service.OnUserAuthenticateFailed += Service_OnUserAuthenticateFailed;
+            SecurityManager.Manager.Service.OnDeAuthenticated += Service_OnDeAuthenticated;
+
             // Authenticates default user, change this line if you need to authenticate different user.
-         
+
             Console.WriteLine(Entry.Settings.AutologinUserName.ToString());
             Console.WriteLine(Entry.Settings.AutologinUserPassword);
            SecurityManager.Manager.Service.AuthenticateUser(Entry.Settings.AutologinUserName, Entry.Settings.AutologinUserPassword);
@@ -196,6 +200,25 @@ namespace x_template_xHmi.Wpf
             }
 
         }
+
+        private void Service_OnUserAuthenticateFailed(string username)
+        {
+            x_template_xPlc.MAIN._technology._cu00x._operatorInfo.UserName.Cyclic = "";
+
+        }
+
+        private void Service_OnDeAuthenticated(string username)
+        {
+            x_template_xPlc.MAIN._technology._cu00x._operatorInfo.UserName.Cyclic = "";
+        }
+
+        private void Service_OnUserAuthenticateSuccess(string username)
+        {
+            x_template_xPlc.MAIN._technology._cu00x._operatorInfo.UserName.Cyclic = username;
+        }
+
+
+
         private bool Include(object obj)
         {
 

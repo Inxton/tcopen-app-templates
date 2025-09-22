@@ -11,6 +11,7 @@
 		BoltDimensionPresenceInspector : TcoInspectors.TcoAnalogueInspector(THISSTRUCT);
 		{attribute addProperty Name "Bolt code inspection"}
 		BoltDatacodePresenceInspector : TcoInspectors.TcoDataInspector(THISSTRUCT);
+		
 
 		{attribute addProperty Name "Dimension inspection 1"}
         Dim_Inspector_1 : TcoInspectors.TcoAnalogueInspector(THISSTRUCT);

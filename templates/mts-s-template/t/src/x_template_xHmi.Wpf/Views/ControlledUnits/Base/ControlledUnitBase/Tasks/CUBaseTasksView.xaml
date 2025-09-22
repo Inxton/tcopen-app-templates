@@ -221,7 +221,7 @@
             </materialDesign:Card>
         </Grid>
         <!-- SafetyTaskControls card -->
-        <!--<materialDesign:Card
+        <materialDesign:Card
                 Grid.Row="1"
                 materialDesign:ShadowAssist.ShadowDepth="Depth1"
                 Padding="2.5">
@@ -243,15 +243,15 @@
                 </ItemsControl>
 
             </ScrollViewer>
-        </materialDesign:Card>-->
+        </materialDesign:Card>
         <!-- Diagnostics card -->
-        <materialDesign:Card
+        <!--<materialDesign:Card
             VerticalAlignment="Bottom"
             Grid.Row="1"
             materialDesign:ShadowAssist.ShadowDepth="Depth1">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <vortex:RenderableContentControl DataContext="{Binding Component}" PresentationType="MiniDiagnostics" />
             </ScrollViewer>
-        </materialDesign:Card>
+        </materialDesign:Card>-->
     </Grid>
 </UserControl>

@@ -9,7 +9,7 @@
     mc:Ignorable="d"
 
     d:DesignHeight="450"
-    xmlns:p="clr-namespace:x_template_xHmi.Wpf.Properties" xmlns:vortexs="http://vortex.security.mts/xaml" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:p="clr-namespace:x_template_xHmi.Wpf.Properties" xmlns:vortexs="http://vortex.security.mts/xaml" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:synologystatus="clr-namespace:x_template_xHmi.Wpf.SynologyStatus"
     d:DesignWidth="800">
     <UserControl.DataContext>
         <local:MainViewModel />
@@ -50,8 +50,10 @@
        
       
             </Menu>
+               
                 <vortexs:UserInfoDisplayView x:Name="userInfoDisplayView" VerticalContentAlignment="Center"/>
 
+                <synologystatus:SynologyStatusView Margin="10,0" ></synologystatus:SynologyStatusView>
             </WrapPanel>
         </materialDesign:Card>
         <wpf:MenuControlView Grid.Column="1"/>

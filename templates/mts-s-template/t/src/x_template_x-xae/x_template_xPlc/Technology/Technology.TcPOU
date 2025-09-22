@@ -7,8 +7,9 @@ VAR
 	_reworkSettings     : ProcessDataManager(THIS^);  			//a.k.a receipe for rework
     _technologySettings  : TechnologicalDataManager(THIS^);		//a.k.a machine settings
     _processTraceability : ProcessDataManager(THIS^);			//the same structure as process setting but filled with actual production data (measurements, inspection results, etc)
+	//~
 	_internalStorage : InternalStorage(THIS^);					//
-
+	//~
 	
 	fbGetCurTaskIndex            : GETCURTASKINDEX;
 	_notificationPanel      : NotificationPanel(THIS^);				//provide technology state signals to side baner in visualisation
@@ -27,7 +28,9 @@ VAR
 	Device_1 : TcoIo.TcoEthercatMasterDevice(THIS^);
 	
 	_setDummyConditionsSuffisient:BOOL;
+	//~
 	_dummyBlinker              : TcoUtilities.TcoBlinker(THIS^);
+	//~
 	_runOperations:BOOL;
 
 	

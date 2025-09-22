@@ -12,7 +12,9 @@ VAR
     _statusInfo  : CUBaseStatusInfo := (Parent := THIS^);
 	_operatorInfo : OperatorInfo := (Parent := THIS^);
 	_settings  : CUBaseSettings := (Parent := THIS^);
+	//~
 	_toggle: TcoUtilities.TcoBlinker(THIS^);
+	//~
 	_recurringFails:CuBaseRecurringFailures:=(Parent:=THIS^);
 	_productionPlaner:ProductionPlaner(THIS^);
 	_internalData : REFERENCE TO InternalStorage;	

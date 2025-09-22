@@ -61,10 +61,9 @@ namespace x_template_xOp
 
             Entry.LoadAppSettings("defaultOP", RepositoryEntry.IsDebug());
 
-            if (!RepositoryEntry.IsDebug())
-                DataExchangeActive = Entry.Settings.DataExchange;
-            else
-                DataExchangeActive = false; //should be false ,do not exchange data due 'x_template_xHmi.Wpf' do it in debug otherwise it is defined  'LoadAppSettings' method above
+   
+            DataExchangeActive = Entry.Settings.DataExchange;
+          
             Console.WriteLine("-------------------------------Settings-----------------------------------");
             Console.WriteLine(JsonConvert.SerializeObject(Entry.Settings, Formatting.Indented));
             Console.WriteLine("--------------------------------------------------------------------------");

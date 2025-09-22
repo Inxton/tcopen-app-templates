@@ -23,7 +23,7 @@ VAR
     {attribute addProperty Name "<#Config#>"}
     _config : TcoControlledZone_Config;
 
-    {attribute clr [RenderIgnore()]}
+   //~
     _controlledUnits : ARRAY[0..12] OF ICUBase;
 
     {attribute clr [RenderIgnore()]}
@@ -34,14 +34,14 @@ VAR
 
     {attribute clr [RenderIgnore()]}
     _controlKeyNormalService : ARRAY[0..2] OF ITcoKeyNormalSevice;
-
+	//~
     // group states
 
-    {attribute clr [CompilerOmits("BuilderPlainer", "BuilderOnliner","BuilderOnlinerInterface","BuilderShadowerInterface")]}
+    //~
     _blinker : TcoUtilities.TcoBlinker(THIS^);
     {attribute clr [CompilerOmits("BuilderPlainer", "BuilderOnliner","BuilderOnlinerInterface","BuilderShadowerInterface")]}
     _blinkerSlow : TcoUtilities.TcoBlinker(THIS^);
-
+	//~
     {attribute addProperty Name "<#Ground task#>"}
     _groundTask : TcoControlledZoneActionTask(THIS^);
     {attribute addProperty Name "<#Automat task#>"}
@@ -119,9 +119,13 @@ VAR
     _keyServiceTaskInvokeFalling : F_Trig;
     {attribute clr [RenderIgnore()]}
     _keyServiceTaskInvokeRising : R_Trig;
-
+	
+		
     _airPressureOk : BOOL;
     _conditionToRunAreSufficient : BOOL;
+	//~
+	cu: INT;
+	//~
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -130,26 +134,35 @@ END_VAR
     RETURN;
 END_IF
 
-IF _controlButtons[0] = 0 
-	OR _controlKeyMode[0] = 0 
-	OR _controlKeyNormalService[0] = 0  THEN
+IF _controlButtons[0] = 0 OR _controlKeyMode[0] = 0 OR _controlKeyNormalService[0] = 0 THEN
     THIS^.Messenger.Programming('<#Missing link to control panel components (Buttons, Mode Keys, Normal/Service)! No function is being executed!#>');
     RETURN;
 END_IF
 
-
-
-_blinker(inOffTime := T#500MS, inOnTime := T#500MS);		//2 Hz
-_blinkerSlow(inOffTime := T#1250MS, inOnTime := T#1250MS);	//0.8 Hz
+_blinker(inOffTime := T#500MS, inOnTime := T#500MS); //2 Hz
+_blinkerSlow(inOffTime := T#1250MS, inOnTime := T#1250MS); //0.8 Hz
 
 THIS^.Initialize();
 
 //presure monitoring
-_airPressureOk:=TRUE;
-_timerAirPressureMonitor(IN:=NOT inAirPressureOK,PT:=_config.AirPressureErrorTime);
+_airPressureOk := TRUE;
+_timerAirPressureMonitor(IN := NOT inAirPressureOK, PT := _config.AirPressureErrorTime);
 IF _timerAirPressureMonitor.Q THEN
-	_airPressureOk:=FALSE;
+    _airPressureOk := FALSE;
     THIS^.Messenger.Error('<#Air pressure is not sufficient!#>').Pin();
+	
+	FOR cu := 0 TO _config.MaxControledUnits DO
+
+        IF _controlledUnits[cu] <> 0 THEN
+
+            _controlledUnits[cu].AutomatTask.Task.Restore();
+            _controlledUnits[cu].GroundTask.Task.Restore();
+            _controlledUnits[cu].ManualTask.Task.Restore();
+
+        ELSE
+            EXIT;
+        END_IF
+    END_FOR
 END_IF;
 
 //Estop monitoring
@@ -161,148 +174,165 @@ END_IF;
 IF NOT inDoorCircuit.IsGlobalVoltageOk THEN
     inDoorCircuit.UnLock();
     THIS^.Messenger.Error('<#Global control voltage interrupted: Unlocking doors!#>').Pin();
+
+    FOR cu := 0 TO _config.MaxControledUnits DO
+
+        IF _controlledUnits[cu] <> 0 THEN
+
+            _controlledUnits[cu].AutomatTask.Task.Restore();
+            _controlledUnits[cu].GroundTask.Task.Restore();
+            _controlledUnits[cu].ManualTask.Task.Restore();
+
+        ELSE
+            EXIT;
+        END_IF
+    END_FOR
+
 END_IF
 
 //Voltage monitoring todo
-_timerDoorsLocked(IN := inDoorCircuit.IsClosed AND inDoorCircuit.IsLocked AND  inDoorCircuit.IsLocalDoorsVoltageOk, PT := _config.DoorsLocked);
+_timerDoorsLocked(IN := inDoorCircuit.IsClosed AND inDoorCircuit.IsLocked AND inDoorCircuit.IsLocalDoorsVoltageOk, PT := _config.DoorsLocked);
 
 IF _timerDoorsLocked.Q THEN
     IF NOT inDoorCircuit.IsLocalVoltageOk THEN
         // unlock doors in case that control voltage goes down and it shouldn't
         inDoorCircuit.UnLock();
         THIS^.Messenger.Error('<#Local voltage interrupted: Unlocking doors!#>');
+		
+		FOR cu := 0 TO _config.MaxControledUnits DO
+
+        IF _controlledUnits[cu] <> 0 THEN
+
+            _controlledUnits[cu].AutomatTask.Task.Restore();
+            _controlledUnits[cu].GroundTask.Task.Restore();
+            _controlledUnits[cu].ManualTask.Task.Restore();
+
+        ELSE
+            EXIT;
+        END_IF
+    END_FOR
     END_IF
 END_IF
 
+_conditionToRunAreSufficient := (inAirPressureOK OR _timerAirPressureMonitor.ET < _timerAirPressureMonitor.PT) (*AND NOT inEstopActive*) AND
+    inDoorCircuit.IsGlobalVoltageOk AND
+    inDoorCircuit.IsLocalVoltageOk;
 
-_conditionToRunAreSufficient:=(inAirPressureOK OR _timerAirPressureMonitor.ET<_timerAirPressureMonitor.PT) (*AND NOT inEstopActive*)  AND inDoorCircuit.IsGlobalVoltageOk AND inDoorCircuit.IsLocalVoltageOk;
- 
+_recoverTaskInvokeRising(CLK := _status.State.AnyButtonRecover);
+_recoverTaskInvokeFalling(CLK := _status.State.AnyButtonRecover);
 
-
-_recoverTaskInvokeRising(CLK:=_status.State.AnyButtonRecover);
-_recoverTaskInvokeFalling(CLK:=_status.State.AnyButtonRecover);
 IF _recoverTaskInvokeRising.Q THEN
-	_recoverTask.Restore();
+    _recoverTask.Restore();
 END_IF
+
 IF _recoverTaskInvokeFalling.Q THEN
-	_recoverTask.Invoke();
-	_suspendTask.Restore();
+    _recoverTask.Invoke();
+    _suspendTask.Restore();
 END_IF
 
+_suspendTaskInvokeRising(CLK := _status.State.AnyButtonSuspend);
+_suspendTaskInvokeFalling(CLK := _status.State.AnyButtonSuspend);
 
-
-_suspendTaskInvokeRising(CLK:=_status.State.AnyButtonSuspend);
-_suspendTaskInvokeFalling(CLK:=_status.State.AnyButtonSuspend);
 IF _suspendTaskInvokeRising.Q THEN
-	_suspendTask.Restore();
+    _suspendTask.Restore();
 END_IF
+
 IF _suspendTaskInvokeFalling.Q THEN
-	_suspendTask.Invoke();
-	_recoverTask.Restore();
+    _suspendTask.Invoke();
+    _recoverTask.Restore();
 END_IF
 
+_groundTaskInvokeRising(CLK := _status.State.AnyButtonGround);
 
-
-
-
-_groundTaskInvokeRising(CLK:=_status.State.AnyButtonGround);
 IF _groundTaskInvokeRising.Q THEN
-	_groundTask.Restore();
+    _groundTask.Restore();
 END_IF
-_groundTaskInvokeFalling(CLK:=_status.State.AnyButtonGround);
+
+_groundTaskInvokeFalling(CLK := _status.State.AnyButtonGround);
+
 IF _groundTaskInvokeFalling.Q THEN
-	_groundTask.Invoke();
+    _groundTask.Invoke();
 END_IF
-_groundTask.Enabled:= (_conditionToRunAreSufficient
-						AND inDoorCircuit.IsLocalDoorsVoltageOk 
-						AND _status.State.AllKeysAuto 
-						AND _status.State.AllKeysNormal) ;
+
+_groundTask.Enabled :=
+    (_conditionToRunAreSufficient AND inDoorCircuit.IsLocalDoorsVoltageOk AND _status.State.AllKeysAuto AND _status.State.AllKeysNormal);
 
 IF _groundTask.Busy THEN
-	_autoTask.Restore();
-END_IF						
-						
-_autoTaskInvokeRising(CLK:=_status.State.AnyButtonAuto);
+    _autoTask.Restore();
+END_IF
+
+_autoTaskInvokeRising(CLK := _status.State.AnyButtonAuto);
+
 IF _autoTaskInvokeRising.Q THEN
-	_autoTask.Restore();
+    _autoTask.Restore();
 END_IF
 
-_autoTaskInvokeFalling(CLK:=_status.State.AnyButtonAuto);
+_autoTaskInvokeFalling(CLK := _status.State.AnyButtonAuto);
+
 IF _autoTaskInvokeFalling.Q THEN
-	_autoTask.Invoke();
+    _autoTask.Invoke();
 END_IF
 
-_autoTask.Enabled:= (_conditionToRunAreSufficient 
-					AND inDoorCircuit.IsLocalDoorsVoltageOk 
-					AND _status.State.AllKeysAuto 
-					AND _status.State.AllKeysNormal) ;
-
-
-
-
+_autoTask.Enabled :=
+    (_conditionToRunAreSufficient AND inDoorCircuit.IsLocalDoorsVoltageOk AND _status.State.AllKeysAuto AND _status.State.AllKeysNormal);
 
 //----------keys -----------
 
 // key auto
-_keyAutoTaskInvokeFalling(CLK:= _status.State.AllKeysAuto);
-_keyAutoTaskInvokeRising(CLK:=_status.State.AllKeysAuto);
+_keyAutoTaskInvokeFalling(CLK := _status.State.AllKeysAuto);
+_keyAutoTaskInvokeRising(CLK := _status.State.AllKeysAuto);
 
 IF _keyAutoTaskInvokeRising.Q THEN
-	_keyAutoTask.Invoke();
-END_IF
-IF _keyAutoTaskInvokeFalling.Q THEN
-	_keyAutoTask.Restore();
+    _keyAutoTask.Invoke();
 END_IF
 
+IF _keyAutoTaskInvokeFalling.Q THEN
+    _keyAutoTask.Restore();
+END_IF
 
 // key manual
-_keyManualTaskInvokeRising(CLK:= _status.State.AnyKeyManual);
-_keyManualTaskInvokeFalling(CLK:=_status.State.AnyKeyManual);
+_keyManualTaskInvokeRising(CLK := _status.State.AnyKeyManual);
+_keyManualTaskInvokeFalling(CLK := _status.State.AnyKeyManual);
 
 IF _keyManualTaskInvokeRising.Q THEN
-	_keyManualTask.Invoke();
-END_IF
-IF _keyManualTaskInvokeFalling.Q THEN
-	_keyManualTask.Restore();
+    _keyManualTask.Invoke();
 END_IF
 
+IF _keyManualTaskInvokeFalling.Q THEN
+    _keyManualTask.Restore();
+END_IF
 
 IF _status.State.AnyKeyStep AND _keyStepTask.Ready THEN
-	_keyStepTask.Invoke();
-END_IF
-IF _status.State.AnyKeyStep AND _keyStepTask.Done THEN
-	_keyStepTask.Restore();
+    _keyStepTask.Invoke();
 END_IF
 
-_keyStepTaskInvokeFalling(CLK:=_status.State.AnyKeyStep);
+IF _status.State.AnyKeyStep AND _keyStepTask.Done THEN
+    _keyStepTask.Restore();
+END_IF
+
+_keyStepTaskInvokeFalling(CLK := _status.State.AnyKeyStep);
 
 IF _keyStepTaskInvokeFalling.Q THEN
-	_keyStepTask.Restore();
+    _keyStepTask.Restore();
 END_IF
-
 
 // key service
-_keyServiceTaskInvokeRising(CLK:= _status.State.AnyKeyService);
-_keyServiceTaskInvokeFalling(CLK:=_status.State.AnyKeyService);
+_keyServiceTaskInvokeRising(CLK := _status.State.AnyKeyService);
+_keyServiceTaskInvokeFalling(CLK := _status.State.AnyKeyService);
 
 IF _keyServiceTaskInvokeRising.Q THEN
-	_keyServiceTask.Invoke();
+    _keyServiceTask.Invoke();
 END_IF
+
 IF _keyServiceTaskInvokeFalling.Q THEN
-	_keyServiceTask.Restore();
+    _keyServiceTask.Restore();
 END_IF
-
-
-
-
-
 
 // Handling of buttons
 THIS^.ButtonRecover();
 THIS^.ButtonSuspend();
 THIS^.ButtonGround();
 THIS^.ButtonAuto();
-
 
 // Handling of key 1
 THIS^.KeyAuto();
@@ -731,7 +761,6 @@ IF _recoverTask.Execute() THEN
 
         FOR cu := 0 TO _config.MaxControledUnits DO
             IF _controlledUnits[cu] <> 0 THEN
-                _controlledUnits[cu].AutomatTask.SuspendStepExecution := TRUE;
                 _controlledUnits[cu].RecoverTask.ModeController.Mode := eSequencerMode.CyclicMode;
                 _controlledUnits[cu].RecoverTask.Task.Invoke();
 
@@ -741,14 +770,6 @@ IF _recoverTask.Execute() THEN
         END_FOR
 
         IF _status.State.AllRecovered THEN
-            FOR cu := 0 TO _config.MaxControledUnits DO
-                IF _controlledUnits[cu] <> 0 THEN
-                    _controlledUnits[cu].AutomatTask.SuspendStepExecution := FALSE;
-                ELSE
-                    EXIT;
-                END_IF
-            END_FOR
-
             _recoverTask.Progress := _recoverTask.Progress + 1;
         END_IF
 

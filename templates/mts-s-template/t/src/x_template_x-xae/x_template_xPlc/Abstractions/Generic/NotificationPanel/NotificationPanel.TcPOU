@@ -26,12 +26,12 @@ VAR
 	{attribute addProperty Name "<#Heart beat#>"}
   	_heartBeat : BOOL;
 	
-    {attribute clr [RenderIgnore()]}
 	_badgeValue : INT;
 
-	{attribute clr [RenderIgnore()]}
+	//~
     _toggle: TcoUtilities.TcoBlinker(THIS^);
-
+	//~
+	
 	_notificationPanelSignals: NotificationPanelInfo;
 END_VAR
 	

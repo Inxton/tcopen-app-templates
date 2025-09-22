@@ -15,8 +15,7 @@ VAR
 	_timer_1: TON;
 	_timer_2: TON;
 	_detectStartSeq : R_TRIG;
-	_suspenStepExecution:BOOL;
-	
+
 	_customObserver:TcoCustomSequencerObserver(THIS^);
 END_VAR]]></Declaration>
     <Implementation>
@@ -432,8 +431,7 @@ METHOD PUBLIC Restore : ITcoRestorable
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[SUPER^.Restore();
-Task.Restore();
-_suspenStepExecution:=false;]]></ST>
+Task.Restore();]]></ST>
       </Implementation>
     </Method>
     <Method Name="Run" Id="{18d5420d-14f4-0ac5-255d-8d8a78d1e1c6}">
@@ -525,11 +523,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[IF _suspenStepExecution THEN
-	RETURN;
-END_IF; 
-
-Step := i_Step(inStepID := inStepID, inEnabled := inEnabled, inStepDescription := inStepDescription);
+        <ST><![CDATA[Step := i_Step(inStepID := inStepID, inEnabled := inEnabled, inStepDescription := inStepDescription);
 
 ]]></ST>
       </Implementation>
@@ -598,18 +592,6 @@ _cycleTimeAnalitics.AverageCleanCycle:= (((_cycleTimeAnalitics.FilterConstant-1)
 ]]></ST>
       </Implementation>
     </Method>
-    <Property Name="SuspendStepExecution" Id="{25db0394-d647-4112-9f24-d8f46aa0b7ed}">
-      <Declaration><![CDATA[PROPERTY PUBLIC SuspendStepExecution : REFERENCE TO BOOL
-]]></Declaration>
-      <Get Name="Get" Id="{c7104b6a-96c1-46fc-bc38-1427eb687811}">
-        <Declaration><![CDATA[VAR
-END_VAR
-]]></Declaration>
-        <Implementation>
-          <ST><![CDATA[SuspendStepExecution ref=_suspenStepExecution;]]></ST>
-        </Implementation>
-      </Get>
-    </Property>
     <Property Name="Task" Id="{31b22691-83dc-0d45-2152-2f03cc6b6a6e}">
       <Declaration><![CDATA[PROPERTY Task : REFERENCE TO TcoTask]]></Declaration>
       <Get Name="Get" Id="{6c191508-6ada-00b4-2005-7e4c80b0377a}">

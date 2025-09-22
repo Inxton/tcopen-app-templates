@@ -17,6 +17,7 @@ using x_template_xPlcConnector;
 
 namespace x_template_xHmi.Wpf
 {
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -26,10 +27,7 @@ namespace x_template_xHmi.Wpf
         public MainWindow()
         {
             InitializeComponent();
-            if (RepositoryEntry.IsDebug() /*|| Entry.Settings.DepoyMode == DeployMode.Local*/ || Entry.Settings.DeployMode == DeployMode.Dummy)
-            { this.WindowStyle = WindowStyle.SingleBorderWindow; }
-            else
-                this.WindowStyle = WindowStyle.None;
+            this.WindowStyle = WindowStyleExtensions.ToWpf(Entry.Settings.WindowStyle);
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -61,4 +59,28 @@ namespace x_template_xHmi.Wpf
                 .GetProcesses()
                 .Count(p => p.ProcessName == Process.GetCurrentProcess().ProcessName);
     }
+
+
+
+
+    public static class WindowStyleExtensions
+    {
+        public static WindowStyle ToWpf(this ApplicationWindowStyle style)
+        {
+            switch (style)
+            {
+                case ApplicationWindowStyle.None:
+                    return WindowStyle.None;
+                case ApplicationWindowStyle.SingleBorderWindow:
+                    return WindowStyle.SingleBorderWindow;
+                case ApplicationWindowStyle.ThreeDBorderWindow:
+                    return WindowStyle.ThreeDBorderWindow;
+                case ApplicationWindowStyle.ToolWindow:
+                    return WindowStyle.ToolWindow;
+                default:
+                    return WindowStyle.SingleBorderWindow;
+            }
+        }
+    }
 }
+

@@ -13,6 +13,7 @@ using TcOpen.Inxton;
 using System.Windows;
 using x_template_xHmi.Wpf.Views.Data.ProcessTraceability;
 using x_template_xHmi.Wpf.DataTraceability;
+using x_template_xPlcConnector;
 
 namespace x_template_xHmi.Wpf.Views.MainView
 {
@@ -87,6 +88,8 @@ namespace x_template_xHmi.Wpf.Views.MainView
             loginWindow.ShowDialog();
         }
         public x_template_xPlcTwinController x_template_xPlc { get { return App.x_template_xPlc; } }
+
+       
     }
 
 }

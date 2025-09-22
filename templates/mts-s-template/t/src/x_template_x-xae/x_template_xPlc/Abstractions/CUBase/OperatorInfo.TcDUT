@@ -4,6 +4,7 @@
     <Declaration><![CDATA[TYPE OperatorInfo EXTENDS TcoCore.TcoStruct :
 STRUCT
 	UserName : STRING(255);
+	
 END_STRUCT
 END_TYPE
 ]]></Declaration>

@@ -31,18 +31,19 @@ VAR
 	
     _materrialError : bool;
 
-	{attribute clr [RenderIgnore()]}
+	//~
 	_controlledUnits      : ARRAY [0..12] OF ICUBase;
-				
+	//~			
 	
 	
 	// group states
 
+	//~
 	{attribute clr [RenderIgnore()]}
 	_blinker              : TcoUtilities.TcoBlinker(THIS^);
 	{attribute clr [RenderIgnore()]}
 	_blinkerSlow              : TcoUtilities.TcoBlinker(THIS^);
-	
+	//~
 
 END_VAR
 

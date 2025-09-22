@@ -4,7 +4,13 @@
     <Declaration><![CDATA[TYPE
     CUComponentsBase EXTENDS TcoCore.TcoStruct :
     STRUCT
-       
+       	{attribute wpf [Container(Layout.Stack)]}
+		{attribute clr [RenderIgnore()]}
+        DummyCylinder : TcoPneumatics.TcoCylinder(THISSTRUCT);
+		{attribute clr [RenderIgnore()]}
+        DummyDi : TcoElements.TcoDi(THISSTRUCT);
+		{attribute clr [RenderIgnore()]}
+        DummyDo : TcoElements.TcoDo(THISSTRUCT);
     END_STRUCT
 END_TYPE
 ]]></Declaration>

@@ -16,7 +16,7 @@ VAR
     _config : TcoDoorCircuit_Config;
 
 	
-	{attribute clr [RenderIgnore()]}
+	//~
 	_doors              : ARRAY [0..12] OF ITcoDoorLock;
 	
 	{attribute clr [RenderIgnore()]}
@@ -27,7 +27,7 @@ VAR
 	
 	{attribute clr [RenderIgnore()]}
 	_globalVoltage : ARRAY [0..4] OF ITcoControlVoltage;
-	
+	//~
 	
 	
     {attribute addProperty Name "<#Closed#>"}

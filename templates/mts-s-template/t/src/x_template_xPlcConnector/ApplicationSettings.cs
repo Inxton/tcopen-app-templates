@@ -27,8 +27,7 @@ namespace x_template_xPlcConnector
 
         public string RfidChipPortName { get; set; } = @"COM3";
 
-        public bool SynologyStatusActive { get; set; } = true;
-        public string SynologyIp { get; set; }//@"10.0.134.250:5001";
+        public string SynologyIp { get; set; }// @"10.0.134.250:5001";
         public string SynologyUserName { get; set; } = "MTSAdmin";
         public string SynologyUserPass { get; set; } = "MTSservis";
         public int SynologyUpdateIntervalMinutes { get; set; } = 5;

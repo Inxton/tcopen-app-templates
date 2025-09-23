@@ -424,25 +424,6 @@ namespace x_template_xOp
 
         }
 
-//        /// <summary>
-//        /// Gets a value indicating whether the assembly was built in debug mode.
-//        /// </summary>
-//        public static bool IsDebug
-//        {
-//            get
-//            {
-//                bool isDebug = false;
-
-//#if (DEBUG)
-//                isDebug = true;
-//#else
-//                    isDebug = false;
-//#endif
-
-//                return isDebug;
-//            }
-//        }
-
 
 
 

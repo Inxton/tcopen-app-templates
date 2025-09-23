@@ -14,6 +14,11 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Assets\CulturalFlags\de.png" />
+    <None Remove="Assets\CulturalFlags\es.png" />
+  </ItemGroup>
+
 
 
   <ItemGroup>
@@ -26,6 +31,8 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\CulturalFlags\cz.png" />
+    <Resource Include="Assets\CulturalFlags\de.png" />
+    <Resource Include="Assets\CulturalFlags\es.png" />
     <Resource Include="Assets\CulturalFlags\sk.png" />
     <Resource Include="Assets\CulturalFlags\us.png" />
  

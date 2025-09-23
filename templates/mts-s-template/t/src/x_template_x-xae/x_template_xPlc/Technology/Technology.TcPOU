@@ -297,10 +297,7 @@ END_VAR]]></Declaration>
 	Context settings 
 *)
 
-// RTC Synchronisation
-THIS^.RtcSynchronize(TRUE,  
-					 '192.168.4.1.1.1',    // Provide AMS ID of the time source, leave blank if local. 
-					 60);
+
 
 // Messenger logger settings
 _settings.Messaging.MessageDigestMethod := eMessageDigestMethod.CRC32;
@@ -321,10 +318,17 @@ _components.Zone.Config.MaxKeyNormalService:=2;
 
 
 THIS^.InitializeComponents();
+
 fbGetCurTaskIndex();
 IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
     // The code that you want to be executed at the first cycle of  PLC only 
 	THIS^.InitializeComponentsOnce();
+	
+ELSE
+	// RTC Synchronisation
+	THIS^.RtcSynchronize(TRUE,  
+					 '192.168.4.1.1.1',    // Provide AMS ID of the time source, leave blank if local. 
+					 60);
 END_IF
 
 //notification panel

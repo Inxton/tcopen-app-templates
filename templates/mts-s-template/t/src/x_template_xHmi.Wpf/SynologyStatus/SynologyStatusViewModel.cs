@@ -21,7 +21,7 @@ namespace x_template_xHmi.Wpf.SynologyStatus
         public SynologyStatusViewModel(string ip, string username, string password, int updateIntervalMinutes)
         {
             _ip = ip;
-            IsVisible =  string.IsNullOrEmpty(_ip);
+            IsVisible = !string.IsNullOrEmpty(_ip);
             synology = new Synology(ip, username, password);
 
             timer = new DispatcherTimer
@@ -98,7 +98,7 @@ namespace x_template_xHmi.Wpf.SynologyStatus
 
         public async Task UpdateStatus()
         {
-            IsVisible = string.IsNullOrEmpty(_ip);
+            IsVisible = !string.IsNullOrEmpty(_ip);
       
             string newStatus = await synology.ReadHealthStatus();
             Status = newStatus;

@@ -511,6 +511,15 @@ namespace x_template_xHmi.Wpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mongo Export.
+        /// </summary>
+        public static string MongoExport {
+            get {
+                return ResourceManager.GetString("MongoExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ONLINE DATA.
         /// </summary>
         public static string OnlineData {

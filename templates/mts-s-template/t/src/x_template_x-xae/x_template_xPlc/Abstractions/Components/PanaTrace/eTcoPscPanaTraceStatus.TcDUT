@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="eTcoPscPanaTraceStatus" Id="{90305206-f715-47c5-b18c-3e92bb2f31ff}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE eTcoPscPanaTraceStatus :
+(
+	Generating := 0,
+	Request := 1,
+	Report := 2,
+	Wedding := 3,
+	OFF := 4,
+	Bussy := 5,
+	NoConnection := 9
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -119,6 +119,24 @@
     <Compile Include="Abstractions\Components\MtsFeeding\TcoFeedingSequenceTask.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Abstractions\Components\PanaTrace\eTcoPscPanaTraceCommandType.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Abstractions\Components\PanaTrace\eTcoPscPanaTraceStatus.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Abstractions\Components\PanaTrace\TcoPscPanaTrace.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Abstractions\Components\PanaTrace\TcoPscPanaTraceConfig.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Abstractions\Components\PanaTrace\TcoPscPanaTraceControl.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Abstractions\Components\PanaTrace\TcoPscPanaTraceStatus.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Abstractions\Components\Rework\eReworkResults.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -552,6 +570,7 @@
     <Folder Include="Abstractions\Components\MtsFeeding\Blisters\Plr" />
     <Folder Include="Abstractions\Components\MtsFeeding\Blisters\Pls" />
     <Folder Include="Abstractions\Components\MtsFeeding\OscilatingFeeder" />
+    <Folder Include="Abstractions\Components\PanaTrace" />
     <Folder Include="Abstractions\Components\Rework" />
     <Folder Include="Abstractions\Components\TS" />
     <Folder Include="Abstractions\Components\TS\EqTransfer" />

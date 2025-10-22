@@ -1,0 +1,1225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="TcoPscPanaTrace" Id="{69a27127-1f94-4fa8-b2cf-cd51976d866b}" SpecialFunc="None">
+    <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Panasonic Tracability component. 
+			<code>
+			tracability(IpAddress:= 'localhost', Port:= 12000, Workplace:= 'ST1');
+			</code>
+		</summary>				
+	</docu>	
+~*)
+{attribute addProperty Name "<#Panasonic PanaTrace#>"}
+{attribute wpf [Group(Layout.Stack)]}
+FUNCTION_BLOCK TcoPscPanaTrace EXTENDS TcoCore.TcoComponent
+VAR_INPUT
+
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+
+	
+	{attribute addProperty Name "<#Progress#>"}
+	_progress : UINT;
+	{attribute addProperty Name "<#Get Status Progress#>"}
+	_statusProgress : UINT;
+	
+	{attribute addProperty Name "<#Config#>"}
+	_config : TcoPscPanaTraceConfig;
+	{attribute addProperty Name "<#Status#>"}
+	_status : TcoPscPanaTraceStatus;
+	{attribute addProperty Name "<#Control#>"}
+	_control : TcoPscPanaTraceControl;
+	
+	{attribute addProperty Name "<#Status#>"}
+	_statusPanaTrace : eTcoPscPanaTraceStatus := eTcoPscPanaTraceStatus.Request;
+	
+	
+	
+	{attribute addProperty Name "<#Error Message#>"}
+	_errorMessage : STRING;
+	
+	{attribute addProperty Name "<#Response from tracability#>"}
+	_tracabilityResponse : STRING;
+	{attribute addProperty Name "<#Data from tracability#>"}
+	_dataFromTracability : STRING;
+	
+	{attribute addProperty Name "<#Restore#>"}
+	_restoreTask : TcoCore.TcoTask(THIS^);
+	{attribute addProperty Name "<#Confirm Serial Number#>"}
+	_confirmSerialNoTask : TcoCore.TcoTask(THIS^);
+	{attribute addProperty Name "<#Generate Serial Number#>"}
+	_GenerateSerialNoTask : TcoCore.TcoTask(THIS^);
+	{attribute addProperty Name "<#Pcb Wedding#>"}
+	_pcbWeddingTask : TcoCore.TcoTask(THIS^);
+	{attribute addProperty Name "<#Send Report#>"}
+	_sendReportTask : TcoCore.TcoTask(THIS^);
+	{attribute addProperty Name "<#Initialize#>"}
+	_initializeTask : TcoCore.TcoTask(THIS^);
+	{attribute addProperty Name "<#Get Status#>"}
+	_getStatusTask : TcoCore.TcoTask(THIS^);
+	
+
+	
+	_generateSerialNo : TcoCore.TcoRemoteTask(THIS^);
+	_confirmSerialNo : TcoCore.TcoRemoteTask(THIS^);
+	_sendReport : TcoCore.TcoRemoteTask(THIS^);
+	_pcbWedding : TcoCore.TcoRemoteTask(THIS^);
+	_getStatus : TcoCore.TcoRemoteTask(THIS^);
+	
+	//~
+	// syntax for builder to ignore
+	_timer : TON;
+	_bussyTimer : TON;
+	//~
+
+	
+//	actualWeddingCounter : INT;
+//	_manualWeddingCounter : INT;
+	i : INT;
+END_VAR
+VAR CONSTANT
+	{attribute clr [RenderIgnore()]}
+	MAX_PCB_WEDDINGS          : INT := 9;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[SUPER^();
+_status.Progress := _progress;
+_status.StatusProgress := _statusProgress;
+_status.StatusPanaTrace := _statusPanaTrace;
+_status.DataFromTracability := _dataFromTracability;
+_status.TracabilityResponse := _tracabilityResponse;
+
+_confirmSerialNoTask.Enabled := TRUE;
+
+IF _confirmSerialNoTask.Execute() THEN
+    IF ConfirmSerialNo(SerialNo := _control.PartSerialNo, Rfid := _control.Rfid,inReference:=_control.ReferenceId) THEN
+        _confirmSerialNoTask.DoneWhen(inCondition := TRUE);
+    END_IF;
+END_IF
+
+_GenerateSerialNoTask.Enabled := _config.HasSerialNoGeneration;
+
+IF _GenerateSerialNoTask.Execute() THEN
+    IF GenerateSerialNo(Rfid := _control.Rfid,inReference:= _control.ReferenceId) THEN
+        _GenerateSerialNoTask.DoneWhen(inCondition := TRUE);
+    END_IF;
+END_IF
+
+_sendReportTask.Enabled := TRUE;
+
+IF _sendReportTask.Execute() THEN
+    IF SendReport(SerialNo := _control.PartSerialNo, Rfid := _control.Rfid, Result := _control.Result) THEN
+        _sendReportTask.DoneWhen(inCondition := TRUE);
+    END_IF;
+END_IF
+
+
+
+_pcbWeddingTask.Enabled := _config.HasPcbWedding;
+
+IF _pcbWeddingTask.Execute() THEN
+    IF THIS^.IsService THEN
+        _control.ManualWeddingCounter := 1;
+
+        IF PcbWedding(SerialNo := _control.PartSerialNo, Rfid := _control.Rfid, PcbDmc := _control.PcbSerialNo, _control.ManualWeddingCounter) THEN
+            _control.ManualWeddingCounter := _control.ManualWeddingCounter + 1;
+            _pcbWeddingTask.DoneWhen(inCondition := TRUE);
+        END_IF
+    ELSE
+        IF PcbWedding(SerialNo := _control.PartSerialNo, Rfid := _control.Rfid, PcbDmc := _control.PcbSerialNo, _control.PcbIndex) THEN
+            _pcbWeddingTask.DoneWhen(inCondition := TRUE);
+        END_IF;
+    END_IF
+END_IF
+
+_initializeTask.Enabled := TRUE;
+
+IF _initializeTask.Execute() THEN
+
+    IF InitializePanaTrace(SerialNo := _control.PartSerialNo, Rfid := _control.Rfid) THEN
+        _initializeTask.DoneWhen(TRUE);
+    END_IF
+
+END_IF
+
+_getStatusTask.Enabled := TRUE;
+IF _getStatusTask.Execute() THEN
+
+    IF GetStatus() THEN
+        _getStatusTask.DoneWhen(TRUE);
+    END_IF
+END_IF;
+
+//*************RESTORE********************
+
+_restoreTask.Enabled := TRUE;
+
+IF _restoreTask.Execute() THEN
+    Restore();
+    _restoreTask.DoneWhen(inCondition := TRUE);
+END_IF
+
+//****************************************]]></ST>
+    </Implementation>
+    <Folder Name="Internal" Id="{771f612d-bc9d-4835-bb03-c95a95c4bc7e}" />
+    <Folder Name="Public" Id="{150f7750-bc17-4a21-b8bb-a7d83ad1f87b}" />
+    <Folder Name="Tasks" Id="{74be1fa8-2b8e-4567-873d-fe79e492f3fc}" />
+    <Method Name="AddPcbToWeddingBuffer" Id="{941306d1-f476-4d5b-95a4-ccd568115a24}">
+      <Declaration><![CDATA[METHOD AddPcbToWeddingBuffer : BOOL
+VAR_INPUT
+	Pcb : STRING;
+	Index : UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[AddPcbToWeddingBuffer := FALSE;
+
+IF Index > MAX_PCB_WEDDINGS then
+	_control.PcbSerials[MAX_PCB_WEDDINGS] := pcb;
+ELSE
+	_control.PcbSerials[Index] := pcb;
+END_IF
+
+AddPcbToWeddingBuffer := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="ClearPcbWeddingBuffer" Id="{1ddf5b75-e22a-4b60-b648-874c044e0433}">
+      <Declaration><![CDATA[METHOD ClearPcbWeddingBuffer
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_control.ActualWeddingCounter  := 1;
+
+FOR i:=0 TO MAX_PCB_WEDDINGS BY 1 DO
+	_control.PcbSerials[i] := '';
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Config" Id="{a0c152ba-91f5-004b-39e0-32a49b77de38}">
+      <Declaration><![CDATA[
+PROPERTY Config : REFERENCE TO TcoPscPanaTraceConfig]]></Declaration>
+      <Get Name="Get" Id="{80f0f790-65df-0561-125d-e0f3390bd072}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Config REF= _config;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ConfirmSerialNo" Id="{45e98d7c-5709-4ff7-a255-c43ed66a162b}" FolderPath="Internal\">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Checks if the part with serial number can be processed on actual station. Only parts with "OK" status from tracability can be allowed to process. 
+		</summary>				
+	</docu>	
+~*)
+METHOD ConfirmSerialNo : BOOL
+VAR_INPUT
+    SerialNo : STRING;
+    Rfid : STRING;
+    inReference : STRING;
+
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ConfirmSerialNo := FALSE;
+
+
+//*************************************************************************************************** 
+IF _progress = 0 THEN
+	_control.PartSerialNo := SerialNo;
+	_control.Rfid := Rfid;
+	_control.Result := '';
+	_control.PcbSerialNo := '';
+	
+	ClearPcbWeddingBuffer();
+	
+	_progress := 10;
+END_IF
+//*************************************************************************************************** 
+
+//***************************************************************************************************
+IF _progress = 10 THEN	
+	_bussyTimer(IN:= FALSE, PT:= T#0MS);
+	
+	IF GetStatus() THEN
+		_progress := 11;
+	END_IF
+END_IF
+//*************************************************************************************************** 
+
+//*************************************************************************************************** 
+IF _progress = 11 THEN	
+
+	CASE _statusPanaTrace OF
+		eTcoPscPanaTraceStatus.Request:
+  			_progress := 20;
+		eTcoPscPanaTraceStatus.OFF, eTcoPscPanaTraceStatus.Bussy: 
+			_bussyTimer(IN:= TRUE, PT:= _config.TimeToRepeatStatusWhenBussy);
+			
+			IF _bussyTimer.Q THEN
+				_progress := 10;
+			END_IF
+		eTcoPscPanaTraceStatus.NoConnection:
+			_bussyTimer(IN:= TRUE, PT:= _config.TimeToRepeatStatusWhenConnectionTimout);
+			
+			IF _bussyTimer.Q THEN
+				_progress := 10;
+			END_IF
+		ELSE
+			Messenger.Warning('<#Panatrace is not ready for confirm serial number command#>');
+	END_CASE	
+END_IF
+//*************************************************************************************************** 
+
+//*************************************************************************************************** 
+IF _progress = 20 THEN	
+	Messenger.Info('<#Confirm serial number command running#>');
+	
+	_control.PartSerialNo := SerialNo;
+	_control.Rfid := Rfid;
+	_control.Result := '';
+	_control.PcbSerialNo := '';
+	
+	IF _confirmSerialNo.Invoke().Done THEN
+		_confirmSerialNo.Restore();
+		_progress := 30;
+	END_IF
+END_IF
+//*************************************************************************************************** 
+
+//*************************************************************************************************** 
+IF _progress = 30 THEN	
+	IF NOT IsOk THEN
+		_statusPanaTrace := eTcoPscPanaTraceStatus.Request;
+	ELSIF _config.HasSerialNoGeneration THEN
+		_statusPanaTrace := eTcoPscPanaTraceStatus.Generating;
+	ELSIF _config.HasPcbWedding THEN
+		_statusPanaTrace := eTcoPscPanaTraceStatus.Wedding;
+	ELSE
+		_statusPanaTrace := eTcoPscPanaTraceStatus.Report;
+	END_IF
+	
+	ConfirmSerialNo := TRUE;
+END_IF
+//*************************************************************************************************** 
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="ConfirmSerialNoTask" Id="{9b9b02e0-d2fc-4e1b-9c89-963b5a74372d}" FolderPath="Tasks\">
+      <Declaration><![CDATA[PROPERTY PUBLIC ConfirmSerialNoTask : REFERENCE TO TcoCore.TcoTask]]></Declaration>
+      <Get Name="Get" Id="{6c6ced7a-dc2a-4c1d-b115-df172b7d84aa}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ConfirmSerialNoTask ref=_confirmSerialNoTask;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="DataFromTracability" Id="{fff3e72d-73c0-45d1-a5c2-6de2f3416e4a}">
+      <Declaration><![CDATA[PROPERTY DataFromTracability : STRING]]></Declaration>
+      <Get Name="Get" Id="{5394bbaf-93cd-41d1-91d5-27e42532a736}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[DataFromTracability := _dataFromTracability;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="GeneratedSerialNo" Id="{eb94f4b2-5a75-48ba-8327-023f697963d4}">
+      <Declaration><![CDATA[PROPERTY GeneratedSerialNo : String]]></Declaration>
+      <Get Name="Get" Id="{d09bd1d8-cfc9-45fd-8540-9beb0e74a2ee}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[GeneratedSerialNo := _status.GeneratedSerialNo;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="GenerateSerialNo" Id="{b73777da-93b3-4344-bc4a-3667ee7767d6}" FolderPath="Internal\">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Generates serial number for plc. Station has to be allowed to generate serial no from customer admin. Part serial No has to be empty when seding generate serial number command.
+		</summary>				
+	</docu>	
+~*)
+METHOD GenerateSerialNo : BOOL
+VAR_INPUT
+    Rfid : STRING;
+    inReference : STRING;
+
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GenerateSerialNo := FALSE;
+
+
+
+//*************************************************************************************************** 
+IF _progress = 0 THEN
+	_control.Rfid := Rfid;
+	_control.PartSerialNo := '';
+	_control.Result := '';
+	
+	_progress := 1;
+END_IF
+//*************************************************************************************************** 
+
+//*************************************************************************************************** 
+IF _progress = 1 THEN	
+	Messenger.Programming('<#Generate serial number command is not allowed#>');
+	
+	IF _config.HasSerialNoGeneration THEN
+		_progress := 10;
+	END_IF
+END_IF
+//*************************************************************************************************** 
+
+//***************************************************************************************************
+IF _progress = 10 THEN	
+	_bussyTimer(IN:= FALSE, PT:= T#0MS);
+	
+	IF GetStatus() THEN
+		_progress := 11;
+	END_IF
+END_IF
+//*************************************************************************************************** 
+
+//*************************************************************************************************** 
+IF _progress = 11 THEN	
+
+	CASE _statusPanaTrace OF
+		eTcoPscPanaTraceStatus.Generating:
+			_progress := 20;
+		eTcoPscPanaTraceStatus.Request:
+  			_progress := 12;
+		eTcoPscPanaTraceStatus.OFF, eTcoPscPanaTraceStatus.Bussy: 
+			_bussyTimer(IN:= TRUE, PT:= _config.TimeToRepeatStatusWhenBussy);
+			
+			IF _bussyTimer.Q THEN
+				_progress := 10;
+			END_IF
+		eTcoPscPanaTraceStatus.NoConnection:
+			_bussyTimer(IN:= TRUE, PT:= _config.TimeToRepeatStatusWhenConnectionTimout);
+			
+			IF _bussyTimer.Q THEN
+				_progress := 10;
+			END_IF
+		ELSE
+			Messenger.Warning('<#Panatrace is not ready for generate serial number command#>');
+	END_CASE		
+
+END_IF
+//*************************************************************************************************** 
+
+//*************************************************************************************************** 
+IF _progress = 12 THEN
+	Messenger.Info('<Confirm serial number command running#>');
+	
+	_control.Rfid := Rfid;
+	_control.PartSerialNo := '';
+	_control.Result := '';
+	
+	IF _confirmSerialNo.Invoke().Done THEN
+		_confirmSerialNo.Restore();
+		_progress := 15;
+	END_IF
+END_IF
+//*************************************************************************************************** 
+
+//*************************************************************************************************** 
+IF _progress = 15 THEN
+	_timer(IN:= TRUE, PT:= T#100MS);
+	
+	IF _timer.Q THEN
+		_progress := 20;
+	END_IF
+END_IF
+//*************************************************************************************************** 
+
+//*************************************************************************************************** 
+IF _progress = 20 THEN	
+	Messenger.Programming('<#Generate serial number command running#>');
+	
+	_control.Rfid := Rfid;
+	_control.PartSerialNo := '';
+	_control.Result := '';
+	
+	IF _generateSerialNo.Invoke().Done THEN
+		_generateSerialNo.Restore();
+		_progress := 30;
+	END_IF
+END_IF
+//*************************************************************************************************** 
+
+//*************************************************************************************************** 
+IF _progress = 30 THEN	
+	IF NOT IsOk THEN
+		_statusPanaTrace := eTcoPscPanaTraceStatus.Request;
+	ELSIF _config.HasPcbWedding THEN
+		_statusPanaTrace := eTcoPscPanaTraceStatus.Wedding;
+	ELSE
+		_statusPanaTrace := eTcoPscPanaTraceStatus.Report;
+	END_IF
+	
+	GenerateSerialNo := TRUE;
+END_IF
+//*************************************************************************************************** 
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="GenerateSerialNoTask" Id="{f43d60f3-db34-4504-8049-b4f1c1fbd125}" FolderPath="Tasks\">
+      <Declaration><![CDATA[PROPERTY PUBLIC GenerateSerialNoTask : REFERENCE TO TcoCore.TcoTask]]></Declaration>
+      <Get Name="Get" Id="{63023ec6-79f2-4835-9532-fd68a1685fb4}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[GenerateSerialNoTask ref=_generateSerialNoTask;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="GetStatus" Id="{8f6328a5-da59-493a-bcc8-bb851ed66ac5}" FolderPath="Internal\">
+      <Declaration><![CDATA[METHOD GetStatus : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetStatus := FALSE;
+
+
+
+//*************************************************************************************************** 
+IF _statusProgress = 0 THEN
+	_control.PartSerialNo := '';
+	_control.Rfid := '';
+	_control.Result := '';
+	_control.PcbSerialNo := '';
+	
+	_statusProgress := 20;
+END_IF
+//*************************************************************************************************** 
+
+//*************************************************************************************************** 
+IF _statusProgress = 20 THEN	
+	Messenger.Programming('<#Get status command running#>');
+	
+	IF _getStatus.Invoke().Done THEN
+		_getStatus.Restore();
+		_statusProgress := 30;
+	END_IF
+END_IF
+//*************************************************************************************************** 
+
+//*************************************************************************************************** 
+IF _statusProgress = 30 THEN
+	
+	CASE STRING_TO_UINT(MID(STR:= _dataFromTracability, LEN:= 1, POS:= 1)) OF
+		eTcoPscPanaTraceStatus.Generating:
+			_statusPanaTrace := eTcoPscPanaTraceStatus.Generating;
+		eTcoPscPanaTraceStatus.Request :
+			_statusPanaTrace := eTcoPscPanaTraceStatus.Request;
+		eTcoPscPanaTraceStatus.Wedding :
+			_statusPanaTrace := eTcoPscPanaTraceStatus.Wedding;
+		eTcoPscPanaTraceStatus.Report :
+			_statusPanaTrace := eTcoPscPanaTraceStatus.Report;
+		eTcoPscPanaTraceStatus.OFF :
+			_statusPanaTrace := eTcoPscPanaTraceStatus.OFF;
+		eTcoPscPanaTraceStatus.Bussy :
+			_statusPanaTrace := eTcoPscPanaTraceStatus.Bussy;
+	ELSE
+		_statusPanaTrace := eTcoPscPanaTraceStatus.NoConnection;
+	END_CASE
+
+	
+	GetStatus := TRUE;
+END_IF
+//*************************************************************************************************** 
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="GetStatusTask" Id="{dc47a01e-fe78-4cd5-9ee7-fbcb7655fe2f}" FolderPath="Tasks\">
+      <Declaration><![CDATA[PROPERTY PUBLIC GetStatusTask : REFERENCE TO TcoCore.TcoTask]]></Declaration>
+      <Get Name="Get" Id="{bc2a11fe-7be5-4d5b-a3bf-4009b6d9afe8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[GetStatusTask ref=_getStatusTask;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="InitializePanaTrace" Id="{9b0f094f-b24a-448f-b147-7117fdb50189}" FolderPath="Internal\">
+      <Declaration><![CDATA[METHOD InitializePanaTrace : BOOL
+VAR_INPUT
+	SerialNo : STRING;
+	Rfid : STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[InitializePanaTrace := SendReport(SerialNo:= SerialNo, Rfid := Rfid, Result:= 'FAIL');]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="InitializePanaTraceTask" Id="{38e91d1a-031a-44bb-be0e-31e8b3c60683}" FolderPath="Tasks\">
+      <Declaration><![CDATA[PROPERTY PUBLIC InitializePanaTraceTask : REFERENCE TO TcoCore.TcoTask]]></Declaration>
+      <Get Name="Get" Id="{bcebb9fa-23ec-47c6-89d7-fa5aba6beffc}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[InitializePanaTraceTask ref=_initializeTask;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="InvokeConfirmSerial" Id="{48c1b220-4e0b-4efd-88b3-980db67847ed}" FolderPath="Public\">
+      <Declaration><![CDATA[METHOD InvokeConfirmSerial : TcoCore.ITcoTaskStatus
+VAR_INPUT
+	inSerialNo : STRING;
+	inRfid : STRING;
+	inReference : STRING;
+END_VAR
+	]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_control.PartSerialNo := inSerialNo;
+_control.Rfid := inRfid;
+_control.ReferenceId := inReference;
+
+
+InvokeConfirmSerial := _confirmSerialNoTask.Invoke();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="InvokeGenerateSerialNo" Id="{cf4b5f21-f16e-49ae-8f08-78db3fcecc95}" FolderPath="Public\">
+      <Declaration><![CDATA[METHOD InvokeGenerateSerialNo : TcoCore.ITcoTaskStatus
+VAR_INPUT
+	inRfid : STRING;
+	inReference : STRING;
+
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_control.Rfid := inRfid;
+_control.ReferenceId := inReference;
+
+InvokeGenerateSerialNo := _GenerateSerialNoTask.Invoke();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="InvokeGetStatus" Id="{88a7165f-2f7e-4b20-9285-23046404871f}" FolderPath="Public\">
+      <Declaration><![CDATA[METHOD InvokeGetStatus : TcoCore.ITcoTaskStatus
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+
+InvokeGetStatus := _getStatusTask.Invoke();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="InvokeInitializePanaTrace" Id="{7dd1eb07-c4b2-4bc7-a882-e7eb09e52e3a}" FolderPath="Public\">
+      <Declaration><![CDATA[METHOD InvokeInitializePanaTrace : TcoCore.ITcoTaskStatus
+VAR_INPUT
+	inSerialNo : STRING;
+	inRfid : STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_control.PartSerialNo := inSerialNo;
+_control.Rfid := inRfid;
+
+InvokeInitializePanaTrace := _initializeTask.Invoke();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="InvokePcbWedding" Id="{e51d5bf7-d927-41db-aed2-12f986fe8373}" FolderPath="Public\">
+      <Declaration><![CDATA[METHOD InvokePcbWedding : TcoCore.ITcoTaskStatus
+VAR_INPUT
+	inSerialNo : STRING;
+	inRfid : STRING;
+	inPcbDmc : STRING;
+	inPcbIndex : UINT;   //used only from 1 to 9!
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_control.PartSerialNo := inSerialNo;
+_control.Rfid := inRfid;
+_control.PcbSerialNo := inPcbDmc;
+_control.PcbIndex := inPcbIndex;
+
+InvokePcbWedding := _pcbWeddingTask.Invoke();]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="InvokeSendReport" Id="{e1dd218b-3017-4ea9-ba4e-4c013d4122a4}" FolderPath="Public\">
+      <Declaration><![CDATA[METHOD InvokeSendReport : TcoCore.ITcoTaskStatus
+VAR_INPUT
+	inSerialNo : STRING;
+	inRfid : STRING;
+	inResult : STRING;
+	
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_control.PartSerialNo := inSerialNo;
+_control.Rfid := inRfid;
+_control.Result := inResult;
+
+InvokeSendReport := _sendReportTask.Invoke();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="IsNok" Id="{b0ca4d1c-2485-43c4-a614-e64c6e65f21d}">
+      <Declaration><![CDATA[PROPERTY IsNok : BOOL]]></Declaration>
+      <Get Name="Get" Id="{1709e71f-52a3-4895-9767-ebde9ecad6ba}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsNok := _tracabilityResponse = 'NG';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="IsOk" Id="{9ecc4609-0e4b-4452-8a40-283ac2410327}">
+      <Declaration><![CDATA[PROPERTY IsOk : BOOL]]></Declaration>
+      <Get Name="Get" Id="{ca41113a-a84c-4af1-bc11-12bddcd196fa}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsOk := _tracabilityResponse = 'OK';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="IsProduction" Id="{733939aa-1299-49b4-a08c-385168aa00b8}">
+      <Declaration><![CDATA[PROPERTY IsProduction : BOOL]]></Declaration>
+      <Get Name="Get" Id="{d6f196f7-d683-46d0-a300-91d0a5eaba74}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsProduction := (MID(STR:=_dataFromTracability, LEN := 3, POS := 1) = 'PRD') AND LEN(_dataFromTracability) > 4;
+]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="IsRetest" Id="{73d06387-f47a-4228-9ecb-25c209a02fc3}">
+      <Declaration><![CDATA[PROPERTY IsRetest : BOOL]]></Declaration>
+      <Get Name="Get" Id="{328ab792-9192-40aa-88bc-0bc2da81b739}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsRetest := MID(STR:=_dataFromTracability, LEN := 3, POS := 1) = 'RST';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="IsSample" Id="{afaa965b-562e-452f-8f86-26e91da8178f}">
+      <Declaration><![CDATA[PROPERTY IsSample : BOOL]]></Declaration>
+      <Get Name="Get" Id="{13ab0902-07f8-4581-8f54-64fb33409821}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsSample := MID(STR:=_dataFromTracability, LEN := 3, POS := 1) = 'SMP';]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="OperatorId" Id="{d3e7c893-3f97-4a72-9c59-e43789e040a3}">
+      <Declaration><![CDATA[PROPERTY OperatorId : STRING]]></Declaration>
+      <Get Name="Get" Id="{bc091080-9cd1-4d66-a301-e112970b7f39}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[OperatorId := _control.OperatorId;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{a668fb2c-bc1a-4614-82cb-467cefb5d56e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_control.OperatorId := OperatorId;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="PcbWedding" Id="{b28e9bde-5659-4095-b791-55bf603de067}" FolderPath="Internal\">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			For all pcbs that are assembled into the main part, it is needed to call PcbWedding method. 
+			If necessary call method multiple times in one station, once for each pcb inserted into the part. 
+			After NG response from any wedding, to retry wedding confirm serial number command is necessary, 
+			and all previous weddings has to be sent to panatrace. 
+		</summary>				
+	</docu>	
+~*)
+METHOD PcbWedding : BOOL
+VAR_INPUT
+	SerialNo : STRING;
+	Rfid : STRING;
+	PcbDmc : STRING;
+	PcbIndex : UINT;   //used only from 1 to 9!
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[PcbWedding := FALSE;
+
+
+
+//***************************************************************************************************
+IF _progress = 0 THEN
+	_control.PartSerialNo := SerialNo;
+	_control.Rfid := Rfid;
+	_control.Result := '';
+	_control.PcbSerialNo := PcbDmc;
+	
+	AddPcbToWeddingBuffer(PcbDmc,PcbIndex);
+	
+	_progress := 1;
+END_IF
+//*************************************************************************************************** 
+
+//***************************************************************************************************
+IF _progress = 1 THEN	
+	Messenger.Programming('<#PcbWedding command is not allowed#>');
+	
+	IF _config.HasPcbWedding THEN
+		_progress := 10;
+	END_IF
+END_IF
+//*************************************************************************************************** 
+
+//***************************************************************************************************
+IF _progress = 10 THEN
+	_bussyTimer(IN:= FALSE, PT:= T#0MS);
+	
+	IF GetStatus() THEN
+		_progress := 11;
+	END_IF
+END_IF
+//*************************************************************************************************** 
+
+//***************************************************************************************************
+IF _progress = 11 THEN	
+
+	CASE _statusPanaTrace OF
+		eTcoPscPanaTraceStatus.Wedding:  
+			_progress := 20;
+		eTcoPscPanaTraceStatus.Request:     
+			_progress := 12;
+		eTcoPscPanaTraceStatus.OFF, eTcoPscPanaTraceStatus.Bussy:
+			_bussyTimer(IN:= TRUE, PT:= _config.TimeToRepeatStatusWhenBussy);
+			
+			IF _bussyTimer.Q THEN
+				_progress := 10;
+			END_IF
+		eTcoPscPanaTraceStatus.NoConnection:
+			_bussyTimer(IN:= TRUE, PT:= _config.TimeToRepeatStatusWhenConnectionTimout);
+			
+			IF _bussyTimer.Q THEN
+				_progress := 10;
+			END_IF
+		ELSE
+			Messenger.Warning('<#Panatrace is not ready for pcb wedding command#>');
+	END_CASE	
+
+END_IF
+//*************************************************************************************************** 
+
+//***************************************************************************************************
+IF _progress = 12 THEN
+	_control.PartSerialNo := SerialNo;
+	_control.Rfid := Rfid;
+	_control.PcbSerialNo := '';
+	_control.Result := '';
+	
+	Messenger.Info('<#Confirm serial number command running#>');
+	
+	_control.ActualWeddingCounter := 1;
+	
+	IF _confirmSerialNo.Invoke().Done THEN
+		_progress := 15;
+	END_IF
+END_IF
+//*************************************************************************************************** 
+
+//***************************************************************************************************
+IF _progress = 15 THEN
+	_timer(IN:= TRUE, PT:= T#100MS);
+	
+	IF _timer.Q THEN
+		_progress := 20;
+	END_IF
+END_IF
+//*************************************************************************************************** 
+
+//***************************************************************************************************
+IF _progress = 20 THEN	
+	
+	_control.PartSerialNo := SerialNo;
+	_control.Rfid := Rfid;
+	_control.Result := '';
+	
+	IF _control.ActualWeddingCounter > MAX_PCB_WEDDINGS THEN
+		_control.ActualWeddingCounter := MAX_PCB_WEDDINGS;
+	END_IF
+	
+	_control.PcbSerialNo := _control.PcbSerials[_control.ActualWeddingCounter];	
+	
+	Messenger.Info('<#Pcb wedding command running#>');
+	
+	IF _pcbWedding.Invoke().Done THEN
+		_pcbWedding.Restore();
+		_progress := 30;
+	END_IF
+END_IF
+//*************************************************************************************************** 
+
+//***************************************************************************************************
+IF _progress = 30 THEN	
+	IF IsOk THEN
+		
+		_statusPanaTrace := eTcoPscPanaTraceStatus.Report;
+		_control.ActualWeddingCounter := _control.ActualWeddingCounter + 1;
+		
+		IF _control.ActualWeddingCounter > PcbIndex THEN
+			// all pcbs from buffer were sent to pana trace
+			_progress := 40;
+		ELSE
+			// repeat wedding til all pcbs are sent
+			_progress := 1;
+		END_IF
+	
+	ELSE
+		_statusPanaTrace := eTcoPscPanaTraceStatus.Request;
+		_progress := 40;
+	END_IF	
+END_IF
+//*************************************************************************************************** 
+
+//***************************************************************************************************
+IF _progress = 40 THEN	
+	
+	PcbWedding := TRUE;
+END_IF
+//*************************************************************************************************** 
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="PcbWeddingTask" Id="{0dc24c6f-b860-4d50-8f81-9fc05a1b717a}" FolderPath="Tasks\">
+      <Declaration><![CDATA[PROPERTY PUBLIC PcbWeddingTask : REFERENCE TO TcoCore.TcoTask]]></Declaration>
+      <Get Name="Get" Id="{95f88934-667b-499a-88bd-66500074f169}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[PcbWeddingTask ref=_pcbWeddingTask;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Progress" Id="{c272e2f7-cae6-4bb0-ab5f-2139e1cc65fc}">
+      <Declaration><![CDATA[PROPERTY Progress : UINT]]></Declaration>
+      <Get Name="Get" Id="{a277cbd8-5274-42e9-b0d4-aa8aafadff85}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Progress := _progress;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{cb87b673-0ecd-456c-bba3-3ba8db493a61}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_progress := Progress;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="Restore" Id="{72859e92-e4a6-4b9c-8d5e-8df48e431324}">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Restores this instance to the Ready state. Can be called explicitly or from within one of the restore mechanisms.	
+		</summary>			
+	</docu>	
+~*)
+METHOD  Restore : ITcoRestorable
+
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[_timer(IN:= FALSE, PT:= T#0MS);
+_bussyTimer(IN:= FALSE, PT:= T#0MS);
+
+_errorMessage := '';
+_tracabilityResponse := '';
+
+
+_progress := 0;
+_statusProgress := 0;
+
+_restoreTask.Restore();
+_GenerateSerialNoTask.Restore();
+_confirmSerialNoTask.Restore();
+_sendReportTask.Restore();
+_pcbWeddingTask.Restore();
+_initializeTask.Restore();
+_getStatusTask.Restore();
+
+_generateSerialNo.Restore();
+_confirmSerialNo.Restore();
+_sendReport.Restore();
+_pcbWedding.Restore();
+_getStatus.Restore();
+
+_statusPanaTrace := eTcoPscPanaTraceStatus.Request;
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Result" Id="{eb97da8f-0291-4ad4-90af-5ede95a8808b}">
+      <Declaration><![CDATA[PROPERTY Result : STRING]]></Declaration>
+      <Get Name="Get" Id="{29ea6ba0-98d3-4a17-84a7-db2af3970f30}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Result := _control.Result;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{8f61db61-372a-4e38-a70d-b34a2fa2a287}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_control.Result := Result;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Rfid" Id="{c8f78f5d-2761-4fb9-8d89-8852563864f6}">
+      <Declaration><![CDATA[PROPERTY Rfid : string]]></Declaration>
+      <Get Name="Get" Id="{7ad8cd56-40ab-47e4-b0bd-aadeceac648e}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Rfid := _control.Rfid;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{fd365ca4-51c3-4952-82f6-a05f26f71d33}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_control.Rfid := Rfid;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="SendReport" Id="{a807f5cf-f10d-441e-956a-3dc06559e920}" FolderPath="Internal\">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Sends report with data to tracabilty. Result has to be string PASS or FAIL.
+		</summary>				
+	</docu>	
+~*)
+METHOD SendReport : BOOL
+VAR_INPUT
+	SerialNo : STRING;
+	Rfid : STRING;
+	Result : STRING;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SendReport := FALSE;
+
+
+
+//*************************************************************************************************** 
+IF _progress = 0 THEN
+	_control.PartSerialNo := SerialNo;
+	_control.Rfid := Rfid;
+	_control.Result := Result;
+	_control.PcbSerialNo := '';
+	
+	_progress := 10;
+END_IF
+//*************************************************************************************************** 
+
+//*************************************************************************************************** 
+IF _progress = 10 THEN	
+	_bussyTimer(IN:= FALSE, PT:= T#0MS);
+	
+	IF GetStatus() THEN
+		_progress := 11;
+	END_IF
+END_IF
+//*************************************************************************************************** 
+
+//*************************************************************************************************** 
+IF _progress = 11 THEN	
+	
+	CASE _statusPanaTrace OF
+		eTcoPscPanaTraceStatus.Generating:
+			_progress := 20;
+		eTcoPscPanaTraceStatus.Wedding:
+			_progress := 30;
+		eTcoPscPanaTraceStatus.Report:
+			_progress := 40;
+		eTcoPscPanaTraceStatus.OFF, eTcoPscPanaTraceStatus.Bussy:
+			_bussyTimer(IN:= TRUE, PT:= _config.TimeToRepeatStatusWhenBussy);
+			
+			IF _bussyTimer.Q THEN
+				_progress := 10;
+			END_IF
+		eTcoPscPanaTraceStatus.NoConnection:
+			_bussyTimer(IN:= TRUE, PT:= _config.TimeToRepeatStatusWhenConnectionTimout);
+			
+			IF _bussyTimer.Q THEN
+				_progress := 10;
+			END_IF
+	ELSE
+		_progress := 100;
+	END_CASE
+END_IF
+//*************************************************************************************************** 
+
+//*************************************************************************************************** 
+IF _progress = 20 THEN	
+	Messenger.Info('<#Generate serial no command running#>');
+	
+	IF _generateSerialNo.Invoke().Done THEN
+		_generateSerialNo.Restore();
+		_progress := 21;
+	END_IF
+END_IF
+//*************************************************************************************************** 
+
+//***************************************************************************************************
+IF _progress = 21 THEN
+	_timer(IN:= TRUE, PT:= T#100MS);
+	
+	IF _timer.Q THEN
+		_progress := 25;
+	END_IF
+END_IF
+//*************************************************************************************************** 
+
+//*************************************************************************************************** 
+IF _progress = 25 THEN	
+	
+	IF NOT IsOk THEN
+		_progress := 100;
+	ELSIF _config.HasPcbWedding THEN
+		//_status := enumPscPanaTraceStatus.Wedding;
+		_progress := 10;
+	ELSE
+		//_status := enumPscPanaTraceStatus.Report;
+		_progress := 10;
+	END_IF
+END_IF
+//*************************************************************************************************** 
+
+//*************************************************************************************************** 
+IF _progress = 30 THEN	
+	_control.PcbSerialNo := 'Reset';
+	Messenger.Info('<#Pcb wedding command running#>');
+	
+	IF _pcbWedding.Invoke().Done THEN
+		_pcbWedding.Restore();
+		_progress := 31;
+	END_IF
+END_IF
+//*************************************************************************************************** 
+
+//***************************************************************************************************
+IF _progress = 31 THEN
+	_timer(IN:= TRUE, PT:= T#100MS);
+	
+	IF _timer.Q THEN
+		_progress := 35;
+	END_IF
+END_IF
+//*************************************************************************************************** 
+
+//*************************************************************************************************** 
+IF _progress = 35 THEN	
+	IF NOT IsOk THEN
+		_progress := 100;
+	ELSE
+		//_status := enumPscPanaTraceStatus.Report;
+		_progress := 10;
+	END_IF
+END_IF
+//*************************************************************************************************** 
+
+//*************************************************************************************************** 
+IF _progress = 40 THEN	
+	Messenger.Info('<#Send report command running#>');
+	
+	_control.PartSerialNo := SerialNo;
+	_control.Rfid := Rfid;
+	_control.Result := Result;
+	_control.PcbSerialNo := '';
+	
+	IF _sendReport.Invoke().Done THEN
+		_sendReport.Restore();
+		_progress := 100;
+	END_IF
+END_IF
+//*************************************************************************************************** 
+
+//*************************************************************************************************** 
+IF _progress = 100 THEN	
+	_statusPanaTrace := eTcoPscPanaTraceStatus.Request;
+	SendReport := TRUE;
+END_IF
+//*************************************************************************************************** 
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="SendReportTask" Id="{1146c681-dd32-45f0-a971-0b1445141241}" FolderPath="Tasks\">
+      <Declaration><![CDATA[PROPERTY PUBLIC SendReportTask : REFERENCE TO TcoCore.TcoTask]]></Declaration>
+      <Get Name="Get" Id="{df244232-ab74-4399-8e27-5f8eb97a164d}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[SendReportTask ref=_sendReportTask;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="ServiceMode" Id="{72306b2a-5b6d-45bf-8f3a-1afcb6ca3b26}">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+		    Custom service (manual, maintenance) logic.
+			This method must be implemented in derived class.
+		</summary>			
+	</docu>	
+~*)
+METHOD PROTECTED  ServiceMode
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Status" Id="{ef52a047-8f75-04e4-22be-e160abf1a2b6}">
+      <Declaration><![CDATA[
+PROPERTY Status : REFERENCE TO TcoPscPanaTraceStatus]]></Declaration>
+      <Get Name="Get" Id="{d5ee59e9-3e19-0504-0939-7f3329784e82}">
+        <Declaration><![CDATA[]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Status REF= _status;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

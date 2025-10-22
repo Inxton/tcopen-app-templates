@@ -454,6 +454,75 @@ IF seq.Step(40,TRUE,'VYCHODIZA POLOHA - ZASUNUTIE P5</value>
   <data name="___Task_finished_with_error___" xml:space="preserve">
     <value>Task finished with error.</value>
   </data>
+  <data name="___Panasonic_PanaTrace__" xml:space="preserve">
+    <value>Panasonic PanaTrace</value>
+  </data>
+  <data name="___Progress__" xml:space="preserve">
+    <value>Progress</value>
+  </data>
+  <data name="___Get_Status_Progress__" xml:space="preserve">
+    <value>Get Status Progress</value>
+  </data>
+  <data name="___Error_Message__" xml:space="preserve">
+    <value>Error Message</value>
+  </data>
+  <data name="___Response_from_tracability__" xml:space="preserve">
+    <value>Response from tracability</value>
+  </data>
+  <data name="___Data_from_tracability__" xml:space="preserve">
+    <value>Data from tracability</value>
+  </data>
+  <data name="___Confirm_Serial_Number__" xml:space="preserve">
+    <value>Confirm Serial Number</value>
+  </data>
+  <data name="___Generate_Serial_Number__" xml:space="preserve">
+    <value>Generate Serial Number</value>
+  </data>
+  <data name="___Pcb_Wedding__" xml:space="preserve">
+    <value>Pcb Wedding</value>
+  </data>
+  <data name="___Send_Report__" xml:space="preserve">
+    <value>Send Report</value>
+  </data>
+  <data name="___Initialize__" xml:space="preserve">
+    <value>Initialize</value>
+  </data>
+  <data name="___Get_Status__" xml:space="preserve">
+    <value>Get Status</value>
+  </data>
+  <data name="___Panatrace_is_not_ready_for_confirm_serial_number_command__" xml:space="preserve">
+    <value>Panatrace is not ready for confirm serial number command</value>
+  </data>
+  <data name="___Confirm_serial_number_command_running__" xml:space="preserve">
+    <value>Confirm serial number command running</value>
+  </data>
+  <data name="___Generate_serial_number_command_is_not_allowed__" xml:space="preserve">
+    <value>Generate serial number command is not allowed</value>
+  </data>
+  <data name="___Panatrace_is_not_ready_for_generate_serial_number_command__" xml:space="preserve">
+    <value>Panatrace is not ready for generate serial number command</value>
+  </data>
+  <data name="___Generate_serial_number_command_running__" xml:space="preserve">
+    <value>Generate serial number command running</value>
+  </data>
+  <data name="___Get_status_command_running__" xml:space="preserve">
+    <value>Get status command running</value>
+  </data>
+  <data name="___PcbWedding_command_is_not_allowed__" xml:space="preserve">
+    <value>PcbWedding command is not allowed</value>
+  </data>
+  <data name="___Panatrace_is_not_ready_for_pcb_wedding_command__" xml:space="preserve">
+    <value>Panatrace is not ready for pcb wedding command</value>
+  </data>
+  <data name="___Pcb_wedding_command_running__" xml:space="preserve">
+    <value>Pcb wedding command running</value>
+  </data>
+  <data name="___Generate_serial_no_command_running__" xml:space="preserve">
+    <value>Generate serial no command running</value>
+  </data>
+  <data name="___Send_report_command_running__" xml:space="preserve">
+    <value>Send report command running</value>
+  </data>
   <data name="___Handle_incoming_palette___Wait_for_pallete_at_prestopper__" xml:space="preserve">
     <value>Handle incoming palette - Wait for pallete at prestopper</value>
   </data>
@@ -1272,6 +1341,36 @@ IF seq.Step(40,TRUE,'VYCHODIZA POLOHA - ZASUNUTIE P5</value>
   </data>
   <data name="___RunConvReverse_Time__" xml:space="preserve">
     <value>RunConvReverse Time</value>
+  </data>
+  <data name="___IpAddress__" xml:space="preserve">
+    <value>IpAddress</value>
+  </data>
+  <data name="___Port__" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="___Workplace__" xml:space="preserve">
+    <value>Workplace</value>
+  </data>
+  <data name="___Pallet_Rfid__" xml:space="preserve">
+    <value>Pallet Rfid</value>
+  </data>
+  <data name="___Part_serial_number__" xml:space="preserve">
+    <value>Part serial number</value>
+  </data>
+  <data name="___Pcb_serial_number__" xml:space="preserve">
+    <value>Pcb serial number</value>
+  </data>
+  <data name="___Operator_ID__" xml:space="preserve">
+    <value>Operator ID</value>
+  </data>
+  <data name="___Part_result__" xml:space="preserve">
+    <value>Part result</value>
+  </data>
+  <data name="___reference__" xml:space="preserve">
+    <value>reference</value>
+  </data>
+  <data name="___Generated_serial_number__" xml:space="preserve">
+    <value>Generated serial number</value>
   </data>
   <data name="___Entity_Id__" xml:space="preserve">
     <value>Entity Id</value>

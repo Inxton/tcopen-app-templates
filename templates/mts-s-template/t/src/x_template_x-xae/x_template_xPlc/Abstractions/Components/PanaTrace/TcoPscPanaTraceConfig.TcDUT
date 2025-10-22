@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcoPscPanaTraceConfig" Id="{e0274586-aa42-4e35-8b14-31b42973a541}">
+    <Declaration><![CDATA[TYPE TcoPscPanaTraceConfig :
+STRUCT
+	{attribute addProperty Name "<#IpAddress#>"}
+	IpAddress : STRING;
+	{attribute addProperty Name "<#Port#>"}
+	Port : INT;
+	{attribute addProperty Name "<#Workplace#>"}
+	Workplace : STRING;
+	HasPcbWedding : BOOL;
+	HasSerialNoGeneration : BOOL;
+	NumberOfWeddings : UINT;
+	TimeToRepeatStatusWhenBussy : TIME := T#5S;
+	TimeToRepeatStatusWhenConnectionTimout : TIME := T#20S;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

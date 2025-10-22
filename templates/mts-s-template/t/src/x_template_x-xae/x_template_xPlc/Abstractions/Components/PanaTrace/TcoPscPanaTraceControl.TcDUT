@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcoPscPanaTraceControl" Id="{19039b40-5224-47cc-949a-c12c4536d9d7}">
+    <Declaration><![CDATA[TYPE TcoPscPanaTraceControl :
+STRUCT
+	{attribute addProperty Name "<#Pallet Rfid#>"}
+	Rfid : STRING;
+	{attribute addProperty Name "<#Part serial number#>"}
+	PartSerialNo : STRING;
+	
+	{attribute addProperty Name "<#Pcb serial number#>"}
+	PcbSerialNo : STRING;
+	{attribute addProperty Name "<#Operator ID#>"}
+	OperatorId : STRING;
+	{attribute addProperty Name "<#Part result#>"}
+	Result : STRING;
+	{attribute addProperty Name "<#reference#>"}
+	ReferenceId : STRING;
+	PcbIndex : UINT;
+	ActualWeddingCounter : INT;
+	ManualWeddingCounter : INT;
+	PcbSerials : ARRAY [0..9] OF STRING;  //used only from 1 to 9!
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

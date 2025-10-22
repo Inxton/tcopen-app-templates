@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="eTcoPscPanaTraceCommandType" Id="{4ada2474-7e09-4ab3-8218-fe99c5ad6549}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE eTcoPscPanaTraceCommandType :
+(
+	(*~
+	<docu>
+		<summary>0 - command for new serial number generation</summary>				
+	</docu>	
+	~*)
+	GenerateSerialNo := 0,
+	(*~
+	<docu>
+		<summary>1 - check if serial number can be processed in stations</summary>				
+	</docu>	
+	~*)
+	ConfirmSerialNo := 1,
+	(*~
+	<docu>
+		<summary>2 - sends meassured data from station with part status to pana trace</summary>				
+	</docu>	
+	~*)
+	SendReport := 2,
+	(*~
+	<docu>
+		<summary>3 - links pcb dmc with part serial number confirmed with previous command ConfirmSerialNo</summary>				
+	</docu>	
+	~*)
+	PcbWedding := 3,
+	(*~
+	<docu>
+		<summary>4 - requests status of Pana Trace. Only these options are possible as response:
+			0;Generating
+			1;Scanning(Request)
+			2;Report
+			3;Wedding
+			4;OFF
+			5;Bussy
+		</summary>				
+	</docu>	
+	~*)
+	GetStatus := 4
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

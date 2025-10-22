@@ -95,6 +95,11 @@ TYPE
 		{attribute addProperty Name "GROUP 2"}
 		Group2 : CU00xExamplesOfComponents := (Parent := THISSTRUCT); 
  
+		
+		
+		{attribute wpf [Container(Layout.Stack,"PanaTrace")]}	
+		{attribute wpf [Group(Layout.Scroll)]}
+		PanaTrace:TcoPscPanaTrace(THISSTRUCT);
     END_STRUCT
 END_TYPE
 ]]></Declaration>

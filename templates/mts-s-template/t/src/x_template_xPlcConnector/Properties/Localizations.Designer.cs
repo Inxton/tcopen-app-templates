@@ -1216,6 +1216,24 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm Serial Number.
+        /// </summary>
+        public static string ___Confirm_Serial_Number__ {
+            get {
+                return ResourceManager.GetString("___Confirm_Serial_Number__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm serial number command running.
+        /// </summary>
+        public static string ___Confirm_serial_number_command_running__ {
+            get {
+                return ResourceManager.GetString("___Confirm_serial_number_command_running__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Control.
         /// </summary>
         public static string ___Control__ {
@@ -1284,6 +1302,15 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___Cyclic_mode_is_not_allowed_while_any_control_key_is_in_Service_mode___ {
             get {
                 return ResourceManager.GetString("___Cyclic_mode_is_not_allowed_while_any_control_key_is_in_Service_mode___", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data from tracability.
+        /// </summary>
+        public static string ___Data_from_tracability__ {
+            get {
+                return ResourceManager.GetString("___Data_from_tracability__", resourceCulture);
             }
         }
         
@@ -1414,6 +1441,15 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error Message.
+        /// </summary>
+        public static string ___Error_Message__ {
+            get {
+                return ResourceManager.GetString("___Error_Message__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exclude.
         /// </summary>
         public static string ___Exclude__ {
@@ -1446,6 +1482,78 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___Founded_tag__ {
             get {
                 return ResourceManager.GetString("___Founded_tag__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate serial no command running.
+        /// </summary>
+        public static string ___Generate_serial_no_command_running__ {
+            get {
+                return ResourceManager.GetString("___Generate_serial_no_command_running__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate Serial Number.
+        /// </summary>
+        public static string ___Generate_Serial_Number__ {
+            get {
+                return ResourceManager.GetString("___Generate_Serial_Number__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate serial number command is not allowed.
+        /// </summary>
+        public static string ___Generate_serial_number_command_is_not_allowed__ {
+            get {
+                return ResourceManager.GetString("___Generate_serial_number_command_is_not_allowed__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate serial number command running.
+        /// </summary>
+        public static string ___Generate_serial_number_command_running__ {
+            get {
+                return ResourceManager.GetString("___Generate_serial_number_command_running__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generated serial number.
+        /// </summary>
+        public static string ___Generated_serial_number__ {
+            get {
+                return ResourceManager.GetString("___Generated_serial_number__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get Status.
+        /// </summary>
+        public static string ___Get_Status__ {
+            get {
+                return ResourceManager.GetString("___Get_Status__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get status command running.
+        /// </summary>
+        public static string ___Get_status_command_running__ {
+            get {
+                return ResourceManager.GetString("___Get_status_command_running__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get Status Progress.
+        /// </summary>
+        public static string ___Get_Status_Progress__ {
+            get {
+                return ResourceManager.GetString("___Get_Status_Progress__", resourceCulture);
             }
         }
         
@@ -1929,6 +2037,15 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Initialize.
+        /// </summary>
+        public static string ___Initialize__ {
+            get {
+                return ResourceManager.GetString("___Initialize__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invoke restore sequences on each stations..
         /// </summary>
         public static string ___Invoke_restore_sequences_on_each_stations___ {
@@ -1943,6 +2060,15 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___Invoke_suspend_sequences_on_each_stations___ {
             get {
                 return ResourceManager.GetString("___Invoke_suspend_sequences_on_each_stations___", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IpAddress.
+        /// </summary>
+        public static string ___IpAddress__ {
+            get {
+                return ResourceManager.GetString("___IpAddress__", resourceCulture);
             }
         }
         
@@ -2561,6 +2687,15 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Operator ID.
+        /// </summary>
+        public static string ___Operator_ID__ {
+            get {
+                return ResourceManager.GetString("___Operator_ID__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Oscilacny cylinder  rad 1- vravo.
         /// </summary>
         public static string ___Oscilacny_cylinder__rad_1__vravo__ {
@@ -2777,6 +2912,15 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pallet Rfid.
+        /// </summary>
+        public static string ___Pallet_Rfid__ {
+            get {
+                return ResourceManager.GetString("___Pallet_Rfid__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pallete at prestopper - Main Transfer.
         /// </summary>
         public static string ___Pallete_at_prestopper___Main_Transfer__ {
@@ -2809,6 +2953,96 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___Pallete_at_stopper_Side_transfer__ {
             get {
                 return ResourceManager.GetString("___Pallete_at_stopper_Side_transfer__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Panasonic PanaTrace.
+        /// </summary>
+        public static string ___Panasonic_PanaTrace__ {
+            get {
+                return ResourceManager.GetString("___Panasonic_PanaTrace__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Panatrace is not ready for confirm serial number command.
+        /// </summary>
+        public static string ___Panatrace_is_not_ready_for_confirm_serial_number_command__ {
+            get {
+                return ResourceManager.GetString("___Panatrace_is_not_ready_for_confirm_serial_number_command__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Panatrace is not ready for generate serial number command.
+        /// </summary>
+        public static string ___Panatrace_is_not_ready_for_generate_serial_number_command__ {
+            get {
+                return ResourceManager.GetString("___Panatrace_is_not_ready_for_generate_serial_number_command__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Panatrace is not ready for pcb wedding command.
+        /// </summary>
+        public static string ___Panatrace_is_not_ready_for_pcb_wedding_command__ {
+            get {
+                return ResourceManager.GetString("___Panatrace_is_not_ready_for_pcb_wedding_command__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Part result.
+        /// </summary>
+        public static string ___Part_result__ {
+            get {
+                return ResourceManager.GetString("___Part_result__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Part serial number.
+        /// </summary>
+        public static string ___Part_serial_number__ {
+            get {
+                return ResourceManager.GetString("___Part_serial_number__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pcb serial number.
+        /// </summary>
+        public static string ___Pcb_serial_number__ {
+            get {
+                return ResourceManager.GetString("___Pcb_serial_number__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pcb Wedding.
+        /// </summary>
+        public static string ___Pcb_Wedding__ {
+            get {
+                return ResourceManager.GetString("___Pcb_Wedding__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pcb wedding command running.
+        /// </summary>
+        public static string ___Pcb_wedding_command_running__ {
+            get {
+                return ResourceManager.GetString("___Pcb_wedding_command_running__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PcbWedding command is not allowed.
+        /// </summary>
+        public static string ___PcbWedding_command_is_not_allowed__ {
+            get {
+                return ResourceManager.GetString("___PcbWedding_command_is_not_allowed__", resourceCulture);
             }
         }
         
@@ -2908,6 +3142,15 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___Pohyb_hore__ {
             get {
                 return ResourceManager.GetString("___Pohyb_hore__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Port.
+        /// </summary>
+        public static string ___Port__ {
+            get {
+                return ResourceManager.GetString("___Port__", resourceCulture);
             }
         }
         
@@ -3119,6 +3362,15 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Progress.
+        /// </summary>
+        public static string ___Progress__ {
+            get {
+                return ResourceManager.GetString("___Progress__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Qantity.
         /// </summary>
         public static string ___Qantity__ {
@@ -3227,6 +3479,15 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to reference.
+        /// </summary>
+        public static string ___reference__ {
+            get {
+                return ResourceManager.GetString("___reference__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Requested carrier is out of range of internal storage. Max number of carriers is.
         /// </summary>
         public static string ___Requested_carrier_is_out_of_range_of_internal_storage__Max_number_of_carriers_is__ {
@@ -3242,6 +3503,15 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___Reset__ {
             get {
                 return ResourceManager.GetString("___Reset__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Response from tracability.
+        /// </summary>
+        public static string ___Response_from_tracability__ {
+            get {
+                return ResourceManager.GetString("___Response_from_tracability__", resourceCulture);
             }
         }
         
@@ -3341,6 +3611,24 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___Safety_doors_OK__ {
             get {
                 return ResourceManager.GetString("___Safety_doors_OK__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send Report.
+        /// </summary>
+        public static string ___Send_Report__ {
+            get {
+                return ResourceManager.GetString("___Send_Report__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send report command running.
+        /// </summary>
+        public static string ___Send_report_command_running__ {
+            get {
+                return ResourceManager.GetString("___Send_report_command_running__", resourceCulture);
             }
         }
         
@@ -4421,6 +4709,15 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___was_not_founnd__Would_you_like_still_like_to_continue___ {
             get {
                 return ResourceManager.GetString("___was_not_founnd__Would_you_like_still_like_to_continue___", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Workplace.
+        /// </summary>
+        public static string ___Workplace__ {
+            get {
+                return ResourceManager.GetString("___Workplace__", resourceCulture);
             }
         }
         

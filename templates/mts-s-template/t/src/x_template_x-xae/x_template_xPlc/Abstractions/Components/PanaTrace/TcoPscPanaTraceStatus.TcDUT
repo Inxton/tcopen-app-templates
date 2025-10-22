@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="TcoPscPanaTraceStatus" Id="{6491475f-d75b-44ab-85a9-50b4a09da14b}">
+    <Declaration><![CDATA[TYPE TcoPscPanaTraceStatus :
+STRUCT
+	{attribute addProperty Name "<#Progress#>"}
+	Progress : UINT;
+	{attribute addProperty Name "<#Get Status Progress#>"}
+	StatusProgress: UINT;
+
+	{attribute addProperty Name "<#Status#>"}
+	StatusPanaTrace : eTcoPscPanaTraceStatus ;
+
+	{attribute addProperty Name "<#Response from tracability#>"}
+	TracabilityResponse : STRING;
+	{attribute addProperty Name "<#Data from tracability#>"}
+	DataFromTracability : STRING;
+	{attribute addProperty Name "<#Generated serial number#>"}
+	GeneratedSerialNo : STRING;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

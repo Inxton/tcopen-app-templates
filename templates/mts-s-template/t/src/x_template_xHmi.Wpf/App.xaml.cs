@@ -40,6 +40,7 @@ using System.Collections.Generic;
 using TcoCore;
 using TcoData.Models;
 using TcoData.Helpers;
+using PanaTrace;
 
 namespace x_template_xHmi.Wpf
 {
@@ -198,7 +199,12 @@ namespace x_template_xHmi.Wpf
             {
                 item.IsExpanded = true;
             }
+            x_template_xPlc.MAIN._technology._cu00x._components.PanaTrace.Initialize(dummy);
+        }
 
+        private List<CsvData> dummy()
+        {
+            throw new NotImplementedException();
         }
 
         private void Service_OnUserAuthenticateFailed(string username)

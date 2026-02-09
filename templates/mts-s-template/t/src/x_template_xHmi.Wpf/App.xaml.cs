@@ -40,6 +40,7 @@ using System.Collections.Generic;
 using TcoCore;
 using TcoData.Models;
 using TcoData.Helpers;
+using System.Linq.Expressions;
 
 namespace x_template_xHmi.Wpf
 {
@@ -396,6 +397,8 @@ namespace x_template_xHmi.Wpf
             var Traceability = new RavenDbRepositorySettings<PlainProcessData>(new string[] { Entry.Settings.GetConnectionString() }, "Traceability", "", "");
             RepositoryEntry.InitializeRepository(x_template_xPlc.MAIN._technology._processTraceability, new RavenDbRepository<PlainProcessData>(Traceability),false);
             RepositoryEntry.InitializeRepository(x_template_xPlc.MAIN._technology._cu00x._processData, new RavenDbRepository<PlainProcessData>(Traceability),DataExchangeActive, (id, data) => { CuxStatistic.Count(data); });
+            
+           
 
 
             Rework = new ReworkModel(new RavenDbRepository<PlainProcessData>(ReworkDataRepoSettings), new RavenDbRepository<PlainProcessData>(Traceability));
@@ -477,6 +480,13 @@ namespace x_template_xHmi.Wpf
             var Traceability = new MongoDbRepositorySettings<PlainProcessData>(Entry.Settings.GetConnectionString(), Entry.Settings.DbName, "Traceability");
             RepositoryEntry.InitializeRepository(x_template_xPlc.MAIN._technology._processTraceability, new MongoDbRepository<PlainProcessData>(Traceability),false);
             RepositoryEntry.InitializeRepository(x_template_xPlc.MAIN._technology._cu00x._processData, new MongoDbRepository<PlainProcessData>(Traceability), DataExchangeActive,(id, data) => { CuxStatistic.Count(data); });
+            
+
+            // fragmented repository example IN MONGO ONLY!!!!
+            //var fragmentExpression = new List<Expression<Func<PlainProcessData, PlainProcessData>>>();
+            //fragmentExpression.Add(data => new PlainProcessData { EntityHeader = data.EntityHeader, CU00x = data.CU00x });
+            //RepositoryEntry.InitializeFragmentedRepository(x_template_xPlc.MAIN._technology._cu00x._processData, Traceability, true, fragmentExpression);
+
 
 
 

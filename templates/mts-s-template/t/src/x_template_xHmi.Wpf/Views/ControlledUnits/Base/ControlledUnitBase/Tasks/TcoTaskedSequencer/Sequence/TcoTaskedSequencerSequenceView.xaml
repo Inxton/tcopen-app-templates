@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:x_template_xPlc"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:vortex="http://vortex.mts/xaml"
+    xmlns:vortex="http://vortex.mts/xaml" xmlns:vortexs="http://vortex.security.mts/xaml"
     mc:Ignorable="d"
     d:DesignHeight="450"
     d:DesignWidth="800">
@@ -25,14 +25,20 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100" />
+                        <!--<ColumnDefinition Width="100" />
                         <ColumnDefinition Width="600" />
                         <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />-->
                         <ColumnDefinition Width="Auto" />
+                        <!-- ID -->
+                        <ColumnDefinition Width="*" />
+                        <!-- Description -->
+                        <ColumnDefinition Width="Auto" />
+                        <!-- Component name -->
                     </Grid.ColumnDefinitions>
                     <TextBlock
                         Grid.Column="0"
-                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
                         Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
                         Text="{Binding Component._currentStep.ID.Cyclic}" />
                     <TextBlock
@@ -58,7 +64,12 @@
                     <RowDefinition MaxHeight="300"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <vortex:RenderableContentControl Grid.Row="0" Margin="0,0,0,20" DataContext="{Binding StepController, Mode=OneWay}"/>
+                <vortexs:PermissionBox  Permissions="sequencer_step" SecurityMode="Disabled">
+                    <vortex:RenderableContentControl Grid.Row="0" Margin="0,0,0,20" DataContext="{Binding StepController, Mode=OneWay}"/>
+                </vortexs:PermissionBox>
+
+            
+
                 <vortex:RenderableContentControl Grid.Row="1" DataContext="{Binding Component._o}" />
                 <Grid Grid.Row="2" Margin="10">
                     <ItemsControl ItemsSource="{Binding ParallelTasks}">

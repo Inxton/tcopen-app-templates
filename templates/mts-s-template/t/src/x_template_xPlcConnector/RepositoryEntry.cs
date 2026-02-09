@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using TcOpen.Inxton.Data;
@@ -61,6 +62,30 @@ namespace x_template_xPlcConnector
             }
 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T1"></typeparam>
+        /// <typeparam name="T2"></typeparam>
+        /// <param name="manager"></param>
+        /// <param name="repoSettings"></param>
+        /// <param name="withDataExchange"></param>
+        /// <param name="expression"></param>
+        public static void InitializeFragmentedRepository<T1, T2>(T1 manager, MongoDbRepositorySettings<T2> repoSettings, bool withDataExchange, List<Expression<Func<T2, T2>>> expression) where T1 : TcoData.TcoDataExchange
+                                                                                                              where T2 : PlainTcoEntityBase
+        {
+            IRepository<T2> repository = new MongoDbFragmentedRepository<T2, T2>(repoSettings, expression);
+            repository.OnCreate = (id, data) => { data._Created = DateTime.Now; data._Modified = DateTime.Now; };
+            repository.OnUpdate = (id, data) => { data._Modified = DateTime.Now; };
+            manager.InitializeRepository(repository);
+            if (withDataExchange)
+            {
+                manager.InitializeRemoteDataExchange(repository);
+            }
+
+        }
+
 
 
         public static IAuthenticationService CreateSecurityManageUsingRavenDb(bool withDefaultGroups, bool withDefaultUsers)

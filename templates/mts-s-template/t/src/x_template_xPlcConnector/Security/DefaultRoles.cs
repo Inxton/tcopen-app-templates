@@ -30,6 +30,7 @@ namespace x_template_xPlcConnector
             SecurityManager.Manager.GetOrCreateRole(new Role(station_details));
             SecurityManager.Manager.GetOrCreateRole(new Role(sequencer_step));
 
+            SecurityManager.Manager.GetOrCreateRole(new Role(can_terminate_inspection));
             SecurityManager.Manager.GetOrCreateRole(new Role(can_override_inspection));
             SecurityManager.Manager.GetOrCreateRole(new Role(can_change_hw_settings));
 
@@ -62,6 +63,7 @@ namespace x_template_xPlcConnector
         public const string station_details = nameof(station_details);
         public const string sequencer_step = nameof(sequencer_step);
 
+        public const string can_terminate_inspection = nameof(can_terminate_inspection);
         public const string can_override_inspection = nameof(can_override_inspection);
         public const string can_change_hw_settings = nameof(can_change_hw_settings);
 

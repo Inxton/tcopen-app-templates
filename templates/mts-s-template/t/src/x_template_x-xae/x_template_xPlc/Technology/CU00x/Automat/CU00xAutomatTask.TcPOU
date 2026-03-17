@@ -345,6 +345,7 @@ END_VAR
 		.Dialog(inStepID+10);			
 //-------------------------------------
 END_IF;
+
 IF (Step(inStepID+10, TRUE, 'MULTI ANALOGUE INSPECTIONS PART 2 WITH INSTRUCTION AND DESCRIPTION')) THEN
 //-------------------------------------
 		Station.GroupInspection
@@ -370,7 +371,34 @@ IF (Step(inStepID+10, TRUE, 'MULTI ANALOGUE INSPECTIONS PART 2 WITH INSTRUCTION 
 //-------------------------------------
 END_IF;
 
-IF (Step(inStepID+20, TRUE, 'DONE')) THEN
+
+
+IF (Step(inStepID+20, TRUE, 'MULTI ANALOGUE INSPECTIONS PART 2 WITH INSTRUCTION AND DESCRIPTION EVAVLUATED')) THEN
+//-------------------------------------
+
+		Station.GroupInspection
+		.WithCoordinator(THIS^)
+		.Act();
+		Station.GroupInspection.Inspect(Station.ProcessDataManager.Data.CU00x.Dim_Inspector_11.WithCoordinator(THIS^).Inspect(0));	
+		Station.GroupInspection.Inspect(Station.ProcessDataManager.Data.CU00x.Dim_Inspector_12.WithCoordinator(THIS^).Inspect(0));	
+		Station.GroupInspection.Inspect(Station.ProcessDataManager.Data.CU00x.Dim_Inspector_13.WithCoordinator(THIS^).Inspect(0));	
+		Station.GroupInspection.Inspect(Station.ProcessDataManager.Data.CU00x.Dim_Inspector_14.WithCoordinator(THIS^).Inspect(0));	
+		Station.GroupInspection.Inspect(Station.ProcessDataManager.Data.CU00x.Dim_Inspector_15.WithCoordinator(THIS^).Inspect(0));	
+		Station.GroupInspection.Inspect(Station.ProcessDataManager.Data.CU00x.Dim_Inspector_16.WithCoordinator(THIS^).Inspect(1));	
+		Station.GroupInspection.Inspect(Station.ProcessDataManager.Data.CU00x.Dim_Inspector_17.WithCoordinator(THIS^).Inspect(0));	
+		Station.GroupInspection.Inspect(Station.ProcessDataManager.Data.CU00x.Dim_Inspector_18.WithCoordinator(THIS^).Inspect(0));	
+		Station.GroupInspection.Inspect(Station.ProcessDataManager.Data.CU00x.Dim_Inspector_19.WithCoordinator(THIS^).Inspect(0));	
+		Station.GroupInspection.Inspect(Station.ProcessDataManager.Data.CU00x.Dim_Inspector_20.WithCoordinator(THIS^).Inspect(0));	
+	
+		
+		Station.GroupInspection.UpdateComprehensiveResult(Station.ProcessDataManager.Data.EntityHeader.Results)	
+		.WithDescription()
+		.Instruct('Something is wrong')
+		.OnFail().Evaluate(	inStepID+10,eTcoInspectorFailMode.RetryThenCarryOn,inStepId+30);
+//-------------------------------------
+END_IF;
+
+IF (Step(inStepID+30, TRUE, 'DONE')) THEN
 //-------------------------------------
 		CompleteStep();
 //-------------------------------------

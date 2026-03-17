@@ -210,7 +210,7 @@ END_VAR]]></Declaration>
 		eDataEntityInvokeType.InvokeOnly: 
 				StepCompleteWhen(THIS^.StationBase.EntityFlowFinalize(Header).Busy);	
 	END_CASE;			   		    				
-	StepCompleteWhen(THIS^.StationBase.EntityFlowFinalize(Header).Done );				   		    				
+		   		    				
     //-------------------------------------
 END_IF
 

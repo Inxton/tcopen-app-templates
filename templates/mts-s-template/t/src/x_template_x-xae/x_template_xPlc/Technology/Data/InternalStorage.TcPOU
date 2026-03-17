@@ -3,10 +3,11 @@
   <POU Name="InternalStorage" Id="{534e0d35-48f7-4157-8269-593be69f0ce5}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK InternalStorage EXTENDS TcoCore.TcoObject 
 VAR
-	_data : ARRAY[0..40] OF ProcessData; 
+	_data : ARRAY [0..9] OF ProcessData := [(Parent := THIS^), (Parent := THIS^), (Parent := THIS^), (Parent := THIS^), (Parent := THIS^),
+                                        (Parent := THIS^), (Parent := THIS^), (Parent := THIS^), (Parent := THIS^), (Parent := THIS^)];
 END_VAR
 VAR CONSTANT
-	_maxNumberOfCarriers : UINT := 40;
+	_maxNumberOfCarriers : UINT := 10;
 END_VAR
 ]]></Declaration>
     <Implementation>

@@ -1630,6 +1630,12 @@ IF seq.Step(40,TRUE,'VYCHODIZA POLOHA - ZASUNUTIE P5</value>
   <data name="___Control_Buttons__" xml:space="preserve">
     <value>Control Buttons</value>
   </data>
+  <data name="___Virtual_Control_Buttons__" xml:space="preserve">
+    <value>Virtual Control Buttons</value>
+  </data>
+  <data name="___Virtual_Buttons__" xml:space="preserve">
+    <value>Virtual Buttons</value>
+  </data>
   <data name="___Mode_key__" xml:space="preserve">
     <value>Mode key</value>
   </data>

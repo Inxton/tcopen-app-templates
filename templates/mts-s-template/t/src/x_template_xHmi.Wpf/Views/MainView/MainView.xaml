@@ -31,30 +31,62 @@
 
 
         <materialDesign:Card Grid.Row="1" Grid.ColumnSpan="2">
-            <WrapPanel>
-            <Menu 
-                materialDesign:MenuAssist.TopLevelMenuItemHeight="{Binding ElementName=userInfoDisplayView, Path=ActualHeight}">
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatMidBgButton}">
+                        <Setter Property="Margin" Value="5,0,0,0"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
 
-                <MenuItem Header="{x:Static p:strings.LangSelector}" 
+                <materialDesign:PackIcon Grid.Column="0" VerticalAlignment="Center" Height="25" Width="25" Kind="UserLockOutline" Foreground="{StaticResource MtsBlack}" Margin="0,0,10,0"/>
+
+                <vortexs:UserInfoDisplayView Grid.Column="1" VerticalContentAlignment="Center" x:Name="userInfo"/>
+
+                <StackPanel Orientation="Horizontal"  Grid.Column="2" HorizontalAlignment="Center" Visibility="{Binding ControlButtonVisibility, Converter={vortex:BoolToVisibilityConverter}}">
+                    
+                    <!--ADD PERMISSION BOX IF NEEDED-->
+                    <!--<vortexs:PermissionBox Permissions="Administrator|instructor_access" SecurityMode="Disabled">-->
+                        <Button Name="Start" Content="Start" Click="ControlButton_Click" Background="Green"/>
+                    <!--</vortexs:PermissionBox>-->
+                    <!--<vortexs:PermissionBox Permissions="Administrator|instructor_access" SecurityMode="Disabled">-->
+                        <Button Name="Stop"  Content="Stop" Click="ControlButton_Click" Foreground="{StaticResource OnMtsBlue}" Background="{StaticResource MtsBlue}"/>
+                    <!--</vortexs:PermissionBox>-->
+                </StackPanel>
+                
+                <Menu Grid.Column="4"
+                materialDesign:MenuAssist.TopLevelMenuItemHeight="{Binding ElementName=userInfo, Path=ActualHeight}">
+
+
+                    <MenuItem  
+                          Icon="{materialDesign:PackIcon Kind=Keyboard}"
+                          Command="{Binding OpenKeyboardCommand}"
+                          IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+
+                    <MenuItem Header="{x:Static p:strings.LangSelector}" 
                           Icon="{materialDesign:PackIcon Kind=Language}"
                           Command="{Binding OpenLanguageCommand}"
                           IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
 
 
 
-                <MenuItem Header="{x:Static p:strings.CloseApplication}" 
+                    <MenuItem Header="{x:Static p:strings.CloseApplication}" 
                            Icon="{materialDesign:PackIcon Kind=ExitToApp}"
                             Command="{Binding CloseApplicationCommand}"
                             IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
-                
-       
-      
-            </Menu>
-               
-                <vortexs:UserInfoDisplayView x:Name="userInfoDisplayView" VerticalContentAlignment="Center"/>
 
-                <synologystatus:SynologyStatusView Margin="10,0" ></synologystatus:SynologyStatusView>
-            </WrapPanel>
+                </Menu>
+
+
+            </Grid>
         </materialDesign:Card>
         <wpf:MenuControlView Grid.Column="1"/>
     </Grid>

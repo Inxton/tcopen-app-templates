@@ -414,4 +414,34 @@
   <data name="MongoExport" xml:space="preserve">
     <value>Mongo-Export</value>
   </data>
+  <data name="FilterBy" xml:space="preserve">
+    <value>Filtern nach:</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Keine</value>
+  </data>
+  <data name="LastStation" xml:space="preserve">
+    <value>Letzte Station</value>
+  </data>
+  <data name="True" xml:space="preserve">
+    <value>Wahr</value>
+  </data>
+  <data name="False" xml:space="preserve">
+    <value>Falsch</value>
+  </data>
+  <data name="Invalid" xml:space="preserve">
+    <value>Ungültig</value>
+  </data>
+  <data name="NoAction" xml:space="preserve">
+    <value>Keine Aktion</value>
+  </data>
+  <data name="Passed" xml:space="preserve">
+    <value>Erfolgreich</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Fehlgeschlagen</value>
+  </data>
+  <data name="InProgress" xml:space="preserve">
+    <value>Wird verarbeitet</value>
+  </data>
 </root>

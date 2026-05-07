@@ -414,4 +414,34 @@
   <data name="MongoExport" xml:space="preserve">
     <value>Mongo Export</value>
   </data>
+  <data name="FilterBy" xml:space="preserve">
+    <value>Filtrovať podľa:</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Žiadny</value>
+  </data>
+  <data name="LastStation" xml:space="preserve">
+    <value>Posledná stanica</value>
+  </data>
+  <data name="True" xml:space="preserve">
+    <value>Pravda</value>
+  </data>
+  <data name="False" xml:space="preserve">
+    <value>Nepravda</value>
+  </data>
+  <data name="Invalid" xml:space="preserve">
+    <value>Neplatný</value>
+  </data>
+  <data name="NoAction" xml:space="preserve">
+    <value>Žiadna akcia</value>
+  </data>
+  <data name="Passed" xml:space="preserve">
+    <value>Prešiel</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Zlyhalo</value>
+  </data>
+  <data name="InProgress" xml:space="preserve">
+    <value>Prebieha</value>
+  </data>
 </root>

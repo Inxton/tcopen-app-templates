@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="___Buffer_1__minimalne_mnozstvo___" xml:space="preserve">
+    <value>Puffer 1 Mindestmenge!</value>
+  </data>
+  <data name="___Buffer_2_minimalne_mnozstvo___" xml:space="preserve">
+    <value>Puffer 2 Mindestmenge!</value>
+  </data>
+  <data name="___Buffer_3_minimalne_mnozstvo___" xml:space="preserve">
+    <value>Puffer 3 Mindestmenge!</value>
+  </data>
+  <data name="___Buffer_4_minimalne_mnozstvo___" xml:space="preserve">
+    <value>Puffer 4 minimales Volumen!</value>
+  </data>
+  <data name="___INIT__" xml:space="preserve">
+    <value>INIT</value>
+  </data>
+  <data name="___Config__" xml:space="preserve">
+    <value>Konfiguration</value>
+  </data>
+  <data name="___Status__" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="___Control__" xml:space="preserve">
+    <value>Kontrolle</value>
+  </data>
+  <data name="___Components__" xml:space="preserve">
+    <value>Komponenten</value>
+  </data>
+  <data name="___Test_positions__" xml:space="preserve">
+    <value>Testpositionen</value>
+  </data>
+  <data name="___Restore__" xml:space="preserve">
+    <value>Wiederherstellen</value>
+  </data>
+  <data name="___Poziadavka_vychodzej_polohy__" xml:space="preserve">
+    <value>Anforderung Ausgangsposition</value>
+  </data>
+  <data name="___Poziadavka_vylozenie_blistera__" xml:space="preserve">
+    <value>Anforderung Entladung Blister</value>
+  </data>
+  <data name="___Poziadavka_novy_blister__" xml:space="preserve">
+    <value>Anforderung neuer Blister</value>
+  </data>
+  <data name="___CAKANIE_NA_OBSLUHU_PALETIZERA___NARUSENA_SVETELNA_BRANA___" xml:space="preserve">
+    <value>WARTUNG DES PALETTEURS - LICHTSCHRANKE UNTERBROCHEN!</value>
+  </data>
+  <data name="___Movement_is_blocked_due_safe_zone_is_interupted_robot_in_zone___" xml:space="preserve">
+    <value>Bewegung blockiert, da Sicherheitszone unterbrochen ist (Roboter in Zone)</value>
+  </data>
+  <data name="___Temporarily_disabled_safety__" xml:space="preserve">
+    <value>Temporär deaktivierte Sicherheit</value>
+  </data>
+  <data name="___BEZPECNOST_ZARIADENIA_NARUSENA__NIEJE_MOZNE_VYKONAT_AKCIU__" xml:space="preserve">
+    <value>SICHERHEIT DES GERÄTS BEHINDERT. AKTION NICHT MÖGLICH</value>
+  </data>
+  <data name="___ZASUNUTIE_POZICNEJ_JEDNOTKY__" xml:space="preserve">
+    <value>EINSCHUB DER POSITIONSEINHEIT</value>
+  </data>
+  <data name="___CHYBA_ZASOBNIKY_SU_PRAZDNE______" xml:space="preserve">
+    <value>FEHLER: DIE WARENKÖRBE SIND LEER !!!</value>
+  </data>
+  <data name="___KOLIZNY_STAV_SKONTROLUJTE_BLISTRE_____" xml:space="preserve">
+    <value>KOLLISIONSSTATUS: BLISTER ÜBERPRÜFEN !!!</value>
+  </data>
+  <data name="___VYSTUPNY_ZASOBNIK_1_PLNY_BUFFER_______" xml:space="preserve">
+    <value>AUSGANGSBEHÄLTER 1 VOLL (PUFFERSPEICHER) !!!</value>
+  </data>
+  <data name="___VYSTUPNY_ZASOBNIK_2_PLNY_BUFFER_______" xml:space="preserve">
+    <value>AUSGANGSBEHÄLTER 2 VOLL (PUFFERSPEICHER) !!!</value>
+  </data>
+  <data name="___Zasobnik_1_na_prazdne_blistre_plny___" xml:space="preserve">
+    <value>Behälter 1 für leere Blister voll!</value>
+  </data>
+  <data name="___Zasobnik_2_na_prazdne_blistre_plny___" xml:space="preserve">
+    <value>Behälter 2 für leere Blister voll!</value>
+  </data>
+  <data name="___ZASDOBNIKY_PRE_PRAZDNE_BLISTRE_SU_VYPNUTE______" xml:space="preserve">
+    <value>BEHÄLTER FÜR LEERE BLISTER SIND AUSGESCHALTET !!!</value>
+  </data>
+  <data name="___CHYBA_ZASOBNIKY_NA_PRAZDNE_BLISTRE_OBSADENE______" xml:space="preserve">
+    <value>FEHLER BEHÄLTER FÜR LEERE BLISTER BESETZT !!!</value>
+  </data>
+  <data name="___VYCHODIZA_POLOHA___ZASUNUTIE_POZICIEJ_JEDNOTKY_P1___" xml:space="preserve">
+    <value>AUSGANGSPOSITION - EINSCHIEBEN DER POSITION EINHEIT P1</value>
+  </data>
+  <data name="___VYCHODIZA_POLOHA___ZASUNUTIE_UPEVNENIA_BLISTRA__P2__" xml:space="preserve">
+    <value>AUSGANGSPOSITION - EINSCHUB DER HALTERUNG BLISTER P2</value>
+  </data>
+  <data name="___Pracovna_pozicia__" xml:space="preserve">
+    <value>Arbeitsposition</value>
+  </data>
+  <data name="___Naberacia_pozicia_Buffer1__" xml:space="preserve">
+    <value>Aufnahmeposition Buffer1</value>
+  </data>
+  <data name="___Naberacia_pozicia_Buffer2__" xml:space="preserve">
+    <value>Aufnahmeposition Buffer2</value>
+  </data>
+  <data name="___Naberacia_pozicia_Buffer3__" xml:space="preserve">
+    <value>Aufnahmeposition Buffer3</value>
+  </data>
+  <data name="___Naberacia_pozicia_Buffer4__" xml:space="preserve">
+    <value>Nehmeposition Buffer4</value>
+  </data>
+  <data name="___Vykladacia_pozicia_pre_prazdne_blistre_1__" xml:space="preserve">
+    <value>Entladeposition für leere Blister 1</value>
+  </data>
+  <data name="___Vykladacia_pozicia_pre_prazdne_blistre_2__" xml:space="preserve">
+    <value>Entladeposition für leere Blister 2</value>
+  </data>
+  <data name="___No_timeout_defined_for_Entry_conveyor_running___" xml:space="preserve">
+    <value>Kein Timeout für laufendes Eingangsband definiert.</value>
+  </data>
+  <data name="___No_timeout_defined_for_Our_conveyor_running___" xml:space="preserve">
+    <value>Kein Timeout für laufendes Unser Band definiert.</value>
+  </data>
+  <data name="___PcToPlc__" xml:space="preserve">
+    <value>PcZuSps</value>
+  </data>
+  <data name="___PlcToPc__" xml:space="preserve">
+    <value>SpsZuPc</value>
+  </data>
+  <data name="___Task_finished_with_error___" xml:space="preserve">
+    <value>Aufgabe mit Fehler beendet.</value>
+  </data>
+  <data name="___Done__" xml:space="preserve">
+    <value>Fertig</value>
+  </data>
+  <data name="___Handle_incoming_palette___Wait_for_pallete_at_prestopper__" xml:space="preserve">
+    <value>Eingehende Palette bearbeiten - Auf Palette am Prestopper warten</value>
+  </data>
+  <data name="___Handle_incoming_palette___Check_transfer_unit_status__" xml:space="preserve">
+    <value>Eingehende Palette bearbeiten - Status der Transfer-Einheit überprüfen</value>
+  </data>
+  <data name="___Handle_incoming_palette___Open_prestoper__" xml:space="preserve">
+    <value>Eingehende Palette bearbeiten - Prestoper öffnen</value>
+  </data>
+  <data name="___Handle_incoming_palette___Waiting_for_pallet_at_stopper___Main_Transfer__" xml:space="preserve">
+    <value>Eingehende Palette bearbeiten - Warten auf Palette am Stopper - Haupttransfer</value>
+  </data>
+  <data name="___Handle_incoming_palette___Waiting_for_pallet_at_side_transfer__" xml:space="preserve">
+    <value>Eingehende Palette bearbeiten - Warten auf Palette am Seitenübertrag</value>
+  </data>
+  <data name="___Handle_incoming_palette___Open_side_prestoper__" xml:space="preserve">
+    <value>Eingehende Palette bearbeiten - Seiten-Prestoper öffnen</value>
+  </data>
+  <data name="___Handle_incoming_palette___Waiting_for_pallet_at_stopper___Side_Transfer__" xml:space="preserve">
+    <value>Eingehende Palette bearbeiten - Warten auf Palette am Stopper - Seitenübertrag</value>
+  </data>
+  <data name="___Handle_incoming_palette___Wait_Main_transfer_is_empty__" xml:space="preserve">
+    <value>Eingehende Palette bearbeiten - Warten, bis der Haupttransfer leer ist</value>
+  </data>
+  <data name="___Handle_incoming_palette___Wait_for_pallete_in_Main_transfer__" xml:space="preserve">
+    <value>Eingehende Palette bearbeiten - Warten auf Palette im Haupttransfer</value>
+  </data>
+  <data name="___Handle_incoming_palette___Waiting_for_pallet_at_stopper__" xml:space="preserve">
+    <value>Eingehende Palette bearbeiten - Warten auf Palette am Stopper</value>
+  </data>
+  <data name="___Handle_incoming_palette___Waiting_for_pallet_at_stopper___Entry_Transfer__" xml:space="preserve">
+    <value>Eingehende Palette bearbeiten - Warten auf Palette am Stopper - Eingangsübertragung</value>
+  </data>
+  <data name="___Handle_incoming_palette___Wait_for_pallete_in_workposition__" xml:space="preserve">
+    <value>Palette empfangen - Auf Palette in Arbeitsposition warten</value>
+  </data>
+  <data name="___Handle_outgoing_palette___Transfer_unit_home__" xml:space="preserve">
+    <value>Palette senden - Transfergerät zurücksetzen</value>
+  </data>
+  <data name="___Handle_outgoing_palette___Wait_to_transfer_unit_is_empty__" xml:space="preserve">
+    <value>Palette senden - Warten, bis Transfergerät leer ist</value>
+  </data>
+  <data name="___Handle_outgoing_palette___Transfer_unit_to_middle_position__" xml:space="preserve">
+    <value>Palette senden - Transfergerät in Mittelposition</value>
+  </data>
+  <data name="___Handle_outgoing_palette___Done__" xml:space="preserve">
+    <value>Palette senden - Fertig</value>
+  </data>
+  <data name="___Handle_outgoing_palette___Init__" xml:space="preserve">
+    <value>Palette ausgeben - Init</value>
+  </data>
+  <data name="___Handle_outgoing_palette___Send_Direct_Send_Side__" xml:space="preserve">
+    <value>Palette ausgeben - Direkt senden/Seite senden</value>
+  </data>
+  <data name="___Handle_outgoing_palette___Check_Main_transfer_is_empty__" xml:space="preserve">
+    <value>Palette ausgeben - Haupttransfer prüfen ist leer</value>
+  </data>
+  <data name="___Handle_outgoing_palette___Wait_Trasnfer_unit_at_Middle_position__not_home_not_work___" xml:space="preserve">
+    <value>Palette ausgeben - Warten auf Transfereinheit in Mittelposition (nicht home, nicht arbeiten)</value>
+  </data>
+  <data name="___Handle_outgoing_palette___Wait_Side_transfer_is_empty__" xml:space="preserve">
+    <value>Palette ausgeben - Warten auf Seitenübertragung ist leer</value>
+  </data>
+  <data name="___Handle_outgoing_palette___Wait_for_pallete_in_side_transfer__" xml:space="preserve">
+    <value>Palette ausgeben - Auf Palette im Seitenübergang warten</value>
+  </data>
+  <data name="___Handle_outgoing_palette___Transfer_unit_middle_position__" xml:space="preserve">
+    <value>Palette ausgeben - Transfergerät Mittelposition</value>
+  </data>
+  <data name="___Handle_incoming_palette___Check_status_of_workposition___" xml:space="preserve">
+    <value>Palette eingeben - Status der Arbeitsposition überprüfen</value>
+  </data>
+  <data name="___Handle_incoming_palette___Open_prestopper__" xml:space="preserve">
+    <value>Palette eingeben - Prestopp öffnen</value>
+  </data>
+  <data name="___Handle_outgoing_palette___Check_lift_rotary_unit_position___" xml:space="preserve">
+    <value>Palette ausgeben - Position des Hebe-Rotationsgeräts überprüfen</value>
+  </data>
+  <data name="___Handle_outgoing_palette___Open_stopper_to_send_palette__" xml:space="preserve">
+    <value>Palette ausgeben - Stopper öffnen, um Palette zu senden</value>
+  </data>
+  <data name="___Handle_outgoing_palette___Wait_for_pallete_at_prestopper__" xml:space="preserve">
+    <value>Palette ausgeben - Auf Palette am Vorstopper warten</value>
+  </data>
+  <data name="___Handle_outgoing_palette___rotary_unit_to_work___" xml:space="preserve">
+    <value>Palette ausgeben - Drehmodul aktivieren</value>
+  </data>
+  <data name="___Handle_incoming_palette___Handle_incoming_palette_start__Check_position_unit_position___" xml:space="preserve">
+    <value>Palette eingeben - Palette eingeben starten (Positionseinheit überprüfen)</value>
+  </data>
+  <data name="___Handle_outgoing_palette___Start__Check_position_unit_position___" xml:space="preserve">
+    <value>Palette ausgeben - Start (Positionseinheit überprüfen)</value>
+  </data>
+  <data name="___Handle_outgoing_palette___Open_stopper_to_send_palette_to_next_station__" xml:space="preserve">
+    <value>Palette ausgeben - Stopper öffnen, um Palette zur nächsten Station zu senden</value>
+  </data>
+</root>

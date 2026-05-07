@@ -19,13 +19,13 @@ namespace x_template_xPlc
                 switch (result)
                 {
                     case eOverallResult.NoAction:
-                        return "NoAction";
+                        return x_template_xHmi.Wpf.Properties.strings.NoAction;
                     case eOverallResult.InProgress:
-                        return "InProgress";
+                        return x_template_xHmi.Wpf.Properties.strings.InProgress;
                     case eOverallResult.Passed:
-                        return "Passed";
+                        return x_template_xHmi.Wpf.Properties.strings.Passed;
                     case eOverallResult.Failed:
-                        return "Failed";
+                        return x_template_xHmi.Wpf.Properties.strings.Failed;
                     default:
                         break;
                 }

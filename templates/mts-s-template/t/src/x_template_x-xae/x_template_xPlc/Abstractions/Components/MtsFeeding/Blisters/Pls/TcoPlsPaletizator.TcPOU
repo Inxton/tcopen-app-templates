@@ -4,6 +4,7 @@
     <Declaration><![CDATA[FUNCTION_BLOCK TcoPlsPaletizator EXTENDS TcoCore.TcoComponent
 VAR_INPUT
     inSafeCondition : BOOL;
+	inSafeConditionErrorMsg : STRING; ///use this to insert specific safe condition message, otherwise a generic one is used
     inDoorOpen : BOOL;
 END_VAR
 
@@ -21,34 +22,47 @@ VAR
     {attribute addProperty Name "<#Components#>"}
     _components : TcoPlsPaletizator_Components := (Parent := THIS^);
 
-    {attribute addProperty Name "<#Poziadavka novy blister#>"}
+    {attribute addProperty Name "<#Request new blister#>"}
     _feedNewBlisterTask : TcoFeedingSequenceTask(THIS^);
-    {attribute addProperty Name "<#Poziadavka vylozenie blistera#>"}
+    {attribute addProperty Name "<#Request to unload blister#>"}
     _throwBlisterTask : TcoFeedingSequenceTask(THIS^);
-    {attribute addProperty Name "<#Poziadavka obsluhy vystupny buffer#>"}
+    {attribute addProperty Name "<#Request outgoing buffer#>"}
     _hanldeOutBufferTask : TcoFeedingSequenceTask(THIS^);
-    {attribute addProperty Name "<#Poziadavka vychodzej polohy#>"}
+    {attribute addProperty Name "<#Request home position#>"}
     _setToDefaultTask : TcoFeedingSequenceTask(THIS^);
 
     {attribute addProperty Name "<#Restore#>"}
     _restoreTask : TcoCore.TcoTask(THIS^);
 
-    {attribute clr [CompilerOmits("BuilderPlainer", "BuilderOnliner","BuilderOnlinerInterface","BuilderShadowerInterface")]}
-    _blinker : TcoBlinker(THIS^);
-    _timerEntryEmpty : ton;
-    _timerOutFull : ton;
-    _timerDisableSafety : TON;
-    {attribute addProperty Name "<#Temporarily disabled safety#>"}
+    
+	
+	
+    {attribute addProperty Name "<#Safety temporarily disabled#>"}
     _temporarilyDisableSafety : BOOL;
 
-    {attribute clr [CompilerOmits("BuilderPlainer", "BuilderOnliner","BuilderOnlinerInterface","BuilderShadowerInterface")]}
-    restoreDone : BOOL;
-    {attribute clr [CompilerOmits("BuilderPlainer", "BuilderOnliner","BuilderOnlinerInterface","BuilderShadowerInterface")]}
-    _setSequencesToStep : BOOL := FALSE;
+
+    
+	
+
+	//~
+	_blinker : TcoBlinker(THIS^);
+	restoreDone : BOOL;
+	_setSequencesToStep : BOOL := FALSE;
+	_safeConditionErrorMsg : STRING;
+    _timerEntryEmpty : TON;
+    _timerOutFull : TON;
+    _timerDisableSafety : TON;
+	//~
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[_status.SafeCondition := inSafeCondition;
+IF inSafeConditionErrorMsg <> '' THEN
+	_safeConditionErrorMsg := inSafeConditionErrorMsg;
+ELSE
+	_safeConditionErrorMsg := '<#Safety condition not met!#>';
+END_IF
+
 Context.Environment.Messaging.Suspend();
 _status.EntryBufferEmpty := NOT Components.I3_PresentBlistersInBufferEmpty.Signal;
 _status.BlisterReady := Components.I4_PresentBlisterInWorkingPos.Signal AND Components.P7_SupportEntryBlister.AtWork;
@@ -103,47 +117,45 @@ END_IF
 //********************SAFETY******************
 _timerDisableSafety(IN := _temporarilyDisableSafety, PT := _config.TimeToDisableSafety);
 
-THIS^.Messenger.OnCondition(inCondition := _temporarilyDisableSafety).Warning('SAFTY TEMPORARILY DISABLED!');
+THIS^.Messenger.OnCondition(inCondition := _temporarilyDisableSafety).Warning('<#SAFETY TEMPORARILY DISABLED!#>');
 
 IF NOT _temporarilyDisableSafety THEN
 
     Components.P7_SupportEntryBlister
-        .SuspendMoveWorkExpression( Components.P7_SupportEntryBlister.MoveWorkTask.Busy AND NOT inSafeCondition, '<#Movement is blocked due safe zone is interupted(robot in zone)#>');
+        .SuspendMoveWorkExpression( Components.P7_SupportEntryBlister.MoveWorkTask.Busy AND NOT inSafeCondition, CONCAT('P7 <#Movement blocked#>: ',_safeConditionErrorMsg));
 
     Components.P7_SupportEntryBlister
-        .SuspendMoveHomeExpression(Components.P7_SupportEntryBlister.MoveHomeTask.Busy AND NOT inSafeCondition, '<#Movement is blocked due safe zone is interupted(robot in zone)#>');
+        .SuspendMoveHomeExpression(Components.P7_SupportEntryBlister.MoveHomeTask.Busy AND NOT inSafeCondition, CONCAT('P7 <#Movement blocked#>: ',_safeConditionErrorMsg));
 
     Components.P8_FixEntryBlisterSide
-        .SuspendMoveWorkExpression(Components.P8_FixEntryBlisterSide.MoveWorkTask.Busy AND NOT inSafeCondition, '<#Movement is blocked due safe zone is interupted(robot in zone)#>');
+        .SuspendMoveWorkExpression(Components.P8_FixEntryBlisterSide.MoveWorkTask.Busy AND NOT inSafeCondition, CONCAT('P8 <#Movement blocked#>: ',_safeConditionErrorMsg));
 
     Components.P8_FixEntryBlisterSide
-        .SuspendMoveHomeExpression(Components.P8_FixEntryBlisterSide.MoveHomeTask.Busy AND NOT inSafeCondition, '<#Movement is blocked due safe zone is interupted(robot in zone)#>');
+        .SuspendMoveHomeExpression(Components.P8_FixEntryBlisterSide.MoveHomeTask.Busy AND NOT inSafeCondition, CONCAT('P8 <#Movement blocked#>: ',_safeConditionErrorMsg));
 
     IF NOT _config.LockBlisterInPickPosInactive THEN
         Components.P9_LockEntryBlisterTop
-            .SuspendMoveWorkExpression(Components.P9_LockEntryBlisterTop.MoveWorkTask.Busy AND NOT inSafeCondition, '<#Movement is blocked due safe zone is interupted(robot in zone)#>');
+            .SuspendMoveWorkExpression(Components.P9_LockEntryBlisterTop.MoveWorkTask.Busy AND NOT inSafeCondition, CONCAT('P9 <#Movement blocked#>: ',_safeConditionErrorMsg));
 
         Components.P9_LockEntryBlisterTop
-            .SuspendMoveHomeExpression(Components.P9_LockEntryBlisterTop.MoveHomeTask.Busy AND NOT inSafeCondition, '<#Movement is blocked due safe zone is interupted(robot in zone)#>');
+            .SuspendMoveHomeExpression(Components.P9_LockEntryBlisterTop.MoveHomeTask.Busy AND NOT inSafeCondition, CONCAT('P9 <#Movement blocked#>: ',_safeConditionErrorMsg));
     END_IF;
 
     Components.P4_FeedEntryBlister
-        .SuspendMoveWorkExpression(NOT Components.P7_SupportEntryBlister.AtHome, 'Movement is blocked due P7 is not in home position');
+        .SuspendMoveWorkExpression(NOT Components.P7_SupportEntryBlister.AtHome, CONCAT('P4 <#Movement blocked#>: ','<#P7 is not in home position#>'));
 
     Components.P4_FeedEntryBlister
-        .SuspendMoveHomeExpression(NOT Components.P6_VerticalSepareOutBlister.AtHome, 'Movement is blocked due P6 is not in home position');
+        .SuspendMoveHomeExpression(NOT Components.P6_VerticalSepareOutBlister.AtHome, CONCAT('P4 <#Movement blocked#>: ','<#P6 is not in home position#>'));
 
     Components.P4_FeedEntryBlister
-        .SuspendMoveHomeExpression(NOT Components.P5_HorizontalSepareOutBlisters.AtHome, 'Movement is blocked due P5 is not in home position');
+        .SuspendMoveHomeExpression(NOT Components.P5_HorizontalSepareOutBlisters.AtHome, CONCAT('P4 <#Movement blocked#>: ','<#P5 is not in home position#>'));
 
     Components.P4_FeedEntryBlister
-        .SuspendMoveHomeExpression(Components.I7_OutBlistersIsAboveOutBuffer.Signal, 'Movement is blocked due empty blister is not unloaded');
+        .SuspendMoveHomeExpression(Components.I7_OutBlistersIsAboveOutBuffer.Signal, CONCAT('P4 <#Movement blocked#>: ','<#empty blister is not unloaded#>'));
 
     Components.P7_SupportEntryBlister
-        .SuspendMoveWorkExpression(NOT Components.P4_FeedEntryBlister.AtHome, 'Movement is blocked due P4 is not in home position');
+        .SuspendMoveWorkExpression(NOT Components.P4_FeedEntryBlister.AtHome, CONCAT('P4 <#Movement blocked#>: ','<#P4 is not in home position#>'));
 
-    Components.P7_SupportEntryBlister
-        .SuspendMoveWorkExpression(NOT Components.P4_FeedEntryBlister.AtHome, 'Movement is blocked due P4 is not in home position');
 END_IF;
 
 IF _timerDisableSafety.Q THEN
@@ -206,7 +218,7 @@ ELSIF  _blinker.IsOn THEN
 		THIS^._throwBlisterTask.Busy
 		OR
 		THIS^._hanldeOutBufferTask.Busy )THEN
-		Messenger.Warning('<#CAKANIE NA OBSLUHU PALETIZERA - ZAVRITE DVERE!#>');
+		Messenger.Warning('<#Waiting for palletizer service - Close the door!#>');
 		Components.Q1_AttentionSignalisationR.Set();
 		Components.Q2_AttentionSignalisationG.Set();
 	ELSIF _timerEntryEmpty.Q
@@ -339,147 +351,186 @@ seq.Observer := refSequenceTask.Observer;
 
 
 //***************************************************************************************************     
-//    This step will be executed and immediately finished, as the condition in Await method is true.
-IF seq.Step(0,TRUE,'<#INIT#>') THEN   
-	Messenger.Warning('<#BEZPECNOST ZARIADENIA NARUSENA. NIEJE MOZNE VYKONAT AKCIU#>');     
+IF seq.Step(0,TRUE,'<#INITIAL SAFETY CHECK#>') THEN   
+	     
 	IF _status.SafeCondition THEN
     	seq.CompleteStep();
+	ELSE
+		Messenger.Warning(_safeConditionErrorMsg);
 	END_IF;
 END_IF        
 //***************************************************************************************************     
 
  
 //***************************************************************************************************     
-IF seq.Step(10,TRUE,'<#KONTROLA POCTU VSTUPNYCH BLISTROV#>') THEN   
-    Messenger.Warning('<#PODAVAC PRAZDNY! DOPLNE VSTUPNE BLISTRE !#>');
+IF seq.Step(10,TRUE,'<#CHECKING INCOMING BLISTERS#>') THEN   
+    Messenger.Warning('<#BLISTER FEEDER EMPTY. REFILL INPUT BLISTERS!#>');
     seq.StepCompleteWhen(Components.I3_PresentBlistersInBufferEmpty.IsTrue);
-END_IF        
+END_IF      
 //***************************************************************************************************     
 
 
         
 //***************************************************************************************************     
-IF seq.Step(20,TRUE,'<#SEPAROVANIE VSTUPNEHO BLISTRA - VERTIKALNE VALCE VYSUNUTE P1 A P2 #>') THEN   
+IF seq.Step(20,TRUE,'<#ENTRY BLISTER SEPARATION#> - <#EXTENDING VERTICAL CYLINDERS#> P1, P2') THEN   
 
-    seq.StepCompleteWhen(THIS^.Components.P1_VerticalSepareEntryBlisters.MoveToWork().Done AND THIS^.Components.P2_VerticalSepareEntryBlisters.MoveToWork().Done);
-END_IF        
+    seq.StepCompleteWhen(
+        THIS^.Components.P1_VerticalSepareEntryBlisters.MoveToWork().Done AND
+        THIS^.Components.P2_VerticalSepareEntryBlisters.MoveToWork().Done);
+
+END_IF      
 //***************************************************************************************************     
 
 
 //***************************************************************************************************     
-IF seq.Step(30,TRUE,'<#SEPAROVANIE VSTUPNEHO BLISTRA - SEPAROVANIE ZASUNUTE P3#>') THEN   
+IF seq.Step(30,TRUE,'<#ENTRY BLISTER SEPARATION#> - <#RETRACTING CYLINDER#> P3') THEN   
 
-    seq.StepCompleteWhen(THIS^.Components.P3_HorizontalSepareEntryBlisters.MoveToHome().Done);
-END_IF        
+    seq.StepCompleteWhen(
+        THIS^.Components.P3_HorizontalSepareEntryBlisters.MoveToHome().Done);
+
+END_IF    
 //***************************************************************************************************     
 
 
 //***************************************************************************************************     
-IF seq.Step(40,TRUE,'<#SEPAROVANIE VSTUPNEHO BLISTRA - VERTIKALNE VALCE  ZASUNUT P1#>') THEN   
+IF seq.Step(40,TRUE,'<#ENTRY BLISTER SEPARATION#> - <#RETRACTING CYLINDER#> P1') THEN   
 
-    seq.StepCompleteWhen(THIS^.Components.P1_VerticalSepareEntryBlisters.MoveToHome().Done );
-END_IF        
+    seq.StepCompleteWhen(
+        THIS^.Components.P1_VerticalSepareEntryBlisters.MoveToHome().Done);
+
+END_IF      
 //***************************************************************************************************     
 
 //***************************************************************************************************     
-IF seq.Step(45,TRUE,'<#SEPAROVANIE VSTUPNEHO BLISTRA - VERTIKALNE VALCE VYSUNUT P2#>') THEN   
+IF seq.Step(45,TRUE,'<#ENTRY BLISTER SEPARATION#> - <#EXTENDING CYLINDER#> P2') THEN   
 
-    seq.StepCompleteWhen( THIS^.Components.P2_VerticalSepareEntryBlisters.MoveToWork().Done);
-END_IF        
+    seq.StepCompleteWhen(
+        THIS^.Components.P2_VerticalSepareEntryBlisters.MoveToWork().Done);
+
+END_IF       
 //***************************************************************************************************     
 
 
 //***************************************************************************************************     
-IF seq.Step(50,TRUE,'<#SEPAROVANIE VSTUPNEHO BLISTRA - SEPAROVANIE VYSUNUTE P3 A P10#>') THEN   
+IF seq.Step(50,TRUE,'<#ENTRY BLISTER SEPARATION#> - <#EXTENDING CYLINDERS#> P3, P10') THEN   
 
-    seq.StepCompleteWhen(THIS^.Components.P3_HorizontalSepareEntryBlisters.MoveToWork().Done AND (Components.P10_HoldEntrySepareOutBlister.MoveToWork().Done or _config.SepareBlistersAtEntryInactive));
-END_IF        
+    seq.StepCompleteWhen(
+        THIS^.Components.P3_HorizontalSepareEntryBlisters.MoveToWork().Done AND
+        (Components.P10_HoldEntrySepareOutBlister.MoveToWork().Done OR _config.SepareBlistersAtEntryInactive));
+
+END_IF       
 //***************************************************************************************************     
 
 //***************************************************************************************************     
-IF seq.Step(60,TRUE,'<#SEPAROVANIE VSTUPNEHO BLISTRA - VERTIKALNE VALCE ZASUNUT P1 A P@#>') THEN   
+IF seq.Step(60,TRUE,'<#ENTRY BLISTER SEPARATION#> - <#RETRACTING CYLINDERS#> P1, P2') THEN   
 
-    seq.StepCompleteWhen(THIS^.Components.P1_VerticalSepareEntryBlisters.MoveToHome().Done AND THIS^.Components.P2_VerticalSepareEntryBlisters.MoveToHome().Done); 
+    seq.StepCompleteWhen(
+        THIS^.Components.P1_VerticalSepareEntryBlisters.MoveToHome().Done AND
+        THIS^.Components.P2_VerticalSepareEntryBlisters.MoveToHome().Done); 
 					
-END_IF        
+END_IF       
 //***************************************************************************************************     
 
 //***************************************************************************************************     
-IF seq.Step(65,NOT _config.SepareBlistersAtEntryInactive,'<#SEPAROVANIE VSTUPNEHO BLISTRA - ZASUNUTIE P10>') THEN   
+IF seq.Step(65,NOT _config.SepareBlistersAtEntryInactive,'<#ENTRY BLISTER SEPARATION#> - <#RETRACTING CYLINDER#> P10') THEN   
 
-    seq.StepCompleteWhen(Components.P10_HoldEntrySepareOutBlister.MoveToHome().Done  );
-END_IF        
+    seq.StepCompleteWhen(
+        Components.P10_HoldEntrySepareOutBlister.MoveToHome().Done);
+
+END_IF       
 //***************************************************************************************************     
 
 //***************************************************************************************************   
-IF seq.Step(70,TRUE,'<#KONTROLA PRITOMNOSTI SEPAROVANEHO KUSU#>') THEN   
-    Messenger.Error('<#PODAVAC PRAZDNY! DOPLNE BLISTRE !#>');
-    seq.StepCompleteWhen(THIS^.Components.I1_PresentBlisterEntry.IsTrue AND (THIS^.Components.I2_PresentBlisterEntryEmptySpace.IsTrue) );
-END_IF        
+IF seq.Step(70,TRUE,'<#CHECKING IF BLISTERS ARE SEPARATED#>') THEN   
+
+    seq.StepCompleteWhen(
+        THIS^.Components.I1_PresentBlisterEntry.IsTrue AND
+        THIS^.Components.I2_PresentBlisterEntryEmptySpace.IsTrue);
+		
+	 Messenger.Error('I1, I2 <#FEEDER EMPTY, REFILL BLISTERS!#>');
+
+END_IF    
 //***************************************************************************************************     
 
 
 //***************************************************************************************************     
-IF seq.Step(80,TRUE,'<#SEPAROVANIE VSTUPNEHO BLISTRA - UPEVNENIE BLISTRA ZASUNUT P8#>') THEN   
+IF seq.Step(80,TRUE,'<#ENTRY BLISTER HANDLING#> - <#RETRACTING SIDE CLAMP#> P8') THEN   
 
-    seq.StepCompleteWhen(THIS^.Components.P8_FixEntryBlisterSide.MoveToHome().Done);
-END_IF        
+    seq.StepCompleteWhen(
+        THIS^.Components.P8_FixEntryBlisterSide.MoveToHome().Done);
+
+END_IF   
 //***************************************************************************************************     
 
 //***************************************************************************************************     
-IF seq.Step(85,TRUE,'<#SEPAROVANIE VSTUPNEHO BLISTRA - CAKANIE NA PRESUNUTIE BLISTRA DO ODOBERACEJ POLOHY P4 A I1 #>') THEN   
+IF seq.Step(85,TRUE,'<#ENTRY BLISTER HANDLING#> - <#WAITING FOR TRANSFER TO WORK POSITION#> P4, I1') THEN   
 
-    seq.StepCompleteWhen(THIS^.Components.P4_FeedEntryBlister.MoveToWork().Done AND Components.i4_PresentBlisterInWorkingPos.IsTrue);
-END_IF        
+    seq.StepCompleteWhen(
+        THIS^.Components.P4_FeedEntryBlister.MoveToWork().Done AND
+        Components.i4_PresentBlisterInWorkingPos.IsTrue);
+
+END_IF  
 //***************************************************************************************************     
 
 
 //***************************************************************************************************     
-IF seq.Step(90,TRUE,'<#SEPAROVANIE VSTUPNEHO BLISTRA - UPEVENIE BLISTRA ZBOKU#>') THEN   
+IF seq.Step(90,TRUE,'<#ENTRY BLISTER HANDLING#> - <#CLAMPING BLISTER FROM THE SIDE#> P8') THEN   
 
-    seq.StepCompleteWhen(THIS^.Components.P8_FixEntryBlisterSide.MoveToWork().Done);
-END_IF        
+    seq.StepCompleteWhen(
+        THIS^.Components.P8_FixEntryBlisterSide.MoveToWork().Done);
+
+END_IF   
 //***************************************************************************************************     
 
 
 
 //***************************************************************************************************     
-IF seq.Step(100,TRUE,'<#SEPAROVANIE VSTUPNEHO BLISTRA - NPRESUNUTIE BLISTRA DO POZICIE NABERANIA#>') THEN   
+IF seq.Step(100,TRUE,'<#ENTRY BLISTER HANDLING#> - <#MOVE TO PICK POSITION#> P6') THEN   
 
    IF THIS^.Components.P6_VerticalSepareOutBlister.AtHome THEN
 	    seq.CompleteStep();
 	ELSE
-		Messenger.Error('VYSTUPNY BUFFER NIEJE V HORNEJ POZICII!(P6)');
+		Components.P6_VerticalSepareOutBlister.Messenger.Error(
+            'P6 <#OUTPUT LIFT NOT IN UPPER POSITION!#>');
 	END_IF
-END_IF        
+
+END_IF       
 //***************************************************************************************************   
 
 //***************************************************************************************************     
-IF seq.Step(110,TRUE,'<#SEPAROVANIE VSTUPNEHO BLISTRA - ZASUNUTE P4#>') THEN   
+IF seq.Step(110,TRUE,'<#ENTRY BLISTER HANDLING#> - <#RETRACTING FEED#> P4') THEN   
 
-	 seq.StepCompleteWhen(THIS^.Components.P4_FeedEntryBlister.MoveToHome().Done) ;
+	seq.StepCompleteWhen(
+        THIS^.Components.P4_FeedEntryBlister.MoveToHome().Done);
 	
-END_IF        
+END_IF 
 //***************************************************************************************************   
 
 
 //***************************************************************************************************     
-IF seq.Step(120,TRUE,'<#SEPAROVANIE VSTUPNEHO BLISTRA - PODoPRETIE  A ZAFIXOVANIE KUSU P7 VYSUNT A P9 ZASUNUT #>') THEN   
+IF seq.Step(120,TRUE,'<#ENTRY BLISTER HANDLING#> - <#LOWERING SUPPORT TRAY#> P7, P9') THEN   
 
-    seq.StepCompleteWhen(THIS^.Components.P7_SupportEntryBlister.MoveToWork().Done AND (THIS^.Components.P9_LockEntryBlisterTop.MoveToHome().Done OR _config.LockBlisterInPickPosInactive));
-END_IF        
+    seq.StepCompleteWhen(
+        THIS^.Components.P7_SupportEntryBlister.MoveToWork().Done AND
+        (THIS^.Components.P9_LockEntryBlisterTop.MoveToHome().Done OR
+         _config.LockBlisterInPickPosInactive));
+
+END_IF       
 //***************************************************************************************************   
 
 
 
 
-IF (seq.Step(inStepID := seq.RESTORE_STEP_ID,
+IF (seq.Step(
+    inStepID := seq.RESTORE_STEP_ID,
     inEnabled := TRUE,
-    inStepDescription := 'RETURN TO THE START OF THE SEQUENCE')) THEN
+    inStepDescription := '<#SEQUENCE COMPLETE#>')) THEN
+
     //--------------------------------------------------------	
-		refSequenceTask.DoneWhen(TRUE);
-    	seq.CompleteSequence();
+    refSequenceTask.DoneWhen(TRUE);
+    seq.CompleteSequence();
     //--------------------------------------------------------			
+
 END_IF;
 
 
@@ -498,18 +549,14 @@ seq.Close();]]></ST>
       <Declaration><![CDATA[METHOD PRIVATE SequenceOutgoingBlister
 VAR_INPUT
 	refSequenceTask : REFERENCE TO TcoFeedingSequenceTask;
-	
-	
 END_VAR
 
 VAR
     seq    : REFERENCE TO TcoCore.TcoSequence;
-
 END_VAR
 
 VAR_INST
-	_timer:ton;
-	
+	_timer : TON;
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[seq REF= refSequenceTask.Sequence;
@@ -525,55 +572,70 @@ seq.Observer := refSequenceTask.Observer;
 
 
 //***************************************************************************************************     
-//    This step will be executed and immediately finished, as the condition in Await method is true.
-IF seq.Step(0,TRUE,'<#INIT#>') THEN   
-	Messenger.Warning('<#BEZPECNOST ZARIADENIA NARUSENA. NIEJE MOZNE VYKONAT AKCIU#>');     
+IF seq.Step(0,TRUE,'<#INITIAL SAFETY CHECK#>') THEN   
 	IF _status.SafeCondition THEN
     	seq.CompleteStep();
+	ELSE
+		Messenger.Warning(_safeConditionErrorMsg);
 	END_IF;
 END_IF        
 //***************************************************************************************************     
 
-IF seq.Step(10,TRUE,'<#SEPAROVANIE VYSTUPNEHO BLISTRA - UVOLNENIE BLISTRA VYSUNUTIE P9#>') THEN   
+IF seq.Step(10,TRUE,'<#SEPARATING OUTGOING BLISTER#> - <#RELEASING BLISTER#> P9') THEN   
 
-    seq.StepCompleteWhen( (THIS^.Components.P9_LockEntryBlisterTop.MoveToWork().Done OR _config.LockBlisterInPickPosInactive) AND THIS^.Components.P8_FixEntryBlisterSide.MoveToHome().Done);
-END_IF        
+    seq.StepCompleteWhen(
+        (THIS^.Components.P9_LockEntryBlisterTop.MoveToWork().Done OR
+         _config.LockBlisterInPickPosInactive) AND
+        THIS^.Components.P8_FixEntryBlisterSide.MoveToHome().Done);
+
+END_IF  
 //***************************************************************************************************   
 
 
 //***************************************************************************************************     
-IF seq.Step(20,TRUE,'<#SEPAROVANIE VYSTUPNEHO BLISTRA - ZASUNUTIE SUPPORTU P7#>') THEN   
+IF seq.Step(20,TRUE,'<#SEPARATING OUTGOING BLISTER#> - <#LOWERING SUPPORT#> P7') THEN   
 
-   seq.StepCompleteWhen(THIS^.Components.P7_SupportEntryBlister.MoveToHome().Done);
-END_IF        
+    seq.StepCompleteWhen(
+        THIS^.Components.P7_SupportEntryBlister.MoveToHome().Done);
+
+END_IF     
 //***************************************************************************************************   
 
 
 
 //***************************************************************************************************     
-IF seq.Step(30,TRUE,'<#SEPAROVANIE VYSTUPNEHO BLISTRA - KONTROLA PRITOMNOSTI BLISTA NA SKLZE (I5) #>') THEN   
+IF seq.Step(30,TRUE,'<#SEPARATING OUTGOING BLISTER#> - <#CHECKING BLISTER IN OUTPUT TRAY#> I5') THEN   
 	IF seq.IsFreshState THEN
 		_timer(IN:=FALSE);
 	END_IF
-	_timer(IN:=THIS^.Components.I5_OutBlistersIsThrowedCorrectly.Signal,PT:=_config.StabilisationTime);
+
+	_timer(IN:=THIS^.Components.I5_OutBlistersIsThrowedCorrectly.Signal,
+        PT:=_config.StabilisationTime);
 	
-    seq.StepCompleteWhen(_timer.Q);
-	
-	IF Components.P4_FeedEntryBlister.AtHome AND NOT THIS^.Components.I5_OutBlistersIsThrowedCorrectly.Signal THEN
-		seq.StepCompleteWhen(seq.CurrentStep.Duration>_config.StabilisationTime);
+	IF _timer.Q THEN
+		seq.CompleteStep();
+	ELSIF Components.P4_FeedEntryBlister.AtHome AND
+       NOT THIS^.Components.I5_OutBlistersIsThrowedCorrectly.Signal THEN
+
+		seq.StepCompleteWhen(
+            seq.CurrentStep.Duration > _config.StabilisationTime);
 	END_IF
-END_IF        
+	
+END_IF    
 //***************************************************************************************************   
 
 
 
-IF (seq.Step(inStepID := seq.RESTORE_STEP_ID,
+IF (seq.Step(
+    inStepID := seq.RESTORE_STEP_ID,
     inEnabled := TRUE,
-    inStepDescription := 'RETURN TO THE START OF THE SEQUENCE')) THEN
+    inStepDescription := '<#SEQUENCE COMPLETE#>')) THEN
+
     //--------------------------------------------------------	
-		refSequenceTask.DoneWhen(TRUE);
-    	seq.CompleteSequence();
+    refSequenceTask.DoneWhen(TRUE);
+    seq.CompleteSequence();
     //--------------------------------------------------------			
+
 END_IF;
 
 
@@ -620,45 +682,57 @@ seq.Observer := refSequenceTask.Observer;
 
 
 //***************************************************************************************************     
-//    This step will be executed and immediately finished, as the condition in Await method is true.
-IF seq.Step(0,TRUE,'<#INIT#>') THEN   
-	Messenger.Warning('<#BEZPECNOST ZARIADENIA NARUSENA. NIEJE MOZNE VYKONAT AKCIU#>');     
+IF seq.Step(0,TRUE,'<#INITIAL SAFETY CHECK#>') THEN   
 	IF _status.SafeCondition THEN
     	seq.CompleteStep();
+	ELSE
+		Messenger.Warning(_safeConditionErrorMsg);
 	END_IF;
-END_IF        
+END_IF         
 //***************************************************************************************************     
 
 
 
 //***************************************************************************************************     
-IF seq.Step(10,TRUE,'<#VYSTUPNY BUFFER - KONTROLA PRITOMNOSTI BLISTA NAD BUFFEROM  #>') THEN   
+IF seq.Step(10,TRUE,'<#OUTGOING BUFFER#> - <#CHECKING FOR BLISTER ABOVE THE BUFFER#> I7') THEN   
+
 	IF seq.IsFreshState THEN
 		_timer(IN:=FALSE);
 	END_IF
-	_timer(IN:=(*NOT THIS^.Components.I5_OutBlistersIsThrowedCorrectly.Signal AND*) Components.I7_OutBlistersIsAboveOutBuffer.Signal,PT:=_config.StabilisationTime);
+
+	_timer(
+        IN:=(*NOT THIS^.Components.I5_OutBlistersIsThrowedCorrectly.Signal AND*)
+            Components.I7_OutBlistersIsAboveOutBuffer.Signal,
+        PT:=_config.StabilisationTime);
 	
     seq.StepCompleteWhen(_timer.Q);
+
 END_IF        
 //***************************************************************************************************   
 
 
 //***************************************************************************************************     
-IF seq.Step(20,TRUE,'<#VYSTUPNY BUFFER - KONTROLA POSCTU BLISTROV SNIMAC I8 #>') THEN   
-	Messenger.Warning('<#PODAVAC PLNY! ODSTRANTE PRAZDNE BLISTRE (I8) !#>');
-    seq.StepCompleteWhen(THIS^.Components.I8_OutBlistersBufferIsFull.IsFalse);
+IF seq.Step(20,TRUE,'<#OUTGOING BUFFER#> - <#CHECKING BLISTER COUNT#> I8') THEN   
+
+	Messenger.Warning('<#FEEDER FULL, PLEASE REMOVE EMPTY BLISTERS!#>');
+
+    seq.StepCompleteWhen(
+        THIS^.Components.I8_OutBlistersBufferIsFull.IsFalse);
+
 END_IF        
 //***************************************************************************************************   
 
 
 //***************************************************************************************************     
-IF seq.Step(30,TRUE,'<#VYSTUPNY BUFFER - P6 POSUN KUSOV NAD BUFFER#>') THEN   
+IF seq.Step(30,TRUE,'<#OUTGOING BUFFER#> - <#MOVING TRAYS ABOVE THE BLISTER#> P6') THEN   
 
 	THIS^.Components.P6_VerticalSepareOutBlister.MoveToWork();
+
 	IF Components.I6_OutBlistersLisftSignal.Signal THEN
 	
 		THIS^.Components.P6_VerticalSepareOutBlister.MoveWorkTask.Abort();
 	    seq.StepCompleteWhen(TRUE);
+
 	END_IF;
 		
 END_IF        
@@ -666,41 +740,44 @@ END_IF
 
 
 //***************************************************************************************************     
-IF seq.Step(40,TRUE,'<#VYSTUPNY BUFFER - UVOLNENIE BLISTRA  P5 PRACOVNA POZICIA #>') THEN   
+IF seq.Step(40,TRUE,'<#OUTGOING BUFFER#> - <#MOVING CYLINDER TO WORK POSITION#> P5') THEN   
 
-	
-	seq.StepCompleteWhen(Components.P5_HorizontalSepareOutBlisters.MoveToWork().Done);
+	seq.StepCompleteWhen(
+        Components.P5_HorizontalSepareOutBlisters.MoveToWork().Done);
 		
 END_IF        
 //***************************************************************************************************   
 
-//***************************************************************************************************     
-IF seq.Step(45,TRUE,'<#VYSTUPNY BUFFER - P6 NAVRAT NAHOR#>') THEN   
 
-	
-	seq.StepCompleteWhen( THIS^.Components.P6_VerticalSepareOutBlister.MoveToHome().Done);
+//***************************************************************************************************     
+IF seq.Step(45,TRUE,'<#OUTGOING BUFFER#> - <#HOMING CYLINDER#> P6') THEN   
+
+	seq.StepCompleteWhen(THIS^.Components.P6_VerticalSepareOutBlister.MoveToHome().Done);
 		
 END_IF        
 //***************************************************************************************************   
 
-//***************************************************************************************************     
-IF seq.Step(50,TRUE,'<#VYSTUPNY BUFFER - HORIZONTALNE ZASUNUTIE P5 ZAKLADNA POZICIA#>') THEN   
 
-	
+//***************************************************************************************************     
+IF seq.Step(50,TRUE,'<#OUTGOING BUFFER#> - <#HOMING CYLINDER#> P5') THEN   
+
 	seq.StepCompleteWhen(Components.P5_HorizontalSepareOutBlisters.MoveToHome().Done);
 		
-END_IF        
+END_IF
 //***************************************************************************************************   
 
 
 
-IF (seq.Step(inStepID := seq.RESTORE_STEP_ID,
+IF (seq.Step(
+    inStepID := seq.RESTORE_STEP_ID,
     inEnabled := TRUE,
-    inStepDescription := 'RETURN TO THE START OF THE SEQUENCE')) THEN
+    inStepDescription := '<#SEQUENCE COMPLETE#>')) THEN
+
     //--------------------------------------------------------	
-		refSequenceTask.DoneWhen(TRUE);
-    	seq.CompleteSequence();
+    refSequenceTask.DoneWhen(TRUE);
+    seq.CompleteSequence();
     //--------------------------------------------------------			
+
 END_IF;
 
 
@@ -744,86 +821,99 @@ seq.Observer := refSequenceTask.Observer;
 
 
 //***************************************************************************************************     
-//    This step will be executed and immediately finished, as the condition in Await method is true.
-IF seq.Step(0,TRUE,'<#INIT#>') THEN   
-	Messenger.Warning('<#BEZPECNOST ZARIADENIA NARUSENA. NIEJE MOZNE VYKONAT AKCIU#>');     
+IF seq.Step(0,TRUE,'<#INITIAL SAFETY CHECK#>') THEN   
 	IF _status.SafeCondition THEN
     	seq.CompleteStep();
+	ELSE
+		Messenger.Warning(_safeConditionErrorMsg);
 	END_IF;
-END_IF        
+END_IF      
 //***************************************************************************************************     
 
 
 
 //***************************************************************************************************     
-IF seq.Step(10,TRUE,'<#VYCHODIZA POLOHA - VYSUNUTIE P3#>') THEN   
+IF seq.Step(10,TRUE,'<#HOME POSITION#> - <#EXTENDING SEPARATOR CLAMPS#> P3') THEN   
 
-    seq.StepCompleteWhen(Components.P3_HorizontalSepareEntryBlisters.MoveToWork().Done );
-END_IF        
-//***************************************************************************************************   
-
-
-//***************************************************************************************************     
-IF seq.Step(20,NOT _config.SepareBlistersAtEntryInactive,'<#VYCHODIZA POLOHA - ZASUNUTIE P10#>') THEN   
-
-    seq.StepCompleteWhen(Components.P10_HoldEntrySepareOutBlister.MoveToHome().Done);
-END_IF        
-//***************************************************************************************************   
-
-
-//***************************************************************************************************     
-IF seq.Step(30,TRUE,'<#VYCHODIZA POLOHA - ZASUNUTIE P1 A P2>') THEN   
-
-
-	    seq.StepCompleteWhen(Components.P1_VerticalSepareEntryBlisters.MoveToHome().Done AND_THEN Components.P2_VerticalSepareEntryBlisters.MoveToHome().Done);
+    seq.StepCompleteWhen(
+        Components.P3_HorizontalSepareEntryBlisters.MoveToWork().Done);
 
 END_IF        
 //***************************************************************************************************   
 
 
 //***************************************************************************************************     
-IF seq.Step(40,TRUE,'<#VYCHODIZA POLOHA - ZASUNUTIE P5#>') THEN   
+IF seq.Step(20,NOT _config.SepareBlistersAtEntryInactive,'<#HOME POSITION#> - <#RETRACTING CYLINDER#> P10') THEN   
 
-	
-	seq.StepCompleteWhen(Components.P5_HorizontalSepareOutBlisters.MoveToHome().Done);
+    seq.StepCompleteWhen(
+        Components.P10_HoldEntrySepareOutBlister.MoveToHome().Done);
+
+END_IF        
+//***************************************************************************************************   
+
+
+//***************************************************************************************************     
+IF seq.Step(30,TRUE,'<#HOME POSITION#> - <#LIFTING ENTRY BLISTERS#> P1, P2') THEN   
+
+    seq.StepCompleteWhen(
+        Components.P1_VerticalSepareEntryBlisters.MoveToHome().Done AND_THEN
+        Components.P2_VerticalSepareEntryBlisters.MoveToHome().Done);
+
+END_IF        
+//***************************************************************************************************   
+
+
+//***************************************************************************************************     
+IF seq.Step(40,TRUE,'<#HOME POSITION#> - <#RETRACTING OUTPUT BLISTER CLAMPS#> P5') THEN   
+
+	seq.StepCompleteWhen(
+        Components.P5_HorizontalSepareOutBlisters.MoveToHome().Done);
 		
 END_IF        
 //***************************************************************************************************   
 
-//***************************************************************************************************     
-IF seq.Step(50,TRUE,'<#VYCHODIZA POLOHA - ZASUNUTIE P6#>') THEN   
 
-	
-	seq.StepCompleteWhen(Components.P6_VerticalSepareOutBlister.MoveToHome().Done);
+//***************************************************************************************************     
+IF seq.Step(50,TRUE,'<#HOME POSITION#> - <#RETRACTING OUTPUT BLISTER LIFT#> P6') THEN   
+
+	seq.StepCompleteWhen(
+        Components.P6_VerticalSepareOutBlister.MoveToHome().Done);
 		
 END_IF        
 //***************************************************************************************************   
 
-//***************************************************************************************************     
-IF seq.Step(60,TRUE,'<#VYCHODIZA POLOHA - ZASUNUTIE P4 DO ZAKLADNEJ POZICIE#>') THEN   
 
-	
-	seq.StepCompleteWhen(Components.P4_FeedEntryBlister.MoveToHome().Done);
+//***************************************************************************************************     
+IF seq.Step(60,TRUE,'<#HOME POSITION#> - <#RETRACTING FEEDER#> P4') THEN   
+
+	seq.StepCompleteWhen(
+        Components.P4_FeedEntryBlister.MoveToHome().Done);
 		
 END_IF        
 //***************************************************************************************************   
 
-//***************************************************************************************************     
-IF seq.Step(70,COmponents.I4_PresentBlisterInWorkingPos.Signal AND
-				Components.P8_FixEntryBlisterSide.AtWork,'<#SEPAROVANIE VSTUPNEHO BLISTRA - PODoPRETIE  A ZAFIXOVANIE KUSU P7 VYSUNT A P9 ZASUNUT #>') THEN   
 
-    seq.StepCompleteWhen(THIS^.Components.P7_SupportEntryBlister.MoveToWork().Done AND (THIS^.Components.P9_LockEntryBlisterTop.MoveToHome().Done OR _config.LockBlisterInPickPosInactive));
+//***************************************************************************************************     
+IF seq.Step(70,Components.I4_PresentBlisterInWorkingPos.Signal AND 
+				Components.P8_FixEntryBlisterSide.AtWork,'<#HOME POSITION#> - <#LIFTING BLISTER SUPPORT#> P7, P9') THEN   
+
+    seq.StepCompleteWhen(
+        THIS^.Components.P7_SupportEntryBlister.MoveToWork().Done AND
+        (THIS^.Components.P9_LockEntryBlisterTop.MoveToHome().Done OR
+         _config.LockBlisterInPickPosInactive));
+
 END_IF        
 //***************************************************************************************************   
 
 
 IF (seq.Step(inStepID := seq.RESTORE_STEP_ID,
     inEnabled := TRUE,
-    inStepDescription := 'RETURN TO THE START OF THE SEQUENCE')) THEN
+    inStepDescription := '<#SEQUENCE COMPLETE#>')) THEN
     //--------------------------------------------------------	
-		refSequenceTask.DoneWhen(TRUE);
-    	seq.CompleteSequence();
+    refSequenceTask.DoneWhen(TRUE);
+    seq.CompleteSequence();
     //--------------------------------------------------------			
+
 END_IF;
 
 
@@ -944,5 +1034,165 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <LineIds Name="TcoPlsPaletizator">
+      <LineId Id="3" Count="0" />
+      <LineId Id="165" Count="1" />
+      <LineId Id="168" Count="1" />
+      <LineId Id="167" Count="0" />
+      <LineId Id="164" Count="0" />
+      <LineId Id="4" Count="91" />
+      <LineId Id="97" Count="0" />
+      <LineId Id="99" Count="3" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="TcoPlsPaletizator.Components.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="TcoPlsPaletizator.Config.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="TcoPlsPaletizator.DefaultSignalisation">
+      <LineId Id="3" Count="42" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="TcoPlsPaletizator.FeedNewBlister">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="TcoPlsPaletizator.FeedNewBlisterTask.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="TcoPlsPaletizator.HandleOutBufferTask.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="TcoPlsPaletizator.OutBufferFull.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="TcoPlsPaletizator.ReadyToUnloadComponent.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="TcoPlsPaletizator.Restore">
+      <LineId Id="3" Count="5" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="TcoPlsPaletizator.SequenceIncomingBlister">
+      <LineId Id="3" Count="13" />
+      <LineId Id="18" Count="3" />
+      <LineId Id="181" Count="1" />
+      <LineId Id="22" Count="5" />
+      <LineId Id="183" Count="2" />
+      <LineId Id="31" Count="5" />
+      <LineId Id="186" Count="5" />
+      <LineId Id="40" Count="4" />
+      <LineId Id="192" Count="4" />
+      <LineId Id="48" Count="4" />
+      <LineId Id="197" Count="4" />
+      <LineId Id="56" Count="3" />
+      <LineId Id="202" Count="4" />
+      <LineId Id="63" Count="4" />
+      <LineId Id="207" Count="5" />
+      <LineId Id="71" Count="3" />
+      <LineId Id="213" Count="5" />
+      <LineId Id="79" Count="3" />
+      <LineId Id="219" Count="4" />
+      <LineId Id="86" Count="3" />
+      <LineId Id="224" Count="0" />
+      <LineId Id="227" Count="3" />
+      <LineId Id="232" Count="1" />
+      <LineId Id="231" Count="0" />
+      <LineId Id="93" Count="4" />
+      <LineId Id="234" Count="4" />
+      <LineId Id="101" Count="3" />
+      <LineId Id="239" Count="5" />
+      <LineId Id="108" Count="4" />
+      <LineId Id="245" Count="4" />
+      <LineId Id="116" Count="5" />
+      <LineId Id="250" Count="8" />
+      <LineId Id="129" Count="3" />
+      <LineId Id="259" Count="4" />
+      <LineId Id="137" Count="4" />
+      <LineId Id="264" Count="6" />
+      <LineId Id="145" Count="5" />
+      <LineId Id="271" Count="9" />
+      <LineId Id="158" Count="10" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="TcoPlsPaletizator.SequenceOutgoingBlister">
+      <LineId Id="3" Count="12" />
+      <LineId Id="92" Count="0" />
+      <LineId Id="94" Count="4" />
+      <LineId Id="22" Count="2" />
+      <LineId Id="109" Count="6" />
+      <LineId Id="28" Count="4" />
+      <LineId Id="116" Count="4" />
+      <LineId Id="36" Count="5" />
+      <LineId Id="121" Count="0" />
+      <LineId Id="123" Count="4" />
+      <LineId Id="129" Count="0" />
+      <LineId Id="132" Count="0" />
+      <LineId Id="141" Count="0" />
+      <LineId Id="144" Count="0" />
+      <LineId Id="146" Count="4" />
+      <LineId Id="145" Count="0" />
+      <LineId Id="140" Count="0" />
+      <LineId Id="53" Count="4" />
+      <LineId Id="99" Count="9" />
+      <LineId Id="65" Count="11" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="TcoPlsPaletizator.SequenceOutgoingBuffer">
+      <LineId Id="3" Count="12" />
+      <LineId Id="122" Count="0" />
+      <LineId Id="124" Count="4" />
+      <LineId Id="22" Count="5" />
+      <LineId Id="139" Count="58" />
+      <LineId Id="199" Count="8" />
+      <LineId Id="209" Count="0" />
+      <LineId Id="85" Count="4" />
+      <LineId Id="129" Count="9" />
+      <LineId Id="97" Count="9" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="TcoPlsPaletizator.SequenceResetToDefault">
+      <LineId Id="3" Count="11" />
+      <LineId Id="121" Count="0" />
+      <LineId Id="123" Count="4" />
+      <LineId Id="21" Count="5" />
+      <LineId Id="138" Count="61" />
+      <LineId Id="224" Count="0" />
+      <LineId Id="204" Count="10" />
+      <LineId Id="216" Count="1" />
+      <LineId Id="219" Count="4" />
+      <LineId Id="95" Count="10" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="TcoPlsPaletizator.ServiceMode">
+      <LineId Id="3" Count="12" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="TcoPlsPaletizator.SetSequencesToStep.Get">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="TcoPlsPaletizator.SetSequencesToStep.Set">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="TcoPlsPaletizator.SetToDefault">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="TcoPlsPaletizator.SetToDefaultTask.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="TcoPlsPaletizator.Status.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="TcoPlsPaletizator.ThrowBlister">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="TcoPlsPaletizator.ThrowBlisterTask.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>

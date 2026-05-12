@@ -2,9 +2,11 @@
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
 using TcoCore.Wpf;
+using x_template_xPlcConnector;
 
 
 namespace x_template_xHmi.Wpf.SynologyStatus
@@ -18,17 +20,20 @@ namespace x_template_xHmi.Wpf.SynologyStatus
         private PackIconKind statusIcon;
         private Brush backgroundColor;
 
-        public SynologyStatusViewModel(string ip, string username, string password, int updateIntervalMinutes)
+        public SynologyStatusViewModel()
         {
-            _ip = ip;
+
+            _ip = Entry.Settings.SynologyIp;
             IsVisible = !string.IsNullOrEmpty(_ip);
-            synology = new Synology(ip, username, password);
+            synology = new Synology(_ip, Entry.Settings.SynologyUserName, Entry.Settings.SynologyUserPass);
 
             timer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromMinutes(updateIntervalMinutes)
+                Interval = TimeSpan.FromMinutes(Entry.Settings.SynologyUpdateIntervalMinutes)
             };
             timer.Tick += Timer_Tick;
+
+            StartUpdatingStatus();
         }
 
         #region Properties
@@ -46,7 +51,7 @@ namespace x_template_xHmi.Wpf.SynologyStatus
                 }
             }
         }
-        
+
         public Brush ForegroundColor
         {
             get => backgroundColor;
@@ -67,10 +72,10 @@ namespace x_template_xHmi.Wpf.SynologyStatus
             get => isVisible;
             set
             {
-              
-                    isVisible = value;
-                    OnPropertyChanged(nameof(IsVisible));
-               
+
+                isVisible = value;
+                OnPropertyChanged(nameof(IsVisible));
+
             }
         }
         public PackIconKind StatusIcon
@@ -99,7 +104,7 @@ namespace x_template_xHmi.Wpf.SynologyStatus
         public async Task UpdateStatus()
         {
             IsVisible = !string.IsNullOrEmpty(_ip);
-      
+
             string newStatus = await synology.ReadHealthStatus();
             Status = newStatus;
         }
@@ -114,7 +119,7 @@ namespace x_template_xHmi.Wpf.SynologyStatus
             switch (status?.ToLowerInvariant())
             {
                 case "healthy":
-                    ForegroundColor = Brushes.Green;
+                    ForegroundColor = (Brush)Application.Current.Resources["Accent"];//Brushes.Green;
                     StatusIcon = PackIconKind.CheckCircleOutline;
                     break;
 
@@ -159,7 +164,7 @@ namespace x_template_xHmi.Wpf.SynologyStatus
             timer.Stop();
             timer.Tick -= Timer_Tick;
 
-            // If Synology itself holds unmanaged resources, dispose it too.
+            // If Synology itself holds unmanaged resources, dispose them too.
             (synology as IDisposable)?.Dispose();
 
             disposed = true;

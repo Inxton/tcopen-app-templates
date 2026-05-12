@@ -153,4 +153,7 @@
   <data name="TechnologyData" xml:space="preserve">
     <value>Datos tecnológicos</value>
   </data>
+  <data name="SynologyStatus" xml:space="preserve">
+    <value>Estado de Synology</value>
+  </data>
 </root>

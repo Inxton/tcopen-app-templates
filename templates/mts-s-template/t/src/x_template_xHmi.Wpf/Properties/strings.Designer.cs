@@ -304,11 +304,38 @@ namespace x_template_xHmi.Wpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed.
+        /// </summary>
+        public static string Failed {
+            get {
+                return ResourceManager.GetString("Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to False.
+        /// </summary>
+        public static string False {
+            get {
+                return ResourceManager.GetString("False", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DETAILS.
         /// </summary>
         public static string fbCustomControlledUnitSpotView_D {
             get {
                 return ResourceManager.GetString("fbCustomControlledUnitSpotView_D", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter by:.
+        /// </summary>
+        public static string FilterBy {
+            get {
+                return ResourceManager.GetString("FilterBy", resourceCulture);
             }
         }
         
@@ -340,11 +367,29 @@ namespace x_template_xHmi.Wpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In progress.
+        /// </summary>
+        public static string InProgress {
+            get {
+                return ResourceManager.GetString("InProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Instructions.
         /// </summary>
         public static string Instructions {
             get {
                 return ResourceManager.GetString("Instructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid.
+        /// </summary>
+        public static string Invalid {
+            get {
+                return ResourceManager.GetString("Invalid", resourceCulture);
             }
         }
         
@@ -399,6 +444,15 @@ namespace x_template_xHmi.Wpf.Properties {
         public static string LanguageMessageBoxText {
             get {
                 return ResourceManager.GetString("LanguageMessageBoxText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Station.
+        /// </summary>
+        public static string LastStation {
+            get {
+                return ResourceManager.GetString("LastStation", resourceCulture);
             }
         }
         
@@ -520,6 +574,24 @@ namespace x_template_xHmi.Wpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No action.
+        /// </summary>
+        public static string NoAction {
+            get {
+                return ResourceManager.GetString("NoAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string None {
+            get {
+                return ResourceManager.GetString("None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ONLINE DATA.
         /// </summary>
         public static string OnlineData {
@@ -552,6 +624,15 @@ namespace x_template_xHmi.Wpf.Properties {
         public static string ParallelSequencers {
             get {
                 return ResourceManager.GetString("ParallelSequencers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passed.
+        /// </summary>
+        public static string Passed {
+            get {
+                return ResourceManager.GetString("Passed", resourceCulture);
             }
         }
         
@@ -894,6 +975,15 @@ namespace x_template_xHmi.Wpf.Properties {
         public static string Training {
             get {
                 return ResourceManager.GetString("Training", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to True.
+        /// </summary>
+        public static string True {
+            get {
+                return ResourceManager.GetString("True", resourceCulture);
             }
         }
         

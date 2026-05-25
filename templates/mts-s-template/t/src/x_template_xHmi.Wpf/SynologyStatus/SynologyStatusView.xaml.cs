@@ -11,7 +11,7 @@ namespace x_template_xHmi.Wpf.SynologyStatus
         {
             InitializeComponent();
 
-            viewModel = new SynologyStatusViewModel(Entry.Settings.SynologyIp, Entry.Settings.SynologyUserName, Entry.Settings.SynologyUserPass, Entry.Settings.SynologyUpdateIntervalMinutes);
+            viewModel = new SynologyStatusViewModel();
             DataContext = viewModel;
 
             viewModel.StartUpdatingStatus();

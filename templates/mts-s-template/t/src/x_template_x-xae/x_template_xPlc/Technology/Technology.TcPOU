@@ -278,6 +278,125 @@ _components.Zone.AddKeyNormalService(inKeyNormalService:=_components.NormalServi
 ]]></ST>
       </Implementation>
     </Method>
+    <Method Name="InitializeNotificationPanel" Id="{96b29b2e-24d6-46ba-8aab-c4c454308e47}" FolderPath="Initialize\">
+      <Declaration><![CDATA[METHOD InitializeNotificationPanel
+VAR
+	//~
+	icon : Icon;
+	new : Icon;
+	//~
+END_VAR
+
+VAR_INST
+	//~
+	tixonsOK : BOOL;
+	tixonErrorTmr : TON;
+	//~
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Context.Environment.Messaging.Suspend();
+
+
+{region "NOTIFICATION PANEL"}
+_notificationPanel.Clear();
+
+
+icon.Title := '<#Control Voltage#>';
+icon.IconType := TO_STRING(eIconType.ControlVoltage);
+icon.Signal := Components.GlobalControlVoltage.Signal;
+_notificationPanel.addIcon(icon);
+icon := new;
+
+icon.Title := '<#Air Pressure#>';
+icon.IconType := TO_STRING(eIconType.AirPressure);
+icon.Signal := Components.AirPresureOk.Signal;
+_notificationPanel.addIcon(icon);
+icon := new;
+
+icon.Title := '<#Emergency Stop#>';
+icon.IconType := TO_STRING(eIconType.EmergencyStop);
+icon.Signal := Components.EmergencyStop.Signal;
+_notificationPanel.addIcon(icon);
+icon := new;
+
+icon.Title := '<#Safety door#>';
+icon.IconType := TO_STRING(eIconType.SafetyDoor);
+icon.Signal :=  Components.DoorCicuit.IsLocalDoorsVoltageOk;
+_notificationPanel.addIcon(icon);
+icon := new;
+
+icon.Title := '<#Doors closed#>';
+icon.IconType := TO_STRING(eIconType.DoorClosed);
+icon.Signal := Components.DoorCicuit.IsClosed;
+_notificationPanel.addIcon(icon);
+icon := new;
+
+icon.Title := '<#Doors Locked#>';
+icon.IconType := TO_STRING(eIconType.DoorLocked);
+icon.Signal := Components.DoorCicuit.IsLocked;
+_notificationPanel.addIcon(icon);
+icon := new;
+
+icon.Title := '<#Automat Allowed#>';
+icon.IconType := TO_STRING(eIconType.AutomatAllowed);
+icon.Signal := Components.Zone.Status.State.AllKeysAuto;
+_notificationPanel.addIcon(icon);
+icon := new;
+
+icon.Title := '<#Process Data Loaded#>';
+icon.IconType := TO_STRING(eIconType.ProcessDataLoaded);
+icon.Signal := ProcessSettings.Data._EntityId <> '';
+_notificationPanel.addIcon(icon);
+icon := new;
+
+icon.Title := '<#Technology Data Loaded#>';
+icon.IconType := TO_STRING(eIconType.TechnologyDataLoaded);  
+icon.Signal := TechnologicalSettings.Data._EntityId <> '';
+_notificationPanel.addIcon(icon);
+icon := new;
+
+icon.Title := '<#Manipulator#>';
+icon.IconType := 'AxisArrow';  
+/// Recommend to set a backing field in the affected CUs and accessing it through a property, because the below line WILL cause the the plc to crash in the first cycle!!! 
+//icon.Signal := NOT _cu00x.Components.MultiAxis.Axis_1.AxisStatus.Error;
+_notificationPanel.addIcon(icon);
+icon := new;
+	 
+icon.Title := '<#Robots#>';
+icon.IconType := TO_STRING(eIconType.Robot);  
+icon.Signal :=  _cu00x.Components.KukaKrc4.Status.State.ExternalAutomatic AND NOT _cu00x.Components.KukaKrc4.Status.State.Error;
+_notificationPanel.addIcon(icon);
+icon := new;
+	 
+
+icon.Title := '<#Cameras#>';
+icon.IconType := 'CameraOutline';  
+icon.Signal := NOT _cu00x.Components.Cam.Status.SignalStatus.Error;
+_notificationPanel.addIcon(icon);
+icon := new;
+	 
+icon.Title := '<#Laser#>';
+icon.IconType := 'Qrcode';
+//icon.Signal := _cu00x.Components.KeyenceLaser.Status.MachineStatus.IsConnection;
+_notificationPanel.addIcon(icon);
+icon := new;
+
+///Tixon Auto from project 2400620
+//tixonErrorTmr(IN := (NOT _cu00x.Components.Tixon.Status.Ready AND NOT _cu00x.Components.Tixon.RequestSrcewTask.Busy) , PT := T#3S );
+tixonsOK := NOT tixonErrorTmr.Q; 
+
+icon.Title := 'TIXON';
+icon.IconType := 'Bolt';  
+icon.Signal := tixonsOK;
+_notificationPanel.addIcon(icon);
+icon := new;
+	 
+_notificationPanel();
+{endregion}
+ Context.Environment.Messaging.Resume();]]></ST>
+      </Implementation>
+    </Method>
     <Property Name="InternalStorage" Id="{311fed79-b6f6-44c2-8bf8-ced928984e77}">
       <Declaration><![CDATA[PROPERTY InternalStorage : REFERENCE TO InternalStorage]]></Declaration>
       <Get Name="Get" Id="{3391eb5b-27a8-47f3-aa13-303f14b175dc}">
@@ -300,14 +419,7 @@ END_VAR
 	</docu>
 ~*)
 METHOD PROTECTED Main
-VAR
-	_notificationSourceSignals: NotificationPanelInfo;
-	safetyCircuitOk: BOOL;
-	_eStopActive: BOOL;
-	_keysAto: BOOL;
-	_closed: BOOL;
-	_locked: BOOL;
-END_VAR]]></Declaration>
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[(*
 	Context settings 
@@ -350,36 +462,7 @@ END_IF
 //notification panel
  Context.Environment.Messaging.Suspend();
 			
-_closed:=TRUE;
-//_closed   := 	Components.Safety.DoorCircuits.DoorCircuit_2.IsClosed 
-//			AND Components.Safety.DoorCircuits.DoorCircuit_3.IsClosed  
-//			AND Components.Safety.DoorCircuits.DoorCircuit_4.IsClosed  
-//			AND Components.Safety.DoorCircuits.DoorCircuit_5.IsClosed  
-//			AND Components.Safety.DoorCircuits.DoorCircuit_6.IsClosed;
-
- _locked:=TRUE;
-//_locked   := 	Components.Safety.DoorCircuits.DoorCircuit_2.IsLocked 
-//			AND Components.Safety.DoorCircuits.DoorCircuit_3.IsLocked  
-//			AND Components.Safety.DoorCircuits.DoorCircuit_4.IsLocked  
-//			AND Components.Safety.DoorCircuits.DoorCircuit_5.IsLocked  
-//			AND Components.Safety.DoorCircuits.DoorCircuit_6.IsLocked;
-			
-_keysAto  := TRUE;
-_eStopActive:=0;
-
-
-_notificationSourceSignals.ControlVoltage   := TRUE;//Components.ControlVoltage.Signal.Signal 
-_notificationSourceSignals.AirPressure      := TRUE;//Components.AirPressureOk.Signal.Signal, 
-_notificationSourceSignals.AutomatAllowed   := _keysAto; 
-_notificationSourceSignals.EmergencyStop    := _eStopActive > 0; 
-_notificationSourceSignals.SafetyDoorOk     :=safetyCircuitOk;	
-_notificationSourceSignals.LightCurtain     := TRUE; 	// not used
-_notificationSourceSignals.DoorClosed       := _closed; 
-_notificationSourceSignals.DoorLocked       := _locked; 
-_notificationSourceSignals.ProcessDataOk    := _processSettings._data._EntityId <> '';
-_notificationSourceSignals.TechnologyDataOk := _technologySettings._data._EntityId <> '';  
-	
-_notificationPanel(inBlinkPeriod:=T#500MS , inSignalSource:=_notificationSourceSignals );
+ InitializeNotificationPanel();
 			
  Context.Environment.Messaging.Resume();
 

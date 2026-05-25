@@ -153,4 +153,7 @@
   <data name="TechnologyData" xml:space="preserve">
     <value>Technologie-Daten</value>
   </data>
+  <data name="SynologyStatus" xml:space="preserve">
+    <value>Synology-Status</value>
+  </data>
 </root>

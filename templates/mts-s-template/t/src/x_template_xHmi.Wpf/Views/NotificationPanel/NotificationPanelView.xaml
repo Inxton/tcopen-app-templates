@@ -1,0 +1,198 @@
+﻿<UserControl
+    x:Class="x_template_xPlc.NotificationPanelView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:s="clr-namespace:x_template_xHmi.Wpf.Properties"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:plc="clr-namespace:x_template_xPlc"
+    xmlns:synologystatus="clr-namespace:x_template_xHmi.Wpf.SynologyStatus"
+    mc:Ignorable="d"
+    d:DesignHeight="1500"
+    d:DesignWidth="1500">
+    <UserControl.Resources>
+        <plc:BadgeConverter x:Key="BadgeConverter"/>
+
+        <Style x:Key="icon" TargetType="materialDesign:PackIcon">
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Foreground" Value="{DynamicResource OnPrimary}"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Style.Triggers>
+
+                <!--green-->
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding BlinkingEnabled.Cyclic}" Value="False"/>
+                        <Condition Binding="{Binding Signal.Cyclic}" Value="True"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Background" Value="{StaticResource Accent}"/>
+                </MultiDataTrigger>
+
+                <!--red-->
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding BlinkingEnabled.Cyclic}" Value="False"/>
+                        <Condition Binding="{Binding EnableRedIcon.Cyclic}" Value="True"/>
+                        <Condition Binding="{Binding Signal.Cyclic}" Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Background" Value="{StaticResource Alert}"/>
+                </MultiDataTrigger>
+
+                <!--blue-->
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding EnableRedIcon.Cyclic}" Value="False"/>
+                        <Condition Binding="{Binding Signal.Cyclic}" Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Background" Value="{StaticResource Primary}"/>
+                </MultiDataTrigger>
+
+                <!--green blinking-->
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding BlinkingEnabled.Cyclic}" Value="True"/>
+                        <Condition Binding="{Binding Signal.Cyclic}" Value="True"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Background" Value="{Binding SignalBlink.Cyclic, Converter={plc:HeartBeatToBrushConverter}}"/>
+                </MultiDataTrigger>
+                <!--red blinking-->
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding BlinkingEnabled.Cyclic}" Value="True"/>
+                        <Condition Binding="{Binding EnableRedIcon.Cyclic}" Value="True"/>
+                        <Condition Binding="{Binding Signal.Cyclic}" Value="False"/>
+                    </MultiDataTrigger.Conditions>
+
+                    <Setter Property="Background" Value="{Binding SignalBlink.Cyclic, Converter={plc:AlertToBrushConverter}}"/>
+                </MultiDataTrigger>
+
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="iconContainer" TargetType="Border">
+            <Setter Property="Visibility" Value="Visible"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Surface}" />
+            <Setter Property="Opacity" Value="0.9" />
+            <Setter Property="BorderThickness" Value="2.5"/>
+            <Setter Property="CornerRadius" Value="3"/>
+        </Style>
+
+
+        <Style x:Key="alertIcon" TargetType="materialDesign:PackIcon" >
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Foreground" Value="{StaticResource Accent}"/>
+        </Style>
+
+        <Style x:Key="alertIconBorder" TargetType="Border">
+            <Setter Property="BorderBrush" Value="{StaticResource OnPrimary}"/>
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Margin" Value="-10,-10,0,0"/>
+        </Style>
+
+        <Style x:Key="badge" TargetType="Border">
+            <Setter Property="Width" Value="20"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="CornerRadius" Value="20"/>
+            <Setter Property="Margin" Value="0,-55,-10,0"/>
+
+            <Setter Property="Background" Value="{DynamicResource Alert}"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+        </Style>
+
+        <Style x:Key="badgeText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Black" />
+        </Style>
+
+        <Style x:Key="IconText" TargetType="TextBlock" BasedOn="{StaticResource badgeText}">
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="20"/>
+            <!--<Setter Property="Visibility" Value="Collapsed"/>-->
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsExpanded, ElementName=NotificationExpander}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsExpanded, ElementName=NotificationExpander}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="PanelRow" TargetType="StackPanel">
+            <Setter Property="MaxHeight" Value="100"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+
+
+    </UserControl.Resources>
+
+
+    <Grid 
+            Background="{StaticResource Primary}"
+            MaxWidth="550">
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <!--<Grid>-->
+
+        <Expander  x:Name="NotificationExpander"  
+                      Background="{StaticResource Primary}"
+                       Foreground="{StaticResource OnMtsBlue}"
+                      ExpandDirection="Right" Focusable="False">
+            <Expander.Header>
+                <Border  Visibility="{Binding Component._badgeValue.Cyclic, Converter={StaticResource BadgeConverter}}" 
+                             Style="{StaticResource badge}">
+
+                    <TextBlock Text="{Binding Component._badgeValue.Cyclic}" Style="{StaticResource badgeText}"/>
+                </Border>
+            </Expander.Header>
+        </Expander>
+
+        <StackPanel Grid.Row="1" MinHeight="500">
+            <ListView   x:Name="IconList"
+                            ItemsSource="{Binding Component._iconSet}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+
+                        <StackPanel Orientation="Horizontal" Style="{StaticResource PanelRow}" Visibility="{Binding Title.Cyclic, Converter={plc:VisibleToCollapsedConverter}}">
+
+                            <Border Style="{StaticResource iconContainer}" Margin="2">
+                                <materialDesign:PackIcon Kind="{Binding IconType.Cyclic, Converter={plc:IconConverter}}" Style="{StaticResource icon}"/>
+                            </Border>
+
+                            <TextBlock Style="{StaticResource IconText}"
+                                   Text="{Binding Title.Cyclic}"/>
+
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+
+
+        <!--EXTEND HERE-->
+        <!--</Grid>-->
+        <synologystatus:SynologyNotificationView Grid.Row="2" IsExpanded="{Binding IsExpanded, ElementName=NotificationExpander}"/>
+    </Grid>
+
+
+
+
+</UserControl>

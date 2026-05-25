@@ -160,6 +160,15 @@ namespace x_template_xHmi.Wpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Synology status.
+        /// </summary>
+        public static string SynologyStatus {
+            get {
+                return ResourceManager.GetString("SynologyStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Technology data.
         /// </summary>
         public static string TechnologyData {

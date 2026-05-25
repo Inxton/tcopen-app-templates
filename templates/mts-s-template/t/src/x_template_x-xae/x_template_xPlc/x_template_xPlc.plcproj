@@ -287,10 +287,13 @@
     <Compile Include="Abstractions\Generic\LightTower\TcoLightTower_Status.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Abstractions\Generic\NotificationPanel\NotificationPanel.TcPOU">
+    <Compile Include="Abstractions\Generic\NotificationPanel\eIconType.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Abstractions\Generic\NotificationPanel\NotificationPanelInfo.TcDUT">
+    <Compile Include="Abstractions\Generic\NotificationPanel\Icon.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Abstractions\Generic\NotificationPanel\NotificationPanel.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Abstractions\Generic\TagsPairing\eTagPairingAnswer.TcDUT">
@@ -315,6 +318,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Abstractions\Safety\ControlButtons\TcoControledZone_Info.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Abstractions\Safety\ControlButtons\VirtualButtons.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Abstractions\Safety\ControlledZone\TcoControlledZone.TcPOU">

@@ -5,9 +5,13 @@
     TcoPlsPaletizator_Status_v_1_x_x EXTENDS TcoFeeding_Status_v_1_x_x:
     STRUCT
 
-        
+        {attribute addProperty Name "<#Refill required#>"}
 		EntryBufferEmpty:BOOL;
+		
+		{attribute addProperty Name "<#Blister ready#>"}
         BlisterReady : BOOL;
+		
+		{attribute addProperty Name "<#Empty blisters removal required#>"}
         OutBufferFull : BOOL;
     END_STRUCT
 END_TYPE

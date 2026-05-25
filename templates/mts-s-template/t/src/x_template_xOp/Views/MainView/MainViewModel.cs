@@ -8,10 +8,10 @@ using TcOpen.Inxton;
 using TcOpen.Inxton.Local.Security.Wpf;
 using x_template_xHmi.Wpf;
 using x_template_xHmi.Wpf.Views.Diagnostics;
-using x_template_xOp.Data;
 using x_template_xHmi.Wpf.Properties;
 using x_template_xOp.Views.Operator;
 using x_template_xPlc;
+using x_template_xHmi.Wpf.Data;
 
 namespace x_template_xOp.Views.MainView
 {
@@ -21,7 +21,8 @@ namespace x_template_xOp.Views.MainView
         {
             Title = "TECHNOLOGY";
             OpenCommand(this.AddCommand(typeof(OperatorView), strings.Operator));
-            AddCommand(typeof(DataView), strings.Data);
+     
+            AddCommand(typeof(DataView), strings.ProductionData);
             AddCommand(typeof(UserManagementGroupManagementView), strings.UserManagement);
             AddCommand(typeof(DiagnosticsView), strings.Diagnostics);
             OpenLoginWindowCommand = new TcOpen.Inxton.Input.RelayCommand(a => OpenLoginWindow());

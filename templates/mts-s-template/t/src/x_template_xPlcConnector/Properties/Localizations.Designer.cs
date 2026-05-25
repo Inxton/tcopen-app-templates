@@ -549,6 +549,15 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Action.
+        /// </summary>
+        public static string ___Action__ {
+            get {
+                return ResourceManager.GetString("___Action__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ADD NEW TAG  EXAMPLE.
         /// </summary>
         public static string ___ADD_NEW_TAG__EXAMPLE__ {
@@ -567,11 +576,11 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Air pressure.
+        ///   Looks up a localized string similar to Air Pressure.
         /// </summary>
-        public static string ___Air_pressure__ {
+        public static string ___Air_Pressure__ {
             get {
-                return ResourceManager.GetString("___Air_pressure__", resourceCulture);
+                return ResourceManager.GetString("___Air_Pressure__", resourceCulture);
             }
         }
         
@@ -774,15 +783,6 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Autmatic mode allowed.
-        /// </summary>
-        public static string ___Autmatic_mode_allowed__ {
-            get {
-                return ResourceManager.GetString("___Autmatic_mode_allowed__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Auto.
         /// </summary>
         public static string ___Auto__ {
@@ -806,6 +806,15 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___AUTOMAT_ALL__ {
             get {
                 return ResourceManager.GetString("___AUTOMAT_ALL__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automat Allowed.
+        /// </summary>
+        public static string ___Automat_Allowed__ {
+            get {
+                return ResourceManager.GetString("___Automat_Allowed__", resourceCulture);
             }
         }
         
@@ -923,6 +932,51 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___Blink_period__ {
             get {
                 return ResourceManager.GetString("___Blink_period__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blister feeder empty.
+        /// </summary>
+        public static string ___Blister_feeder_empty__ {
+            get {
+                return ResourceManager.GetString("___Blister_feeder_empty__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BLISTER FEEDER EMPTY. REFILL INPUT BLISTERS!.
+        /// </summary>
+        public static string ___BLISTER_FEEDER_EMPTY__REFILL_INPUT_BLISTERS___ {
+            get {
+                return ResourceManager.GetString("___BLISTER_FEEDER_EMPTY__REFILL_INPUT_BLISTERS___", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blister in working position.
+        /// </summary>
+        public static string ___Blister_in_working_position__ {
+            get {
+                return ResourceManager.GetString("___Blister_in_working_position__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blister present in entry slide.
+        /// </summary>
+        public static string ___Blister_present_in_entry_slide__ {
+            get {
+                return ResourceManager.GetString("___Blister_present_in_entry_slide__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blister ready.
+        /// </summary>
+        public static string ___Blister_ready__ {
+            get {
+                return ResourceManager.GetString("___Blister_ready__", resourceCulture);
             }
         }
         
@@ -1089,6 +1143,15 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cameras.
+        /// </summary>
+        public static string ___Cameras__ {
+            get {
+                return ResourceManager.GetString("___Cameras__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Carrier.
         /// </summary>
         public static string ___Carrier__ {
@@ -1135,6 +1198,51 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CHECKING BLISTER COUNT.
+        /// </summary>
+        public static string ___CHECKING_BLISTER_COUNT__ {
+            get {
+                return ResourceManager.GetString("___CHECKING_BLISTER_COUNT__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CHECKING BLISTER IN OUTPUT TRAY.
+        /// </summary>
+        public static string ___CHECKING_BLISTER_IN_OUTPUT_TRAY__ {
+            get {
+                return ResourceManager.GetString("___CHECKING_BLISTER_IN_OUTPUT_TRAY__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CHECKING FOR BLISTER ABOVE THE BUFFER.
+        /// </summary>
+        public static string ___CHECKING_FOR_BLISTER_ABOVE_THE_BUFFER__ {
+            get {
+                return ResourceManager.GetString("___CHECKING_FOR_BLISTER_ABOVE_THE_BUFFER__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CHECKING IF BLISTERS ARE SEPARATED.
+        /// </summary>
+        public static string ___CHECKING_IF_BLISTERS_ARE_SEPARATED__ {
+            get {
+                return ResourceManager.GetString("___CHECKING_IF_BLISTERS_ARE_SEPARATED__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CHECKING INCOMING BLISTERS.
+        /// </summary>
+        public static string ___CHECKING_INCOMING_BLISTERS__ {
+            get {
+                return ResourceManager.GetString("___CHECKING_INCOMING_BLISTERS__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CHYBA ZASOBNIKY NA PRAZDNE BLISTRE OBSADENE !!!.
         /// </summary>
         public static string ___CHYBA_ZASOBNIKY_NA_PRAZDNE_BLISTRE_OBSADENE______ {
@@ -1149,6 +1257,15 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___CHYBA_ZASOBNIKY_SU_PRAZDNE______ {
             get {
                 return ResourceManager.GetString("___CHYBA_ZASOBNIKY_SU_PRAZDNE______", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CLAMPING BLISTER FROM THE SIDE.
+        /// </summary>
+        public static string ___CLAMPING_BLISTER_FROM_THE_SIDE__ {
+            get {
+                return ResourceManager.GetString("___CLAMPING_BLISTER_FROM_THE_SIDE__", resourceCulture);
             }
         }
         
@@ -1243,11 +1360,11 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Control voltage.
+        ///   Looks up a localized string similar to Control Voltage.
         /// </summary>
-        public static string ___Control_voltage__ {
+        public static string ___Control_Voltage__ {
             get {
-                return ResourceManager.GetString("___Control_voltage__", resourceCulture);
+                return ResourceManager.GetString("___Control_Voltage__", resourceCulture);
             }
         }
         
@@ -1333,20 +1450,20 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Doors locked.
+        ///   Looks up a localized string similar to Doors Locked.
         /// </summary>
-        public static string ___Doors_locked__ {
+        public static string ___Doors_Locked__ {
             get {
-                return ResourceManager.GetString("___Doors_locked__", resourceCulture);
+                return ResourceManager.GetString("___Doors_Locked__", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Emergency stop.
+        ///   Looks up a localized string similar to Emergency Stop.
         /// </summary>
-        public static string ___Emergency_stop__ {
+        public static string ___Emergency_Stop__ {
             get {
-                return ResourceManager.GetString("___Emergency_stop__", resourceCulture);
+                return ResourceManager.GetString("___Emergency_Stop__", resourceCulture);
             }
         }
         
@@ -1378,6 +1495,24 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to empty blister is not unloaded.
+        /// </summary>
+        public static string ___empty_blister_is_not_unloaded__ {
+            get {
+                return ResourceManager.GetString("___empty_blister_is_not_unloaded__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Empty blisters removal required.
+        /// </summary>
+        public static string ___Empty_blisters_removal_required__ {
+            get {
+                return ResourceManager.GetString("___Empty_blisters_removal_required__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Energy saving mode - Inactivity time.
         /// </summary>
         public static string ___Energy_saving_mode___Inactivity_time__ {
@@ -1405,6 +1540,87 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Entry blister feed.
+        /// </summary>
+        public static string ___Entry_blister_feed__ {
+            get {
+                return ResourceManager.GetString("___Entry_blister_feed__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ENTRY BLISTER HANDLING.
+        /// </summary>
+        public static string ___ENTRY_BLISTER_HANDLING__ {
+            get {
+                return ResourceManager.GetString("___ENTRY_BLISTER_HANDLING__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entry blister lift.
+        /// </summary>
+        public static string ___Entry_blister_lift__ {
+            get {
+                return ResourceManager.GetString("___Entry_blister_lift__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ENTRY BLISTER SEPARATION.
+        /// </summary>
+        public static string ___ENTRY_BLISTER_SEPARATION__ {
+            get {
+                return ResourceManager.GetString("___ENTRY_BLISTER_SEPARATION__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entry blister separator.
+        /// </summary>
+        public static string ___Entry_blister_separator__ {
+            get {
+                return ResourceManager.GetString("___Entry_blister_separator__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entry blister side clamp.
+        /// </summary>
+        public static string ___Entry_blister_side_clamp__ {
+            get {
+                return ResourceManager.GetString("___Entry_blister_side_clamp__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entry blister slide.
+        /// </summary>
+        public static string ___Entry_blister_slide__ {
+            get {
+                return ResourceManager.GetString("___Entry_blister_slide__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entry blister support.
+        /// </summary>
+        public static string ___Entry_blister_support__ {
+            get {
+                return ResourceManager.GetString("___Entry_blister_support__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entry blister top clamp.
+        /// </summary>
+        public static string ___Entry_blister_top_clamp__ {
+            get {
+                return ResourceManager.GetString("___Entry_blister_top_clamp__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string ___Error__ {
@@ -1414,11 +1630,74 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error delay.
+        /// </summary>
+        public static string ___Error_delay__ {
+            get {
+                return ResourceManager.GetString("___Error_delay__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exclude.
         /// </summary>
         public static string ___Exclude__ {
             get {
                 return ResourceManager.GetString("___Exclude__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EXTENDING CYLINDER.
+        /// </summary>
+        public static string ___EXTENDING_CYLINDER__ {
+            get {
+                return ResourceManager.GetString("___EXTENDING_CYLINDER__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EXTENDING CYLINDERS.
+        /// </summary>
+        public static string ___EXTENDING_CYLINDERS__ {
+            get {
+                return ResourceManager.GetString("___EXTENDING_CYLINDERS__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EXTENDING SEPARATOR CLAMPS.
+        /// </summary>
+        public static string ___EXTENDING_SEPARATOR_CLAMPS__ {
+            get {
+                return ResourceManager.GetString("___EXTENDING_SEPARATOR_CLAMPS__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EXTENDING VERTICAL CYLINDERS.
+        /// </summary>
+        public static string ___EXTENDING_VERTICAL_CYLINDERS__ {
+            get {
+                return ResourceManager.GetString("___EXTENDING_VERTICAL_CYLINDERS__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FEEDER EMPTY, REFILL BLISTERS!.
+        /// </summary>
+        public static string ___FEEDER_EMPTY__REFILL_BLISTERS___ {
+            get {
+                return ResourceManager.GetString("___FEEDER_EMPTY__REFILL_BLISTERS___", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FEEDER FULL, PLEASE REMOVE EMPTY BLISTERS!.
+        /// </summary>
+        public static string ___FEEDER_FULL__PLEASE_REMOVE_EMPTY_BLISTERS___ {
+            get {
+                return ResourceManager.GetString("___FEEDER_FULL__PLEASE_REMOVE_EMPTY_BLISTERS___", resourceCulture);
             }
         }
         
@@ -1446,6 +1725,15 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___Founded_tag__ {
             get {
                 return ResourceManager.GetString("___Founded_tag__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gap detected between blisters.
+        /// </summary>
+        public static string ___Gap_detected_between_blisters__ {
+            get {
+                return ResourceManager.GetString("___Gap_detected_between_blisters__", resourceCulture);
             }
         }
         
@@ -1848,29 +2136,29 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HOME POSITION.
+        /// </summary>
+        public static string ___HOME_POSITION__ {
+            get {
+                return ResourceManager.GetString("___HOME_POSITION__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HOMING CYLINDER.
+        /// </summary>
+        public static string ___HOMING_CYLINDER__ {
+            get {
+                return ResourceManager.GetString("___HOMING_CYLINDER__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hore.
         /// </summary>
         public static string ___Hore__ {
             get {
                 return ResourceManager.GetString("___Hore__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Horizontalny prisun vstupnych blistrov.
-        /// </summary>
-        public static string ___Horizontalny_prisun_vstupnych_blistrov__ {
-            get {
-                return ResourceManager.GetString("___Horizontalny_prisun_vstupnych_blistrov__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Horizontalny prisun vystupnych blistrov.
-        /// </summary>
-        public static string ___Horizontalny_prisun_vystupnych_blistrov__ {
-            get {
-                return ResourceManager.GetString("___Horizontalny_prisun_vystupnych_blistrov__", resourceCulture);
             }
         }
         
@@ -1920,11 +2208,29 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Info delay.
+        /// </summary>
+        public static string ___Info_delay__ {
+            get {
+                return ResourceManager.GetString("___Info_delay__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to INIT.
         /// </summary>
         public static string ___INIT__ {
             get {
                 return ResourceManager.GetString("___INIT__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INITIAL SAFETY CHECK.
+        /// </summary>
+        public static string ___INITIAL_SAFETY_CHECK__ {
+            get {
+                return ResourceManager.GetString("___INITIAL_SAFETY_CHECK__", resourceCulture);
             }
         }
         
@@ -2091,6 +2397,15 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Laser.
+        /// </summary>
+        public static string ___Laser__ {
+            get {
+                return ResourceManager.GetString("___Laser__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last Rework Name.
         /// </summary>
         public static string ___Last_Rework_Name__ {
@@ -2109,11 +2424,20 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Light curtain.
+        ///   Looks up a localized string similar to LIFTING BLISTER SUPPORT.
         /// </summary>
-        public static string ___Light_curtain__ {
+        public static string ___LIFTING_BLISTER_SUPPORT__ {
             get {
-                return ResourceManager.GetString("___Light_curtain__", resourceCulture);
+                return ResourceManager.GetString("___LIFTING_BLISTER_SUPPORT__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LIFTING ENTRY BLISTERS.
+        /// </summary>
+        public static string ___LIFTING_ENTRY_BLISTERS__ {
+            get {
+                return ResourceManager.GetString("___LIFTING_ENTRY_BLISTERS__", resourceCulture);
             }
         }
         
@@ -2177,6 +2501,33 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___Locked__ {
             get {
                 return ResourceManager.GetString("___Locked__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locking of the blister from above inactive (P9)(P9.1) is not present.
+        /// </summary>
+        public static string ___Locking_of_the_blister_from_above_inactive__P9__P9_1__is_not_present__ {
+            get {
+                return ResourceManager.GetString("___Locking_of_the_blister_from_above_inactive__P9__P9_1__is_not_present__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOWERING SUPPORT.
+        /// </summary>
+        public static string ___LOWERING_SUPPORT__ {
+            get {
+                return ResourceManager.GetString("___LOWERING_SUPPORT__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOWERING SUPPORT TRAY.
+        /// </summary>
+        public static string ___LOWERING_SUPPORT_TRAY__ {
+            get {
+                return ResourceManager.GetString("___LOWERING_SUPPORT_TRAY__", resourceCulture);
             }
         }
         
@@ -2354,11 +2705,47 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MOVE TO PICK POSITION.
+        /// </summary>
+        public static string ___MOVE_TO_PICK_POSITION__ {
+            get {
+                return ResourceManager.GetString("___MOVE_TO_PICK_POSITION__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Movement blocked.
+        /// </summary>
+        public static string ___Movement_blocked__ {
+            get {
+                return ResourceManager.GetString("___Movement_blocked__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Movement is blocked due safe zone is interupted(robot in zone).
         /// </summary>
         public static string ___Movement_is_blocked_due_safe_zone_is_interupted_robot_in_zone___ {
             get {
                 return ResourceManager.GetString("___Movement_is_blocked_due_safe_zone_is_interupted_robot_in_zone___", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MOVING CYLINDER TO WORK POSITION.
+        /// </summary>
+        public static string ___MOVING_CYLINDER_TO_WORK_POSITION__ {
+            get {
+                return ResourceManager.GetString("___MOVING_CYLINDER_TO_WORK_POSITION__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MOVING TRAYS ABOVE THE BLISTER.
+        /// </summary>
+        public static string ___MOVING_TRAYS_ABOVE_THE_BLISTER__ {
+            get {
+                return ResourceManager.GetString("___MOVING_TRAYS_ABOVE_THE_BLISTER__", resourceCulture);
             }
         }
         
@@ -2485,24 +2872,6 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___Obsluha_vystupny_buffer__ {
             get {
                 return ResourceManager.GetString("___Obsluha_vystupny_buffer__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Oddelovanie blistrov na vstupe neaktive (P10)(P10.1)je nepritomne.
-        /// </summary>
-        public static string ___Oddelovanie_blistrov_na_vstupe_neaktive__P10__P10_1_je_nepritomne__ {
-            get {
-                return ResourceManager.GetString("___Oddelovanie_blistrov_na_vstupe_neaktive__P10__P10_1_je_nepritomne__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Odelovac blistrov na vstupe.
-        /// </summary>
-        public static string ___Odelovac_blistrov_na_vstupe__ {
-            get {
-                return ResourceManager.GetString("___Odelovac_blistrov_na_vstupe__", resourceCulture);
             }
         }
         
@@ -2723,6 +3092,60 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OUTGOING BUFFER.
+        /// </summary>
+        public static string ___OUTGOING_BUFFER__ {
+            get {
+                return ResourceManager.GetString("___OUTGOING_BUFFER__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output blister above buffer.
+        /// </summary>
+        public static string ___Output_blister_above_buffer__ {
+            get {
+                return ResourceManager.GetString("___Output_blister_above_buffer__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output blister lift.
+        /// </summary>
+        public static string ___Output_blister_lift__ {
+            get {
+                return ResourceManager.GetString("___Output_blister_lift__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output blister not on slide conveyor.
+        /// </summary>
+        public static string ___Output_blister_not_on_slide_conveyor__ {
+            get {
+                return ResourceManager.GetString("___Output_blister_not_on_slide_conveyor__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output blister present in elevator.
+        /// </summary>
+        public static string ___Output_blister_present_in_elevator__ {
+            get {
+                return ResourceManager.GetString("___Output_blister_present_in_elevator__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output blister slide.
+        /// </summary>
+        public static string ___Output_blister_slide__ {
+            get {
+                return ResourceManager.GetString("___Output_blister_slide__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Output buffer full - Main Trasnfer.
         /// </summary>
         public static string ___Output_buffer_full___Main_Trasnfer__ {
@@ -2732,11 +3155,65 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Output container full.
+        /// </summary>
+        public static string ___Output_container_full__ {
+            get {
+                return ResourceManager.GetString("___Output_container_full__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OUTPUT LIFT NOT IN UPPER POSITION!.
+        /// </summary>
+        public static string ___OUTPUT_LIFT_NOT_IN_UPPER_POSITION___ {
+            get {
+                return ResourceManager.GetString("___OUTPUT_LIFT_NOT_IN_UPPER_POSITION___", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ovladane kamerovym systemom.
         /// </summary>
         public static string ___Ovladane_kamerovym_systemom__ {
             get {
                 return ResourceManager.GetString("___Ovladane_kamerovym_systemom__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to P4 is not in home position.
+        /// </summary>
+        public static string ___P4_is_not_in_home_position__ {
+            get {
+                return ResourceManager.GetString("___P4_is_not_in_home_position__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to P5 is not in home position.
+        /// </summary>
+        public static string ___P5_is_not_in_home_position__ {
+            get {
+                return ResourceManager.GetString("___P5_is_not_in_home_position__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to P6 is not in home position.
+        /// </summary>
+        public static string ___P6_is_not_in_home_position__ {
+            get {
+                return ResourceManager.GetString("___P6_is_not_in_home_position__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to P7 is not in home position.
+        /// </summary>
+        public static string ___P7_is_not_in_home_position__ {
+            get {
+                return ResourceManager.GetString("___P7_is_not_in_home_position__", resourceCulture);
             }
         }
         
@@ -2840,6 +3317,15 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PLC connection.
+        /// </summary>
+        public static string ___PLC_connection__ {
+            get {
+                return ResourceManager.GetString("___PLC_connection__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PlcToPc.
         /// </summary>
         public static string ___PlcToPc__ {
@@ -2858,15 +3344,6 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PODAVAC PLNY! ODSTRANTE PRAZDNE BLISTRE (I8) !.
-        /// </summary>
-        public static string ___PODAVAC_PLNY__ODSTRANTE_PRAZDNE_BLISTRE__I8_____ {
-            get {
-                return ResourceManager.GetString("___PODAVAC_PLNY__ODSTRANTE_PRAZDNE_BLISTRE__I8_____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to PODAVAC PRAZDNY! DOPLNE BLISTRE !.
         /// </summary>
         public static string ___PODAVAC_PRAZDNY__DOPLNE_BLISTRE____ {
@@ -2881,15 +3358,6 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___PODAVAC_PRAZDNY__DOPLNE_VSTUPNE_BLISTRE____ {
             get {
                 return ResourceManager.GetString("___PODAVAC_PRAZDNY__DOPLNE_VSTUPNE_BLISTRE____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Podopretie vstupneho blistra.
-        /// </summary>
-        public static string ___Podopretie_vstupneho_blistra__ {
-            get {
-                return ResourceManager.GetString("___Podopretie_vstupneho_blistra__", resourceCulture);
             }
         }
         
@@ -2926,15 +3394,6 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___Poziadavka_obsluhy_vyprazdnenia_vstupny_buffer__ {
             get {
                 return ResourceManager.GetString("___Poziadavka_obsluhy_vyprazdnenia_vstupny_buffer__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Poziadavka obsluhy vystupny buffer.
-        /// </summary>
-        public static string ___Poziadavka_obsluhy_vystupny_buffer__ {
-            get {
-                return ResourceManager.GetString("___Poziadavka_obsluhy_vystupny_buffer__", resourceCulture);
             }
         }
         
@@ -3038,47 +3497,11 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prisun vstupneho blistra.
+        ///   Looks up a localized string similar to Process Data Loaded.
         /// </summary>
-        public static string ___Prisun_vstupneho_blistra__ {
+        public static string ___Process_Data_Loaded__ {
             get {
-                return ResourceManager.GetString("___Prisun_vstupneho_blistra__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Pritomnost blistra v pracovnej pozicii.
-        /// </summary>
-        public static string ___Pritomnost_blistra_v_pracovnej_pozicii__ {
-            get {
-                return ResourceManager.GetString("___Pritomnost_blistra_v_pracovnej_pozicii__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Pritomnost blistra v presuvaci.
-        /// </summary>
-        public static string ___Pritomnost_blistra_v_presuvaci__ {
-            get {
-                return ResourceManager.GetString("___Pritomnost_blistra_v_presuvaci__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Pritomnost medzery medzi blistrami.
-        /// </summary>
-        public static string ___Pritomnost_medzery_medzi_blistrami__ {
-            get {
-                return ResourceManager.GetString("___Pritomnost_medzery_medzi_blistrami__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Process data.
-        /// </summary>
-        public static string ___Process_data__ {
-            get {
-                return ResourceManager.GetString("___Process_data__", resourceCulture);
+                return ResourceManager.GetString("___Process_Data_Loaded__", resourceCulture);
             }
         }
         
@@ -3227,6 +3650,60 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Refill required.
+        /// </summary>
+        public static string ___Refill_required__ {
+            get {
+                return ResourceManager.GetString("___Refill_required__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RELEASING BLISTER.
+        /// </summary>
+        public static string ___RELEASING_BLISTER__ {
+            get {
+                return ResourceManager.GetString("___RELEASING_BLISTER__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request home position.
+        /// </summary>
+        public static string ___Request_home_position__ {
+            get {
+                return ResourceManager.GetString("___Request_home_position__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request new blister.
+        /// </summary>
+        public static string ___Request_new_blister__ {
+            get {
+                return ResourceManager.GetString("___Request_new_blister__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request outgoing buffer.
+        /// </summary>
+        public static string ___Request_outgoing_buffer__ {
+            get {
+                return ResourceManager.GetString("___Request_outgoing_buffer__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request to unload blister.
+        /// </summary>
+        public static string ___Request_to_unload_blister__ {
+            get {
+                return ResourceManager.GetString("___Request_to_unload_blister__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Requested carrier is out of range of internal storage. Max number of carriers is.
         /// </summary>
         public static string ___Requested_carrier_is_out_of_range_of_internal_storage__Max_number_of_carriers_is__ {
@@ -3260,6 +3737,69 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___Results__ {
             get {
                 return ResourceManager.GetString("___Results__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RETRACTING CYLINDER.
+        /// </summary>
+        public static string ___RETRACTING_CYLINDER__ {
+            get {
+                return ResourceManager.GetString("___RETRACTING_CYLINDER__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RETRACTING CYLINDERS.
+        /// </summary>
+        public static string ___RETRACTING_CYLINDERS__ {
+            get {
+                return ResourceManager.GetString("___RETRACTING_CYLINDERS__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RETRACTING FEED.
+        /// </summary>
+        public static string ___RETRACTING_FEED__ {
+            get {
+                return ResourceManager.GetString("___RETRACTING_FEED__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RETRACTING FEEDER.
+        /// </summary>
+        public static string ___RETRACTING_FEEDER__ {
+            get {
+                return ResourceManager.GetString("___RETRACTING_FEEDER__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RETRACTING OUTPUT BLISTER CLAMPS.
+        /// </summary>
+        public static string ___RETRACTING_OUTPUT_BLISTER_CLAMPS__ {
+            get {
+                return ResourceManager.GetString("___RETRACTING_OUTPUT_BLISTER_CLAMPS__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RETRACTING OUTPUT BLISTER LIFT.
+        /// </summary>
+        public static string ___RETRACTING_OUTPUT_BLISTER_LIFT__ {
+            get {
+                return ResourceManager.GetString("___RETRACTING_OUTPUT_BLISTER_LIFT__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RETRACTING SIDE CLAMP.
+        /// </summary>
+        public static string ___RETRACTING_SIDE_CLAMP__ {
+            get {
+                return ResourceManager.GetString("___RETRACTING_SIDE_CLAMP__", resourceCulture);
             }
         }
         
@@ -3318,6 +3858,15 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Robots.
+        /// </summary>
+        public static string ___Robots__ {
+            get {
+                return ResourceManager.GetString("___Robots__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RunConv Time.
         /// </summary>
         public static string ___RunConv_Time__ {
@@ -3336,11 +3885,74 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Safety doors OK.
+        ///   Looks up a localized string similar to Safety condition not met!.
         /// </summary>
-        public static string ___Safety_doors_OK__ {
+        public static string ___Safety_condition_not_met___ {
             get {
-                return ResourceManager.GetString("___Safety_doors_OK__", resourceCulture);
+                return ResourceManager.GetString("___Safety_condition_not_met___", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Safety conditon met.
+        /// </summary>
+        public static string ___Safety_conditon_met__ {
+            get {
+                return ResourceManager.GetString("___Safety_conditon_met__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Safety disable duration.
+        /// </summary>
+        public static string ___Safety_disable_duration__ {
+            get {
+                return ResourceManager.GetString("___Safety_disable_duration__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Safety door.
+        /// </summary>
+        public static string ___Safety_door__ {
+            get {
+                return ResourceManager.GetString("___Safety_door__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Safety temporarily disabled.
+        /// </summary>
+        public static string ___Safety_temporarily_disabled__ {
+            get {
+                return ResourceManager.GetString("___Safety_temporarily_disabled__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SAFETY TEMPORARILY DISABLED!.
+        /// </summary>
+        public static string ___SAFETY_TEMPORARILY_DISABLED___ {
+            get {
+                return ResourceManager.GetString("___SAFETY_TEMPORARILY_DISABLED___", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SEPARATING OUTGOING BLISTER.
+        /// </summary>
+        public static string ___SEPARATING_OUTGOING_BLISTER__ {
+            get {
+                return ResourceManager.GetString("___SEPARATING_OUTGOING_BLISTER__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Separation of entry blisters inactive (P10)(P10.1) is not present.
+        /// </summary>
+        public static string ___Separation_of_entry_blisters_inactive__P10__P10_1__is_not_present__ {
+            get {
+                return ResourceManager.GetString("___Separation_of_entry_blisters_inactive__P10__P10_1__is_not_present__", resourceCulture);
             }
         }
         
@@ -3471,22 +4083,6 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SEPAROVANIE VSTUPNEHO BLISTRA - ZASUNUTIE P10&gt;&apos;) THEN   
-        ///
-        ///    seq.StepCompleteWhen(Components.P10_HoldEntrySepareOutBlister.MoveToHome().Done  );
-        ///END_IF        
-        /////***************************************************************************************************     
-        ///
-        /////***************************************************************************************************   
-        ///IF seq.Step(70,TRUE,&apos;KONTROLA PRITOMNOSTI SEPAROVANEHO KUSU.
-        /// </summary>
-        public static string ___SEPAROVANIE_VSTUPNEHO_BLISTRA___ZASUNUTIE_P10____THEN_________seq_StepCompleteWhen_Components_P10_HoldEntrySepareOutBlister_MoveToHome___Done_____END_IF______________________________________________________________________________________________________________________________________________________________________________________________________________________________IF_seq_Step_70_TRUE____KONTROLA_PRITOMNOSTI_SEPAROVANEHO_KUSU__ {
-            get {
-                return ResourceManager.GetString(@"___SEPAROVANIE_VSTUPNEHO_BLISTRA___ZASUNUTIE_P10____THEN_________seq_StepCompleteWhen_Components_P10_HoldEntrySepareOutBlister_MoveToHome___Done_____END_IF______________________________________________________________________________________________________________________________________________________________________________________________________________________________IF_seq_Step_70_TRUE____KONTROLA_PRITOMNOSTI_SEPAROVANEHO_KUSU__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to SEPAROVANIE VYSTUPNEHO BLISTRA - KONTROLA PRITOMNOSTI BLISTA NA SKLZE (I5) .
         /// </summary>
         public static string ___SEPAROVANIE_VYSTUPNEHO_BLISTRA___KONTROLA_PRITOMNOSTI_BLISTA_NA_SKLZE__I5____ {
@@ -3510,6 +4106,15 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___SEPAROVANIE_VYSTUPNEHO_BLISTRA___ZASUNUTIE_SUPPORTU_P7__ {
             get {
                 return ResourceManager.GetString("___SEPAROVANIE_VYSTUPNEHO_BLISTRA___ZASUNUTIE_SUPPORTU_P7__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SEQUENCE COMPLETE.
+        /// </summary>
+        public static string ___SEQUENCE_COMPLETE__ {
+            get {
+                return ResourceManager.GetString("___SEQUENCE_COMPLETE__", resourceCulture);
             }
         }
         
@@ -3577,11 +4182,11 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stabilizacny cas.
+        ///   Looks up a localized string similar to Stabilisation time.
         /// </summary>
-        public static string ___Stabilizacny_cas__ {
+        public static string ___Stabilisation_time__ {
             get {
-                return ResourceManager.GetString("___Stabilizacny_cas__", resourceCulture);
+                return ResourceManager.GetString("___Stabilisation_time__", resourceCulture);
             }
         }
         
@@ -3722,6 +4327,15 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Step mode managable from outside.
+        /// </summary>
+        public static string ___Step_mode_managable_from_outside__ {
+            get {
+                return ResourceManager.GetString("___Step_mode_managable_from_outside__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Step time.
         /// </summary>
         public static string ___Step_time__ {
@@ -3812,11 +4426,11 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Technology data.
+        ///   Looks up a localized string similar to Technology Data Loaded.
         /// </summary>
-        public static string ___Technology_data__ {
+        public static string ___Technology_Data_Loaded__ {
             get {
-                return ResourceManager.GetString("___Technology_data__", resourceCulture);
+                return ResourceManager.GetString("___Technology_Data_Loaded__", resourceCulture);
             }
         }
         
@@ -3853,15 +4467,6 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___Time_Stamp_Struct__ {
             get {
                 return ResourceManager.GetString("___Time_Stamp_Struct__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Time to dissable safety.
-        /// </summary>
-        public static string ___Time_to_dissable_safety__ {
-            get {
-                return ResourceManager.GetString("___Time_to_dissable_safety__", resourceCulture);
             }
         }
         
@@ -3911,47 +4516,20 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upevnenie zboku vstupneho blistra.
+        ///   Looks up a localized string similar to Virtual Buttons.
         /// </summary>
-        public static string ___Upevnenie_zboku_vstupneho_blistra__ {
+        public static string ___Virtual_Buttons__ {
             get {
-                return ResourceManager.GetString("___Upevnenie_zboku_vstupneho_blistra__", resourceCulture);
+                return ResourceManager.GetString("___Virtual_Buttons__", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vertikalny prisun vstupnych blistrov.
+        ///   Looks up a localized string similar to Virtual Control Buttons.
         /// </summary>
-        public static string ___Vertikalny_prisun_vstupnych_blistrov__ {
+        public static string ___Virtual_Control_Buttons__ {
             get {
-                return ResourceManager.GetString("___Vertikalny_prisun_vstupnych_blistrov__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vertikalny prisun vstupnych blistrov .
-        /// </summary>
-        public static string ___Vertikalny_prisun_vstupnych_blistrov___ {
-            get {
-                return ResourceManager.GetString("___Vertikalny_prisun_vstupnych_blistrov___", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vertikalny prisun vystupnych blistrov.
-        /// </summary>
-        public static string ___Vertikalny_prisun_vystupnych_blistrov__ {
-            get {
-                return ResourceManager.GetString("___Vertikalny_prisun_vystupnych_blistrov__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Volba krokoveho/Cyklickeho modu ovladna z vonka (SetSequencesToStep).
-        /// </summary>
-        public static string ___Volba_krokoveho_Cyklickeho_modu_ovladna_z_vonka__SetSequencesToStep___ {
-            get {
-                return ResourceManager.GetString("___Volba_krokoveho_Cyklickeho_modu_ovladna_z_vonka__SetSequencesToStep___", resourceCulture);
+                return ResourceManager.GetString("___Virtual_Control_Buttons__", resourceCulture);
             }
         }
         
@@ -4046,15 +4624,6 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to VYCHODIZA POLOHA - VYSUNUTIE P3.
-        /// </summary>
-        public static string ___VYCHODIZA_POLOHA___VYSUNUTIE_P3__ {
-            get {
-                return ResourceManager.GetString("___VYCHODIZA_POLOHA___VYSUNUTIE_P3__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to VYCHODIZA POLOHA - VYSUNUTIE PR10 .
         /// </summary>
         public static string ___VYCHODIZA_POLOHA___VYSUNUTIE_PR10___ {
@@ -4105,52 +4674,6 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___VYCHODIZA_POLOHA___VYSUNUTIE_ZARAZKY_PR2__ {
             get {
                 return ResourceManager.GetString("___VYCHODIZA_POLOHA___VYSUNUTIE_ZARAZKY_PR2__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to VYCHODIZA POLOHA - ZASUNUTIE P1 A P2&gt;&apos;) THEN   
-        ///
-        ///
-        ///	    seq.StepCompleteWhen(Components.P1_VerticalSepareEntryBlisters.MoveToHome().Done AND_THEN Components.P2_VerticalSepareEntryBlisters.MoveToHome().Done);
-        ///
-        ///END_IF        
-        /////***************************************************************************************************   
-        ///
-        ///
-        /////***************************************************************************************************     
-        ///IF seq.Step(40,TRUE,&apos;VYCHODIZA POLOHA - ZASUNUTIE P5.
-        /// </summary>
-        public static string ___VYCHODIZA_POLOHA___ZASUNUTIE_P1_A_P2____THEN___________seq_StepCompleteWhen_Components_P1_VerticalSepareEntryBlisters_MoveToHome___Done_AND_THEN_Components_P2_VerticalSepareEntryBlisters_MoveToHome___Done____END_IF_______________________________________________________________________________________________________________________________________________________________________________________________________________________________IF_seq_Step_40_TRUE____VYCHODIZA_POLOHA___ZASUNUTIE_P5__ {
-            get {
-                return ResourceManager.GetString(@"___VYCHODIZA_POLOHA___ZASUNUTIE_P1_A_P2____THEN___________seq_StepCompleteWhen_Components_P1_VerticalSepareEntryBlisters_MoveToHome___Done_AND_THEN_Components_P2_VerticalSepareEntryBlisters_MoveToHome___Done____END_IF_______________________________________________________________________________________________________________________________________________________________________________________________________________________________IF_seq_Step_40_TRUE____VYCHODIZA_POLOHA___ZASUNUTIE_P5__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to VYCHODIZA POLOHA - ZASUNUTIE P10.
-        /// </summary>
-        public static string ___VYCHODIZA_POLOHA___ZASUNUTIE_P10__ {
-            get {
-                return ResourceManager.GetString("___VYCHODIZA_POLOHA___ZASUNUTIE_P10__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to VYCHODIZA POLOHA - ZASUNUTIE P4 DO ZAKLADNEJ POZICIE.
-        /// </summary>
-        public static string ___VYCHODIZA_POLOHA___ZASUNUTIE_P4_DO_ZAKLADNEJ_POZICIE__ {
-            get {
-                return ResourceManager.GetString("___VYCHODIZA_POLOHA___ZASUNUTIE_P4_DO_ZAKLADNEJ_POZICIE__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to VYCHODIZA POLOHA - ZASUNUTIE P6.
-        /// </summary>
-        public static string ___VYCHODIZA_POLOHA___ZASUNUTIE_P6__ {
-            get {
-                return ResourceManager.GetString("___VYCHODIZA_POLOHA___ZASUNUTIE_P6__", resourceCulture);
             }
         }
         
@@ -4236,87 +4759,6 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vystupny blister je nad Bufferom.
-        /// </summary>
-        public static string ___Vystupny_blister_je_nad_Bufferom__ {
-            get {
-                return ResourceManager.GetString("___Vystupny_blister_je_nad_Bufferom__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vystupny blister neje v sklzovom dopravniku.
-        /// </summary>
-        public static string ___Vystupny_blister_neje_v_sklzovom_dopravniku__ {
-            get {
-                return ResourceManager.GetString("___Vystupny_blister_neje_v_sklzovom_dopravniku__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vystupny blister snimanie vo vytahu.
-        /// </summary>
-        public static string ___Vystupny_blister_snimanie_vo_vytahu__ {
-            get {
-                return ResourceManager.GetString("___Vystupny_blister_snimanie_vo_vytahu__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to VYSTUPNY BUFFER - HORIZONTALNE ZASUNUTIE P5 ZAKLADNA POZICIA.
-        /// </summary>
-        public static string ___VYSTUPNY_BUFFER___HORIZONTALNE_ZASUNUTIE_P5_ZAKLADNA_POZICIA__ {
-            get {
-                return ResourceManager.GetString("___VYSTUPNY_BUFFER___HORIZONTALNE_ZASUNUTIE_P5_ZAKLADNA_POZICIA__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to VYSTUPNY BUFFER - KONTROLA POSCTU BLISTROV SNIMAC I8 .
-        /// </summary>
-        public static string ___VYSTUPNY_BUFFER___KONTROLA_POSCTU_BLISTROV_SNIMAC_I8___ {
-            get {
-                return ResourceManager.GetString("___VYSTUPNY_BUFFER___KONTROLA_POSCTU_BLISTROV_SNIMAC_I8___", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to VYSTUPNY BUFFER - KONTROLA PRITOMNOSTI BLISTA NAD BUFFEROM  .
-        /// </summary>
-        public static string ___VYSTUPNY_BUFFER___KONTROLA_PRITOMNOSTI_BLISTA_NAD_BUFFEROM____ {
-            get {
-                return ResourceManager.GetString("___VYSTUPNY_BUFFER___KONTROLA_PRITOMNOSTI_BLISTA_NAD_BUFFEROM____", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to VYSTUPNY BUFFER - P6 NAVRAT NAHOR.
-        /// </summary>
-        public static string ___VYSTUPNY_BUFFER___P6_NAVRAT_NAHOR__ {
-            get {
-                return ResourceManager.GetString("___VYSTUPNY_BUFFER___P6_NAVRAT_NAHOR__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to VYSTUPNY BUFFER - P6 POSUN KUSOV NAD BUFFER.
-        /// </summary>
-        public static string ___VYSTUPNY_BUFFER___P6_POSUN_KUSOV_NAD_BUFFER__ {
-            get {
-                return ResourceManager.GetString("___VYSTUPNY_BUFFER___P6_POSUN_KUSOV_NAD_BUFFER__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to VYSTUPNY BUFFER - UVOLNENIE BLISTRA  P5 PRACOVNA POZICIA .
-        /// </summary>
-        public static string ___VYSTUPNY_BUFFER___UVOLNENIE_BLISTRA__P5_PRACOVNA_POZICIA___ {
-            get {
-                return ResourceManager.GetString("___VYSTUPNY_BUFFER___UVOLNENIE_BLISTRA__P5_PRACOVNA_POZICIA___", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to VYSTUPNY ZASOBNIK 1 PLNY(BUFFER) !!!.
         /// </summary>
         public static string ___VYSTUPNY_ZASOBNIK_1_PLNY_BUFFER_______ {
@@ -4331,15 +4773,6 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___VYSTUPNY_ZASOBNIK_2_PLNY_BUFFER_______ {
             get {
                 return ResourceManager.GetString("___VYSTUPNY_ZASOBNIK_2_PLNY_BUFFER_______", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vystupny zasobnik je plny.
-        /// </summary>
-        public static string ___Vystupny_zasobnik_je_plny__ {
-            get {
-                return ResourceManager.GetString("___Vystupny_zasobnik_je_plny__", resourceCulture);
             }
         }
         
@@ -4362,11 +4795,29 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Waiting for palletizer service - Close the door!.
+        /// </summary>
+        public static string ___Waiting_for_palletizer_service___Close_the_door___ {
+            get {
+                return ResourceManager.GetString("___Waiting_for_palletizer_service___Close_the_door___", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to WAITING FOR START.
         /// </summary>
         public static string ___WAITING_FOR_START__ {
             get {
                 return ResourceManager.GetString("___WAITING_FOR_START__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WAITING FOR TRANSFER TO WORK POSITION.
+        /// </summary>
+        public static string ___WAITING_FOR_TRANSFER_TO_WORK_POSITION__ {
+            get {
+                return ResourceManager.GetString("___WAITING_FOR_TRANSFER_TO_WORK_POSITION__", resourceCulture);
             }
         }
         
@@ -4416,6 +4867,15 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Warning signalisation.
+        /// </summary>
+        public static string ___Warning_signalisation__ {
+            get {
+                return ResourceManager.GetString("___Warning_signalisation__", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to was not founnd! Would you like still like to continue?.
         /// </summary>
         public static string ___was_not_founnd__Would_you_like_still_like_to_continue___ {
@@ -4434,24 +4894,6 @@ namespace x_template_xPlcConnector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zamknutue zhora vstupneho blistra.
-        /// </summary>
-        public static string ___Zamknutue_zhora_vstupneho_blistra__ {
-            get {
-                return ResourceManager.GetString("___Zamknutue_zhora_vstupneho_blistra__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zamykanie blistra zhora neaktive (P9)(P9.1)je nepritomne.
-        /// </summary>
-        public static string ___Zamykanie_blistra_zhora_neaktive__P9__P9_1_je_nepritomne__ {
-            get {
-                return ResourceManager.GetString("___Zamykanie_blistra_zhora_neaktive__P9__P9_1_je_nepritomne__", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Zarazka.
         /// </summary>
         public static string ___Zarazka__ {
@@ -4466,15 +4908,6 @@ namespace x_template_xPlcConnector.Properties {
         public static string ___ZASDOBNIKY_PRE_PRAZDNE_BLISTRE_SU_VYPNUTE______ {
             get {
                 return ResourceManager.GetString("___ZASDOBNIKY_PRE_PRAZDNE_BLISTRE_SU_VYPNUTE______", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zasobik blistrov prazdny.
-        /// </summary>
-        public static string ___Zasobik_blistrov_prazdny__ {
-            get {
-                return ResourceManager.GetString("___Zasobik_blistrov_prazdny__", resourceCulture);
             }
         }
         

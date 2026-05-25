@@ -310,8 +310,170 @@
   <data name="___VYCHODIZA_POLOHA___CENTROVANIE_KUSU_VO_VYHAHU_VYSUNUTE_PR13___" xml:space="preserve">
     <value>VYCHODIZA POLOHA - CENTROVANIE KUSU VO VYHAHU VYSUNUTE PR13 </value>
   </data>
-  <data name="___Poziadavka_obsluhy_vystupny_buffer__" xml:space="preserve">
-    <value>Poziadavka obsluhy vystupny buffer</value>
+  <data name="___Safety_condition_not_met___" xml:space="preserve">
+    <value>Safety condition not met!</value>
+  </data>
+  <data name="___SAFETY_TEMPORARILY_DISABLED___" xml:space="preserve">
+    <value>SAFETY TEMPORARILY DISABLED!</value>
+  </data>
+  <data name="___Movement_blocked__" xml:space="preserve">
+    <value>Movement blocked</value>
+  </data>
+  <data name="___P7_is_not_in_home_position__" xml:space="preserve">
+    <value>P7 is not in home position</value>
+  </data>
+  <data name="___P6_is_not_in_home_position__" xml:space="preserve">
+    <value>P6 is not in home position</value>
+  </data>
+  <data name="___P5_is_not_in_home_position__" xml:space="preserve">
+    <value>P5 is not in home position</value>
+  </data>
+  <data name="___empty_blister_is_not_unloaded__" xml:space="preserve">
+    <value>empty blister is not unloaded</value>
+  </data>
+  <data name="___P4_is_not_in_home_position__" xml:space="preserve">
+    <value>P4 is not in home position</value>
+  </data>
+  <data name="___Request_new_blister__" xml:space="preserve">
+    <value>Request new blister</value>
+  </data>
+  <data name="___Request_to_unload_blister__" xml:space="preserve">
+    <value>Request to unload blister</value>
+  </data>
+  <data name="___Request_outgoing_buffer__" xml:space="preserve">
+    <value>Request outgoing buffer</value>
+  </data>
+  <data name="___Request_home_position__" xml:space="preserve">
+    <value>Request home position</value>
+  </data>
+  <data name="___Safety_temporarily_disabled__" xml:space="preserve">
+    <value>Safety temporarily disabled</value>
+  </data>
+  <data name="___Waiting_for_palletizer_service___Close_the_door___" xml:space="preserve">
+    <value>Waiting for palletizer service - Close the door!</value>
+  </data>
+  <data name="___INITIAL_SAFETY_CHECK__" xml:space="preserve">
+    <value>INITIAL SAFETY CHECK</value>
+  </data>
+  <data name="___CHECKING_INCOMING_BLISTERS__" xml:space="preserve">
+    <value>CHECKING INCOMING BLISTERS</value>
+  </data>
+  <data name="___BLISTER_FEEDER_EMPTY__REFILL_INPUT_BLISTERS___" xml:space="preserve">
+    <value>BLISTER FEEDER EMPTY. REFILL INPUT BLISTERS!</value>
+  </data>
+  <data name="___ENTRY_BLISTER_SEPARATION__" xml:space="preserve">
+    <value>ENTRY BLISTER SEPARATION</value>
+  </data>
+  <data name="___EXTENDING_VERTICAL_CYLINDERS__" xml:space="preserve">
+    <value>EXTENDING VERTICAL CYLINDERS</value>
+  </data>
+  <data name="___RETRACTING_CYLINDER__" xml:space="preserve">
+    <value>RETRACTING CYLINDER</value>
+  </data>
+  <data name="___EXTENDING_CYLINDER__" xml:space="preserve">
+    <value>EXTENDING CYLINDER</value>
+  </data>
+  <data name="___EXTENDING_CYLINDERS__" xml:space="preserve">
+    <value>EXTENDING CYLINDERS</value>
+  </data>
+  <data name="___RETRACTING_CYLINDERS__" xml:space="preserve">
+    <value>RETRACTING CYLINDERS</value>
+  </data>
+  <data name="___CHECKING_IF_BLISTERS_ARE_SEPARATED__" xml:space="preserve">
+    <value>CHECKING IF BLISTERS ARE SEPARATED</value>
+  </data>
+  <data name="___FEEDER_EMPTY__REFILL_BLISTERS___" xml:space="preserve">
+    <value>FEEDER EMPTY, REFILL BLISTERS!</value>
+  </data>
+  <data name="___ENTRY_BLISTER_HANDLING__" xml:space="preserve">
+    <value>ENTRY BLISTER HANDLING</value>
+  </data>
+  <data name="___RETRACTING_SIDE_CLAMP__" xml:space="preserve">
+    <value>RETRACTING SIDE CLAMP</value>
+  </data>
+  <data name="___WAITING_FOR_TRANSFER_TO_WORK_POSITION__" xml:space="preserve">
+    <value>WAITING FOR TRANSFER TO WORK POSITION</value>
+  </data>
+  <data name="___CLAMPING_BLISTER_FROM_THE_SIDE__" xml:space="preserve">
+    <value>CLAMPING BLISTER FROM THE SIDE</value>
+  </data>
+  <data name="___MOVE_TO_PICK_POSITION__" xml:space="preserve">
+    <value>MOVE TO PICK POSITION</value>
+  </data>
+  <data name="___OUTPUT_LIFT_NOT_IN_UPPER_POSITION___" xml:space="preserve">
+    <value>OUTPUT LIFT NOT IN UPPER POSITION!</value>
+  </data>
+  <data name="___RETRACTING_FEED__" xml:space="preserve">
+    <value>RETRACTING FEED</value>
+  </data>
+  <data name="___LOWERING_SUPPORT_TRAY__" xml:space="preserve">
+    <value>LOWERING SUPPORT TRAY</value>
+  </data>
+  <data name="___SEQUENCE_COMPLETE__" xml:space="preserve">
+    <value>SEQUENCE COMPLETE</value>
+  </data>
+  <data name="___SEPARATING_OUTGOING_BLISTER__" xml:space="preserve">
+    <value>SEPARATING OUTGOING BLISTER</value>
+  </data>
+  <data name="___RELEASING_BLISTER__" xml:space="preserve">
+    <value>RELEASING BLISTER</value>
+  </data>
+  <data name="___LOWERING_SUPPORT__" xml:space="preserve">
+    <value>LOWERING SUPPORT</value>
+  </data>
+  <data name="___CHECKING_BLISTER_IN_OUTPUT_TRAY__" xml:space="preserve">
+    <value>CHECKING BLISTER IN OUTPUT TRAY</value>
+  </data>
+  <data name="___OUTGOING_BUFFER__" xml:space="preserve">
+    <value>OUTGOING BUFFER</value>
+  </data>
+  <data name="___CHECKING_FOR_BLISTER_ABOVE_THE_BUFFER__" xml:space="preserve">
+    <value>CHECKING FOR BLISTER ABOVE THE BUFFER</value>
+  </data>
+  <data name="___CHECKING_BLISTER_COUNT__" xml:space="preserve">
+    <value>CHECKING BLISTER COUNT</value>
+  </data>
+  <data name="___FEEDER_FULL__PLEASE_REMOVE_EMPTY_BLISTERS___" xml:space="preserve">
+    <value>FEEDER FULL, PLEASE REMOVE EMPTY BLISTERS!</value>
+  </data>
+  <data name="___MOVING_TRAYS_ABOVE_THE_BLISTER__" xml:space="preserve">
+    <value>MOVING TRAYS ABOVE THE BLISTER</value>
+  </data>
+  <data name="___MOVING_CYLINDER_TO_WORK_POSITION__" xml:space="preserve">
+    <value>MOVING CYLINDER TO WORK POSITION</value>
+  </data>
+  <data name="___HOMING_CYLINDER__" xml:space="preserve">
+    <value>HOMING CYLINDER</value>
+  </data>
+  <data name="___HOME_POSITION__" xml:space="preserve">
+    <value>HOME POSITION</value>
+  </data>
+  <data name="___EXTENDING_SEPARATOR_CLAMPS__" xml:space="preserve">
+    <value>EXTENDING SEPARATOR CLAMPS</value>
+  </data>
+  <data name="___LIFTING_ENTRY_BLISTERS__" xml:space="preserve">
+    <value>LIFTING ENTRY BLISTERS</value>
+  </data>
+  <data name="___RETRACTING_OUTPUT_BLISTER_CLAMPS__" xml:space="preserve">
+    <value>RETRACTING OUTPUT BLISTER CLAMPS</value>
+  </data>
+  <data name="___RETRACTING_OUTPUT_BLISTER_LIFT__" xml:space="preserve">
+    <value>RETRACTING OUTPUT BLISTER LIFT</value>
+  </data>
+  <data name="___RETRACTING_FEEDER__" xml:space="preserve">
+    <value>RETRACTING FEEDER</value>
+  </data>
+  <data name="___LIFTING_BLISTER_SUPPORT__" xml:space="preserve">
+    <value>LIFTING BLISTER SUPPORT</value>
+  </data>
+  <data name="___Poziadavka_separovania__" xml:space="preserve">
+    <value>Poziadavka separovania</value>
+  </data>
+  <data name="___Poziadavka_vyprazdnenia__" xml:space="preserve">
+    <value>Poziadavka vyprazdnenia</value>
+  </data>
+  <data name="___Oscilating_Specific_Data__" xml:space="preserve">
+    <value>Oscilating Specific Data</value>
   </data>
   <data name="___KONTROLA_POCTU_VSTUPNYCH_BLISTROV__" xml:space="preserve">
     <value>KONTROLA POCTU VSTUPNYCH BLISTROV</value>
@@ -337,15 +499,15 @@
   <data name="___SEPAROVANIE_VSTUPNEHO_BLISTRA___VERTIKALNE_VALCE_ZASUNUT_P1_A_P___" xml:space="preserve">
     <value>SEPAROVANIE VSTUPNEHO BLISTRA - VERTIKALNE VALCE ZASUNUT P1 A P@</value>
   </data>
-  <data name="___SEPAROVANIE_VSTUPNEHO_BLISTRA___ZASUNUTIE_P10____THEN_________seq_StepCompleteWhen_Components_P10_HoldEntrySepareOutBlister_MoveToHome___Done_____END_IF______________________________________________________________________________________________________________________________________________________________________________________________________________________________IF_seq_Step_70_TRUE____KONTROLA_PRITOMNOSTI_SEPAROVANEHO_KUSU__" xml:space="preserve">
+  <data name="___SEPAROVANIE_VSTUPNEHO_BLISTRA___ZASUNUTIE_P10____THEN___________seq_StepCompleteWhen_Components_P10_HoldEntrySepareOutBlister_MoveToHome___Done_______END_IF____________________________________________________________________________________________________________________________________________________________________________________________________________________________________IF_seq_Step_70_TRUE____KONTROLA_PRITOMNOSTI_SEPAROVANEHO_KUSU__" xml:space="preserve">
     <value>SEPAROVANIE VSTUPNEHO BLISTRA - ZASUNUTIE P10&gt;') THEN   
 
-    seq.StepCompleteWhen(Components.P10_HoldEntrySepareOutBlister.MoveToHome().Done  );
-END_IF        
-//***************************************************************************************************     
+//    seq.StepCompleteWhen(Components.P10_HoldEntrySepareOutBlister.MoveToHome().Done  );
+//END_IF        
+////***************************************************************************************************     
 
-//***************************************************************************************************   
-IF seq.Step(70,TRUE,'KONTROLA PRITOMNOSTI SEPAROVANEHO KUSU</value>
+////***************************************************************************************************   
+//IF seq.Step(70,TRUE,'KONTROLA PRITOMNOSTI SEPAROVANEHO KUSU</value>
   </data>
   <data name="___PODAVAC_PRAZDNY__DOPLNE_BLISTRE____" xml:space="preserve">
     <value>PODAVAC PRAZDNY! DOPLNE BLISTRE !</value>
@@ -376,71 +538,6 @@ IF seq.Step(70,TRUE,'KONTROLA PRITOMNOSTI SEPAROVANEHO KUSU</value>
   </data>
   <data name="___SEPAROVANIE_VYSTUPNEHO_BLISTRA___KONTROLA_PRITOMNOSTI_BLISTA_NA_SKLZE__I5____" xml:space="preserve">
     <value>SEPAROVANIE VYSTUPNEHO BLISTRA - KONTROLA PRITOMNOSTI BLISTA NA SKLZE (I5) </value>
-  </data>
-  <data name="___VYSTUPNY_BUFFER___KONTROLA_PRITOMNOSTI_BLISTA_NAD_BUFFEROM____" xml:space="preserve">
-    <value>VYSTUPNY BUFFER - KONTROLA PRITOMNOSTI BLISTA NAD BUFFEROM  </value>
-  </data>
-  <data name="___VYSTUPNY_BUFFER___KONTROLA_POSCTU_BLISTROV_SNIMAC_I8___" xml:space="preserve">
-    <value>VYSTUPNY BUFFER - KONTROLA POSCTU BLISTROV SNIMAC I8 </value>
-  </data>
-  <data name="___PODAVAC_PLNY__ODSTRANTE_PRAZDNE_BLISTRE__I8_____" xml:space="preserve">
-    <value>PODAVAC PLNY! ODSTRANTE PRAZDNE BLISTRE (I8) !</value>
-  </data>
-  <data name="___VYSTUPNY_BUFFER___P6_POSUN_KUSOV_NAD_BUFFER__" xml:space="preserve">
-    <value>VYSTUPNY BUFFER - P6 POSUN KUSOV NAD BUFFER</value>
-  </data>
-  <data name="___VYSTUPNY_BUFFER___UVOLNENIE_BLISTRA__P5_PRACOVNA_POZICIA___" xml:space="preserve">
-    <value>VYSTUPNY BUFFER - UVOLNENIE BLISTRA  P5 PRACOVNA POZICIA </value>
-  </data>
-  <data name="___VYSTUPNY_BUFFER___P6_NAVRAT_NAHOR__" xml:space="preserve">
-    <value>VYSTUPNY BUFFER - P6 NAVRAT NAHOR</value>
-  </data>
-  <data name="___VYSTUPNY_BUFFER___HORIZONTALNE_ZASUNUTIE_P5_ZAKLADNA_POZICIA__" xml:space="preserve">
-    <value>VYSTUPNY BUFFER - HORIZONTALNE ZASUNUTIE P5 ZAKLADNA POZICIA</value>
-  </data>
-  <data name="___VYCHODIZA_POLOHA___VYSUNUTIE_P3__" xml:space="preserve">
-    <value>VYCHODIZA POLOHA - VYSUNUTIE P3</value>
-  </data>
-  <data name="___VYCHODIZA_POLOHA___ZASUNUTIE_P10__" xml:space="preserve">
-    <value>VYCHODIZA POLOHA - ZASUNUTIE P10</value>
-  </data>
-  <data name="___VYCHODIZA_POLOHA___ZASUNUTIE_P1_A_P2____THEN___________seq_StepCompleteWhen_Components_P1_VerticalSepareEntryBlisters_MoveToHome___Done_AND_THEN_Components_P2_VerticalSepareEntryBlisters_MoveToHome___Done____END_IF_______________________________________________________________________________________________________________________________________________________________________________________________________________________________IF_seq_Step_40_TRUE____VYCHODIZA_POLOHA___ZASUNUTIE_P5__" xml:space="preserve">
-    <value>VYCHODIZA POLOHA - ZASUNUTIE P1 A P2&gt;') THEN   
-
-
-	    seq.StepCompleteWhen(Components.P1_VerticalSepareEntryBlisters.MoveToHome().Done AND_THEN Components.P2_VerticalSepareEntryBlisters.MoveToHome().Done);
-
-END_IF        
-//***************************************************************************************************   
-
-
-//***************************************************************************************************     
-IF seq.Step(40,TRUE,'VYCHODIZA POLOHA - ZASUNUTIE P5</value>
-  </data>
-  <data name="___VYCHODIZA_POLOHA___ZASUNUTIE_P6__" xml:space="preserve">
-    <value>VYCHODIZA POLOHA - ZASUNUTIE P6</value>
-  </data>
-  <data name="___VYCHODIZA_POLOHA___ZASUNUTIE_P4_DO_ZAKLADNEJ_POZICIE__" xml:space="preserve">
-    <value>VYCHODIZA POLOHA - ZASUNUTIE P4 DO ZAKLADNEJ POZICIE</value>
-  </data>
-  <data name="___Poziadavka_separovania__" xml:space="preserve">
-    <value>Poziadavka separovania</value>
-  </data>
-  <data name="___Poziadavka_vyprazdnenia__" xml:space="preserve">
-    <value>Poziadavka vyprazdnenia</value>
-  </data>
-  <data name="___Oscilating_Specific_Data__" xml:space="preserve">
-    <value>Oscilating Specific Data</value>
-  </data>
-  <data name="___SEPAROVANIE_VSTUPNEHO_BLISTRA___ZASUNUTIE_P10____THEN___________seq_StepCompleteWhen_Components_P10_HoldEntrySepareOutBlister_MoveToHome___Done_______END_IF____________________________________________________________________________________________________________________________________________________________________________________________________________________________________IF_seq_Step_70_TRUE____KONTROLA_PRITOMNOSTI_SEPAROVANEHO_KUSU__" xml:space="preserve">
-    <value>SEPAROVANIE VSTUPNEHO BLISTRA - ZASUNUTIE P10&gt;') THEN   
-
-//    seq.StepCompleteWhen(Components.P10_HoldEntrySepareOutBlister.MoveToHome().Done  );
-//END_IF        
-////***************************************************************************************************     
-
-////***************************************************************************************************   
-//IF seq.Step(70,TRUE,'KONTROLA PRITOMNOSTI SEPAROVANEHO KUSU</value>
   </data>
   <data name="___VYCHODIZA_POLOHA___VYPNUTIE_VALCOV__" xml:space="preserve">
     <value>VYCHODIZA POLOHA - VYPNUTIE VALCOV</value>
@@ -585,6 +682,9 @@ IF seq.Step(40,TRUE,'VYCHODIZA POLOHA - ZASUNUTIE P5</value>
   </data>
   <data name="___Missing_link_to_Controlled_unit__No_function_is_being_executed___" xml:space="preserve">
     <value>Missing link to Controlled unit! No function is being executed!</value>
+  </data>
+  <data name="___PLC_connection__" xml:space="preserve">
+    <value>PLC connection</value>
   </data>
   <data name="___Heart_beat__" xml:space="preserve">
     <value>Heart beat</value>
@@ -916,6 +1016,45 @@ IF seq.Step(40,TRUE,'VYCHODIZA POLOHA - ZASUNUTIE P5</value>
   <data name="___Technology_Components__" xml:space="preserve">
     <value>Technology Components</value>
   </data>
+  <data name="___Control_Voltage__" xml:space="preserve">
+    <value>Control Voltage</value>
+  </data>
+  <data name="___Air_Pressure__" xml:space="preserve">
+    <value>Air Pressure</value>
+  </data>
+  <data name="___Emergency_Stop__" xml:space="preserve">
+    <value>Emergency Stop</value>
+  </data>
+  <data name="___Safety_door__" xml:space="preserve">
+    <value>Safety door</value>
+  </data>
+  <data name="___Doors_closed__" xml:space="preserve">
+    <value>Doors closed</value>
+  </data>
+  <data name="___Doors_Locked__" xml:space="preserve">
+    <value>Doors Locked</value>
+  </data>
+  <data name="___Automat_Allowed__" xml:space="preserve">
+    <value>Automat Allowed</value>
+  </data>
+  <data name="___Process_Data_Loaded__" xml:space="preserve">
+    <value>Process Data Loaded</value>
+  </data>
+  <data name="___Technology_Data_Loaded__" xml:space="preserve">
+    <value>Technology Data Loaded</value>
+  </data>
+  <data name="___Manipulator__" xml:space="preserve">
+    <value>Manipulator</value>
+  </data>
+  <data name="___Robots__" xml:space="preserve">
+    <value>Robots</value>
+  </data>
+  <data name="___Cameras__" xml:space="preserve">
+    <value>Cameras</value>
+  </data>
+  <data name="___Laser__" xml:space="preserve">
+    <value>Laser</value>
+  </data>
   <data name="____I1__Zasobnik_blistrov_1_Nema_minimalne_mnozstvo__" xml:space="preserve">
     <value>(I1) Zasobnik blistrov 1 Nema minimalne mnozstvo</value>
   </data>
@@ -957,9 +1096,6 @@ IF seq.Step(40,TRUE,'VYCHODIZA POLOHA - ZASUNUTIE P5</value>
   </data>
   <data name="____P2_Upevnenie_blistra__" xml:space="preserve">
     <value>(P2)Upevnenie blistra</value>
-  </data>
-  <data name="___Manipulator__" xml:space="preserve">
-    <value>Manipulator</value>
   </data>
   <data name="___Signalizacia_upozornenia_R__" xml:space="preserve">
     <value>Signalizacia upozornenia R</value>
@@ -1114,77 +1250,98 @@ IF seq.Step(40,TRUE,'VYCHODIZA POLOHA - ZASUNUTIE P5</value>
   <data name="___Cas_behu_vytupneho_dopravnika__" xml:space="preserve">
     <value>Cas behu vytupneho dopravnika</value>
   </data>
-  <data name="___Pritomnost_blistra_v_presuvaci__" xml:space="preserve">
-    <value>Pritomnost blistra v presuvaci</value>
+  <data name="___Blister_present_in_entry_slide__" xml:space="preserve">
+    <value>Blister present in entry slide</value>
   </data>
-  <data name="___Pritomnost_medzery_medzi_blistrami__" xml:space="preserve">
-    <value>Pritomnost medzery medzi blistrami</value>
+  <data name="___Gap_detected_between_blisters__" xml:space="preserve">
+    <value>Gap detected between blisters</value>
   </data>
-  <data name="___Zasobik_blistrov_prazdny__" xml:space="preserve">
-    <value>Zasobik blistrov prazdny</value>
+  <data name="___Blister_feeder_empty__" xml:space="preserve">
+    <value>Blister feeder empty</value>
   </data>
-  <data name="___Pritomnost_blistra_v_pracovnej_pozicii__" xml:space="preserve">
-    <value>Pritomnost blistra v pracovnej pozicii</value>
+  <data name="___Blister_in_working_position__" xml:space="preserve">
+    <value>Blister in working position</value>
   </data>
-  <data name="___Vystupny_blister_neje_v_sklzovom_dopravniku__" xml:space="preserve">
-    <value>Vystupny blister neje v sklzovom dopravniku</value>
+  <data name="___Output_blister_not_on_slide_conveyor__" xml:space="preserve">
+    <value>Output blister not on slide conveyor</value>
   </data>
-  <data name="___Vystupny_blister_snimanie_vo_vytahu__" xml:space="preserve">
-    <value>Vystupny blister snimanie vo vytahu</value>
+  <data name="___Output_blister_present_in_elevator__" xml:space="preserve">
+    <value>Output blister present in elevator</value>
   </data>
-  <data name="___Vystupny_blister_je_nad_Bufferom__" xml:space="preserve">
-    <value>Vystupny blister je nad Bufferom</value>
+  <data name="___Output_blister_above_buffer__" xml:space="preserve">
+    <value>Output blister above buffer</value>
   </data>
-  <data name="___Vystupny_zasobnik_je_plny__" xml:space="preserve">
-    <value>Vystupny zasobnik je plny</value>
+  <data name="___Output_container_full__" xml:space="preserve">
+    <value>Output container full</value>
   </data>
-  <data name="___Vertikalny_prisun_vstupnych_blistrov__" xml:space="preserve">
-    <value>Vertikalny prisun vstupnych blistrov</value>
+  <data name="___Entry_blister_lift__" xml:space="preserve">
+    <value>Entry blister lift</value>
   </data>
-  <data name="___Vertikalny_prisun_vstupnych_blistrov___" xml:space="preserve">
-    <value>Vertikalny prisun vstupnych blistrov </value>
+  <data name="___Entry_blister_slide__" xml:space="preserve">
+    <value>Entry blister slide</value>
   </data>
-  <data name="___Horizontalny_prisun_vstupnych_blistrov__" xml:space="preserve">
-    <value>Horizontalny prisun vstupnych blistrov</value>
+  <data name="___Entry_blister_feed__" xml:space="preserve">
+    <value>Entry blister feed</value>
   </data>
-  <data name="___Prisun_vstupneho_blistra__" xml:space="preserve">
-    <value>Prisun vstupneho blistra</value>
+  <data name="___Output_blister_slide__" xml:space="preserve">
+    <value>Output blister slide</value>
   </data>
-  <data name="___Horizontalny_prisun_vystupnych_blistrov__" xml:space="preserve">
-    <value>Horizontalny prisun vystupnych blistrov</value>
+  <data name="___Output_blister_lift__" xml:space="preserve">
+    <value>Output blister lift</value>
   </data>
-  <data name="___Vertikalny_prisun_vystupnych_blistrov__" xml:space="preserve">
-    <value>Vertikalny prisun vystupnych blistrov</value>
+  <data name="___Entry_blister_support__" xml:space="preserve">
+    <value>Entry blister support</value>
   </data>
-  <data name="___Podopretie_vstupneho_blistra__" xml:space="preserve">
-    <value>Podopretie vstupneho blistra</value>
+  <data name="___Entry_blister_side_clamp__" xml:space="preserve">
+    <value>Entry blister side clamp</value>
   </data>
-  <data name="___Upevnenie_zboku_vstupneho_blistra__" xml:space="preserve">
-    <value>Upevnenie zboku vstupneho blistra</value>
+  <data name="___Entry_blister_top_clamp__" xml:space="preserve">
+    <value>Entry blister top clamp</value>
   </data>
-  <data name="___Zamknutue_zhora_vstupneho_blistra__" xml:space="preserve">
-    <value>Zamknutue zhora vstupneho blistra</value>
+  <data name="___Entry_blister_separator__" xml:space="preserve">
+    <value>Entry blister separator</value>
   </data>
-  <data name="___Odelovac_blistrov_na_vstupe__" xml:space="preserve">
-    <value>Odelovac blistrov na vstupe</value>
+  <data name="___Warning_signalisation__" xml:space="preserve">
+    <value>Warning signalisation</value>
   </data>
-  <data name="___Zamykanie_blistra_zhora_neaktive__P9__P9_1_je_nepritomne__" xml:space="preserve">
-    <value>Zamykanie blistra zhora neaktive (P9)(P9.1)je nepritomne</value>
+  <data name="___Locking_of_the_blister_from_above_inactive__P9__P9_1__is_not_present__" xml:space="preserve">
+    <value>Locking of the blister from above inactive (P9)(P9.1) is not present</value>
   </data>
-  <data name="___Oddelovanie_blistrov_na_vstupe_neaktive__P10__P10_1_je_nepritomne__" xml:space="preserve">
-    <value>Oddelovanie blistrov na vstupe neaktive (P10)(P10.1)je nepritomne</value>
+  <data name="___Separation_of_entry_blisters_inactive__P10__P10_1__is_not_present__" xml:space="preserve">
+    <value>Separation of entry blisters inactive (P10)(P10.1) is not present</value>
   </data>
-  <data name="___Stabilizacny_cas__" xml:space="preserve">
-    <value>Stabilizacny cas</value>
+  <data name="___Refill_required__" xml:space="preserve">
+    <value>Refill required</value>
+  </data>
+  <data name="___Blister_ready__" xml:space="preserve">
+    <value>Blister ready</value>
+  </data>
+  <data name="___Empty_blisters_removal_required__" xml:space="preserve">
+    <value>Empty blisters removal required</value>
+  </data>
+  <data name="___Info_delay__" xml:space="preserve">
+    <value>Info delay</value>
+  </data>
+  <data name="___Error_delay__" xml:space="preserve">
+    <value>Error delay</value>
+  </data>
+  <data name="___Stabilisation_time__" xml:space="preserve">
+    <value>Stabilisation time</value>
   </data>
   <data name="___Blink_period__" xml:space="preserve">
     <value>Blink period</value>
   </data>
-  <data name="___Time_to_dissable_safety__" xml:space="preserve">
-    <value>Time to dissable safety</value>
+  <data name="___Safety_disable_duration__" xml:space="preserve">
+    <value>Safety disable duration</value>
   </data>
-  <data name="___Volba_krokoveho_Cyklickeho_modu_ovladna_z_vonka__SetSequencesToStep___" xml:space="preserve">
-    <value>Volba krokoveho/Cyklickeho modu ovladna z vonka (SetSequencesToStep)</value>
+  <data name="___Step_mode_managable_from_outside__" xml:space="preserve">
+    <value>Step mode managable from outside</value>
+  </data>
+  <data name="___Action__" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="___Safety_conditon_met__" xml:space="preserve">
+    <value>Safety conditon met</value>
   </data>
   <data name="___Vstupny_podavac_prazdny__" xml:space="preserve">
     <value>Vstupny podavac prazdny</value>
@@ -1470,36 +1627,6 @@ IF seq.Step(40,TRUE,'VYCHODIZA POLOHA - ZASUNUTIE P5</value>
   </data>
   <data name="___Any_station_in_error__" xml:space="preserve">
     <value>Any station in error</value>
-  </data>
-  <data name="___Control_voltage__" xml:space="preserve">
-    <value>Control voltage</value>
-  </data>
-  <data name="___Air_pressure__" xml:space="preserve">
-    <value>Air pressure</value>
-  </data>
-  <data name="___Autmatic_mode_allowed__" xml:space="preserve">
-    <value>Autmatic mode allowed</value>
-  </data>
-  <data name="___Emergency_stop__" xml:space="preserve">
-    <value>Emergency stop</value>
-  </data>
-  <data name="___Safety_doors_OK__" xml:space="preserve">
-    <value>Safety doors OK</value>
-  </data>
-  <data name="___Doors_closed__" xml:space="preserve">
-    <value>Doors closed</value>
-  </data>
-  <data name="___Doors_locked__" xml:space="preserve">
-    <value>Doors locked</value>
-  </data>
-  <data name="___Light_curtain__" xml:space="preserve">
-    <value>Light curtain</value>
-  </data>
-  <data name="___Process_data__" xml:space="preserve">
-    <value>Process data</value>
-  </data>
-  <data name="___Technology_data__" xml:space="preserve">
-    <value>Technology data</value>
   </data>
   <data name="___Key_UID__" xml:space="preserve">
     <value>Key UID</value>

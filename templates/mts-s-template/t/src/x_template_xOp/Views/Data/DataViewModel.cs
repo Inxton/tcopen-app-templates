@@ -20,10 +20,7 @@ namespace x_template_xOp.Data
         public DataViewModel()
         {
             this.Title = strings.Data;
-            this.AddCommand(typeof(ProcessSettingsView), strings.ProcessData);
-            this.AddCommand(typeof(TechnologicalSettingsView), strings.TechData);
-            this.AddCommand(typeof(ReworkSettingsView), strings.ReworkData);
-            this.AddCommand(typeof(OfflineReworkDataView), strings.ReworkOfflineData);
+
             this.AddCommand(typeof(ProcessTraceabilityView), strings.ProductionData);
         }
     }

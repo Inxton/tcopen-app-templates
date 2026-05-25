@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <POU Name="NotificationPanel" Id="{995d3923-218c-4223-af13-5925285f276a}" SpecialFunc="None">
-    <Declaration><![CDATA[{attribute wpf [Container(Layout.Stack)]}
+    <Declaration><![CDATA[
     (*~
         <docu>
             <summary>Extendable notification panel</summary>

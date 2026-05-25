@@ -7,10 +7,10 @@
 
 		
 		
-        {attribute addProperty Name "<#Zamykanie blistra zhora neaktive (P9)(P9.1)je nepritomne#>"}
+        {attribute addProperty Name "<#Locking of the blister from above inactive (P9)(P9.1) is not present#>"}
 		LockBlisterInPickPosInactive : BOOL;
 		
-		{attribute addProperty Name "<#Oddelovanie blistrov na vstupe neaktive (P10)(P10.1)je nepritomne#>"}
+		{attribute addProperty Name "<#Separation of entry blisters inactive (P10)(P10.1) is not present#>"}
 		SepareBlistersAtEntryInactive : BOOL;
 
     END_STRUCT

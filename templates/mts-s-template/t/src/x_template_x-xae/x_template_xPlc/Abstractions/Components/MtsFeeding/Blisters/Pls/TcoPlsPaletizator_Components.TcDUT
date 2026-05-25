@@ -5,72 +5,72 @@
 STRUCT
 	
 	{attribute wpf [Container(Layout.Stack)]}
-	{attribute addProperty Name "(I1) <#Pritomnost blistra v presuvaci#>"}
+	{attribute addProperty Name "(I1) <#Blister present in entry slide#>"}
 	I1_PresentBlisterEntry : TcoElements.TcoDi(THISSTRUCT);
 	
-	{attribute addProperty Name "(I2) <#Pritomnost medzery medzi blistrami#>"}
+	{attribute addProperty Name "(I2) <#Gap detected between blisters#>"}
 	I2_PresentBlisterEntryEmptySpace : TcoElements.TcoDi(THISSTRUCT);
 	
-	{attribute addProperty Name "(I3) <#Zasobik blistrov prazdny#>"}
+	{attribute addProperty Name "(I3) <#Blister feeder empty#>"}
 	I3_PresentBlistersInBufferEmpty : TcoElements.TcoDi(THISSTRUCT);
 
 	
-	{attribute addProperty Name "(I4) <#Pritomnost blistra v pracovnej pozicii#>"}
+	{attribute addProperty Name "(I4) <#Blister in working position#>"}
 	I4_PresentBlisterInWorkingPos : TcoElements.TcoDi(THISSTRUCT);
 		
-	{attribute addProperty Name "(I5) <#Vystupny blister neje v sklzovom dopravniku#>"}
+	{attribute addProperty Name "(I5) <#Output blister not on slide conveyor#>"}
 	I5_OutBlistersIsThrowedCorrectly : TcoElements.TcoDi(THISSTRUCT);
 	
-	{attribute addProperty Name "(I6) <#Vystupny blister snimanie vo vytahu#>"}
+	{attribute addProperty Name "(I6) <#Output blister present in elevator#>"}
 	I6_OutBlistersLisftSignal : TcoElements.TcoDi(THISSTRUCT);
 	
-	{attribute addProperty Name "(I7) <#Vystupny blister je nad Bufferom#>"}
+	{attribute addProperty Name "(I7) <#Output blister above buffer#>"}
 	I7_OutBlistersIsAboveOutBuffer : TcoElements.TcoDi(THISSTRUCT);
 	
-	{attribute addProperty Name "(I8) <#Vystupny zasobnik je plny#>"}
+	{attribute addProperty Name "(I8) <#Output container full#>"}
 	I8_OutBlistersBufferIsFull : TcoElements.TcoDi(THISSTRUCT);
 	
 	
 	{attribute wpf [Container(Layout.Stack)]}
-	{attribute addProperty Name "(P1) <#Vertikalny prisun vstupnych blistrov#>"}
+	{attribute addProperty Name "(P1) <#Entry blister lift#>"}
 	P1_VerticalSepareEntryBlisters : TcoPneumatics.TcoCylinder(THISSTRUCT);
 	
-	{attribute addProperty Name "(P2) <#Vertikalny prisun vstupnych blistrov #>"}
+	{attribute addProperty Name "(P2) <#Entry blister lift#>"}
 	P2_VerticalSepareEntryBlisters : TcoPneumatics.TcoCylinder(THISSTRUCT);
 	
-	{attribute addProperty Name "(P3) (P3.1) <#Horizontalny prisun vstupnych blistrov#>"}
+	{attribute addProperty Name "(P3) (P3.1) <#Entry blister slide#>"}
 	P3_HorizontalSepareEntryBlisters : TcoPneumatics.TcoDoubleCylinder(THISSTRUCT);
 		
-	{attribute addProperty Name "(P4) <#Prisun vstupneho blistra#>"}
+	{attribute addProperty Name "(P4) <#Entry blister feed#>"}
 	P4_FeedEntryBlister :TcoPneumatics.TcoCylinder(THISSTRUCT);
 	
-	{attribute addProperty Name "(P5) (P5.1)<#Horizontalny prisun vystupnych blistrov#>"}
+	{attribute addProperty Name "(P5) (P5.1) <#Output blister slide#>"}
 	P5_HorizontalSepareOutBlisters : TcoPneumatics.TcoDoubleCylinder(THISSTRUCT);
 	
-	{attribute addProperty Name "(P6)<#Vertikalny prisun vystupnych blistrov#>"}
+	{attribute addProperty Name "(P6) <#Output blister lift#>"}
 	P6_VerticalSepareOutBlister : TcoPneumatics.TcoCylinder(THISSTRUCT);
 	
-	{attribute addProperty Name "(P7) <#Podopretie vstupneho blistra#>"}
+	{attribute addProperty Name "(P7) <#Entry blister support#>"}
 	P7_SupportEntryBlister : TcoPneumatics.TcoCylinder(THISSTRUCT);
 	
-	{attribute addProperty Name "(P8) (P8.1) <#Upevnenie zboku vstupneho blistra#>"}
+	{attribute addProperty Name "(P8) (P8.1) <#Entry blister side clamp#>"}
 	P8_FixEntryBlisterSide : TcoPneumatics.TcoDoubleCylinder(THISSTRUCT);
 	
-	{attribute addProperty Name "(P9) (P9.1) <#Zamknutue zhora vstupneho blistra#>"}
+	{attribute addProperty Name "(P9) (P9.1) <#Entry blister top clamp#>"}
 	P9_LockEntryBlisterTop : TcoPneumatics.TcoDoubleCylinder(THISSTRUCT);
 	
-	{attribute addProperty Name "(P10) (P10.1)<#Odelovac blistrov na vstupe#>"}
+	{attribute addProperty Name "(P10) (P10.1) <#Entry blister separator#>"}
 	P10_HoldEntrySepareOutBlister : TcoPneumatics.TcoDoubleCylinder(THISSTRUCT);
 	
 	
 	
 	{attribute wpf [Container(Layout.Stack,"Vseobecne")]}
 	
-	{attribute addProperty Name "(Q1) <#Signalizacia upozornenia R#>"}
+	{attribute addProperty Name "(Q1) <#Warning signalisation#> R"}
 	Q1_AttentionSignalisationR : TcoElements.TcoDo(THISSTRUCT);
-	{attribute addProperty Name "(Q2) <#Signalizacia upozornenia G#>"}
+	{attribute addProperty Name "(Q2) <#Warning signalisation#> G"}
 	Q2_AttentionSignalisationG : TcoElements.TcoDo(THISSTRUCT);
-	{attribute addProperty Name "(Q3) <#Signalizacia upozornenia B#>"}
+	{attribute addProperty Name "(Q3) <#Warning signalisation#> B"}
 	Q3_AttentionSignalisationB : TcoElements.TcoDo(THISSTRUCT);
 
 	

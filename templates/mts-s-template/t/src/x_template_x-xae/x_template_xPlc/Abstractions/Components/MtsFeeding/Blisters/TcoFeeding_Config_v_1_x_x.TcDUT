@@ -5,17 +5,19 @@
     TcoFeeding_Config_v_1_x_x EXTENDS TcoCore.TcoStruct :
     STRUCT
 
+		{attribute addProperty Name "<#Info delay#>"}
         InfoTime : TIME := T#5S;
+		{attribute addProperty Name "<#Error delay#>"}
         ErrorTime : TIME := T#0S;
-        {attribute addProperty Name "<#Stabilizacny cas#>"}
+        {attribute addProperty Name "<#Stabilisation time#>"}
         StabilisationTime : TIME := T#500MS;
         {attribute addProperty Name "<#Blink period#> "}
         BlinkTime : TIME := T#500MS;
 
-        {attribute addProperty Name "<#Time to dissable safety#> "}
+        {attribute addProperty Name "<#Safety disable duration#> "}
         TimeToDisableSafety : TIME := T#10S;
 
-        {attribute addProperty Name "<#Volba krokoveho/Cyklickeho modu ovladna z vonka (SetSequencesToStep)#>"}
+        {attribute addProperty Name "<#Step mode managable from outside#> (SetSequencesToStep)"}
         StepModeManagableFromOutside : BOOL;
 
     END_STRUCT

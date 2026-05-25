@@ -5,7 +5,11 @@
     TcoFeeding_Status_v_1_x_x EXTENDS TcoCore.TcoStruct :
     STRUCT
 
+	
+		{attribute addProperty Name "<#Action#>"}
         ActionDescription : STRING;
+		
+		{attribute addProperty Name "<#Safety conditon met#>"}
         SafeCondition : BOOL;
 
     END_STRUCT

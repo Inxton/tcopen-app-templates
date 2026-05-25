@@ -34,6 +34,8 @@ namespace x_template_xPlcConnector
  
         public ApplicationWindowStyle WindowStyle { get; set; } = ApplicationWindowStyle.SingleBorderWindow;
 
+        public bool ShowControlButton { get; set; } = true;
+
         //Verbose - tracing information and debugging minutiae; generally only switched on in unusual situations
         //Debug - internal control flow and diagnostic state dumps to facilitate pinpointing of recognised problems
         //Information - events of interest or that have relevance to outside observers; the default enabled minimum logging level

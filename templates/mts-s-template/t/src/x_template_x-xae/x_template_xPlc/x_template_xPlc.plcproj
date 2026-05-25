@@ -317,6 +317,9 @@
     <Compile Include="Abstractions\Safety\ControlButtons\TcoControledZone_Info.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Abstractions\Safety\ControlButtons\VirtualButtons.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Abstractions\Safety\ControlledZone\TcoControlledZone.TcPOU">
       <SubType>Code</SubType>
     </Compile>

@@ -153,7 +153,9 @@ END_VAR
     </Property>
     <Method Name="InitializeComponents" Id="{fc888b5c-689c-415f-91b8-3adb52477a53}" FolderPath="Initialize\">
       <Declaration><![CDATA[METHOD InitializeComponents
-VAR_INPUT
+VAR_INST
+	DoNothing : BOOL;
+	None : BOOL;
 END_VAR
 
 VAR
@@ -172,6 +174,18 @@ END_VAR]]></Declaration>
 controlVoltageDoor:=FALSE;
 estop:=FALSE;
 presure:=FALSE;
+
+_components.VirtualControlButtons(
+	refButtonRecover:= _components.VirtualButtons.StartButton, 
+	refButtonSuspend:= _components.VirtualButtons.StopButton, 
+	refButtonGround:= None , 
+	refButtonAuto:= None, 
+	refButtonRecoverLight:= _components.VirtualButtons.StartLight,
+	refButtonSuspendLight:= _components.VirtualButtons.StopLight, 
+	refButtonGroundLight:= DoNothing, 
+	refButtonAutoLight:=  DoNothing);
+
+
 
 //_dummyBlinker(inOffTime := T#10000MS, inOnTime := T#10000MS);
 (*
@@ -254,6 +268,8 @@ _components.DoorCicuit.AddLocalDoorsVoltage(inVoltage:=_components.LocalDoorVolt
 
 _components.Zone.AddControlledUnit(inControlledUnit:=_cu00x);
 _components.Zone.AddControlButtons(inControlButtons:=_components.ControlButtons);
+_components.Zone.AddControlButtons(inControlButtons:=_components.VirtualControlButtons);
+
 _components.Zone.AddKeyMode(inKeyMode:=_components.ModeKey);
 _components.Zone.AddKeyNormalService(inKeyNormalService:=_components.NormalServiceKey);
 
@@ -455,5 +471,73 @@ END_VAR
         </Implementation>
       </Get>
     </Property>
+    <LineIds Name="Technology">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Technology.AllowAutomat">
+      <LineId Id="3" Count="5" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Technology.AllowGround">
+      <LineId Id="3" Count="5" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Technology.AllowManual">
+      <LineId Id="3" Count="5" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Technology.AutomatAllTask.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Technology.Components.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Technology.Cu00x.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Technology.ForceStepMode">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Technology.GroundAllTask.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Technology.InitializeComponents">
+      <LineId Id="3" Count="3" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="84" Count="7" />
+      <LineId Id="81" Count="2" />
+      <LineId Id="7" Count="58" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Technology.InitializeComponentsOnce">
+      <LineId Id="3" Count="13" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="17" Count="4" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Technology.InternalStorage.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Technology.Main">
+      <LineId Id="3" Count="98" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Technology.OnExit">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Technology.ProcessSettings.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Technology.ReworkSettings.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Technology.RunOperations.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="Technology.TechnologicalSettings.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>

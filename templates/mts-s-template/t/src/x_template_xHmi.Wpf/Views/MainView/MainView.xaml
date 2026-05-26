@@ -51,16 +51,7 @@
 
                 <vortexs:UserInfoDisplayView Grid.Column="1" VerticalContentAlignment="Center" x:Name="userInfo"/>
 
-                <StackPanel Orientation="Horizontal"  Grid.Column="2" HorizontalAlignment="Center" Visibility="{Binding ControlButtonVisibility, Converter={vortex:BoolToVisibilityConverter}}">
-                    
-                    <!--ADD PERMISSION BOX IF NEEDED-->
-                    <!--<vortexs:PermissionBox Permissions="Administrator|instructor_access" SecurityMode="Disabled">-->
-                        <Button Name="Start" Content="Start" Click="ControlButton_Click" Background="Green"/>
-                    <!--</vortexs:PermissionBox>-->
-                    <!--<vortexs:PermissionBox Permissions="Administrator|instructor_access" SecurityMode="Disabled">-->
-                        <Button Name="Stop"  Content="Stop" Click="ControlButton_Click" Foreground="{StaticResource OnMtsBlue}" Background="{StaticResource MtsBlue}"/>
-                    <!--</vortexs:PermissionBox>-->
-                </StackPanel>
+              
                 
                 <Menu Grid.Column="4"
                 materialDesign:MenuAssist.TopLevelMenuItemHeight="{Binding ElementName=userInfo, Path=ActualHeight}">

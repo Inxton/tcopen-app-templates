@@ -26,27 +26,7 @@ namespace x_template_xHmi.Wpf.Views.MainView
             InitializeComponent();
         }
 
-        private void ControlButton_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-
-            if (sender.Equals(Start))
-            {
-                App.x_template_xPlc.MAIN._technology._components.VirtualButtons.StartButton.Synchron = true;
-            }
-
-
-            if (sender.Equals(Stop))
-            {
-                App.x_template_xPlc.MAIN._technology._components.VirtualButtons.StopButton.Synchron = true;
-            }
-
-
-
-            System.Threading.Thread.Sleep(2000);
-
-            App.x_template_xPlc.MAIN._technology._components.VirtualButtons.StopButton.Synchron = false;
-            App.x_template_xPlc.MAIN._technology._components.VirtualButtons.StartButton.Synchron = false;
-        }
+     
 
 
 

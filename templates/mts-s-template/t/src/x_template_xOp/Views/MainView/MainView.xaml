@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     d:DesignHeight="450"
     xmlns:p="clr-namespace:x_template_xHmi.Wpf.Properties;assembly=x_template_xHmi.Wpf"
-    xmlns:wpf="clr-namespace:x_template_xHmi.Wpf;assembly=x_template_xHmi.Wpf" xmlns:x_template_xplc1="clr-namespace:x_template_xPlc;assembly=x_template_xHmi.Wpf" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:synologystatus="clr-namespace:x_template_xHmi.Wpf.SynologyStatus;assembly=x_template_xHmi.Wpf"
+    xmlns:wpf="clr-namespace:x_template_xHmi.Wpf;assembly=x_template_xHmi.Wpf" xmlns:x_template_xplc1="clr-namespace:x_template_xPlc;assembly=x_template_xHmi.Wpf" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:synologystatus="clr-namespace:x_template_xHmi.Wpf.SynologyStatus;assembly=x_template_xHmi.Wpf" xmlns:vortexs="http://vortex.security.mts/xaml"
     d:DesignWidth="800">
     <UserControl.DataContext>
         <local:MainViewModel />
@@ -29,6 +29,55 @@
             <x_template_xplc1:NotificationPanelView  ModelObject="{Binding x_template_xPlc.MAIN._technology._notificationPanel}" />
         </Viewbox>
         <materialDesign:Card Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatMidBgButton}">
+                        <Setter Property="Margin" Value="5,0,0,0"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+
+                <materialDesign:PackIcon Grid.Column="0" VerticalAlignment="Center" Height="25" Width="25" Kind="UserLockOutline" Foreground="{StaticResource MtsBlack}" Margin="0,0,10,0"/>
+
+                <vortexs:UserInfoDisplayView Grid.Column="1" VerticalContentAlignment="Center" x:Name="userInfo"/>
+
+               
+
+                <Menu Grid.Column="4"
+                materialDesign:MenuAssist.TopLevelMenuItemHeight="{Binding ElementName=userInfo, Path=ActualHeight}">
+
+
+                    <MenuItem  
+                          Icon="{materialDesign:PackIcon Kind=Keyboard}"
+                          Command="{Binding OpenKeyboardCommand}"
+                          IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+
+                    <MenuItem Header="{x:Static p:strings.LangSelector}" 
+                          Icon="{materialDesign:PackIcon Kind=Language}"
+                          Command="{Binding OpenLanguageCommand}"
+                          IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+
+
+
+                    <MenuItem Header="{x:Static p:strings.CloseApplication}" 
+                           Icon="{materialDesign:PackIcon Kind=ExitToApp}"
+                            Command="{Binding CloseApplicationCommand}"
+                            IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+
+                </Menu>
+
+
+            </Grid>
+        </materialDesign:Card>
+        <!--<materialDesign:Card Grid.Row="1" Grid.ColumnSpan="2">
             <Menu 
                 materialDesign:MenuAssist.TopLevelMenuItemHeight="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type materialDesign:Card}}, Path=ActualHeight}">
                 <MenuItem Header="{x:Static p:strings.LogInOut}"  Icon="{materialDesign:PackIcon Kind=UserLock}">
@@ -59,7 +108,7 @@
 
                 <synologystatus:SynologyStatusView Margin="10,0" ></synologystatus:SynologyStatusView>
             </Menu>
-        </materialDesign:Card>
+        </materialDesign:Card>-->
         <wpf:MenuControlView Grid.Column="1"/>
     </Grid>
 </UserControl>

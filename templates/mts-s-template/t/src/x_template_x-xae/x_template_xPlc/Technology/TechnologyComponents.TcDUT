@@ -5,6 +5,9 @@
 TYPE
     TechnologyComponents EXTENDS TcoCore.TcoStruct :
     STRUCT
+		//*{attribute wpf [Container(Layout.Stack, "Carousel")]}
+		Carousel : TcoElements.TcoCarousel(THISSTRUCT);	
+	
       	{attribute wpf [Container(Layout.Stack,"PRESURE")]}
         {attribute addProperty Name "<#Presure OK#>"}
         AirPresureOk : TcoElements.TcoDi(THISSTRUCT);  

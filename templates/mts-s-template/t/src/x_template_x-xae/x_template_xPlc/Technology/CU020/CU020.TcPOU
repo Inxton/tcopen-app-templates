@@ -1,0 +1,581 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="CU020" Id="{aa834883-746c-4fe4-9984-9d5801796074}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute addProperty ShortName "CU020"}
+{attribute addProperty Name "Controlled unit x_tempalte_x"}
+FUNCTION_BLOCK CU020 EXTENDS CUBase 
+VAR
+    _cuProcessDataDisplay       :  CU020ProcessData := (Parent := THIS^);
+    _cuTechnologicalDataDisplay :  CU020TechnologicalData := (Parent := THIS^);
+    _components          		:  CU020Components := (Parent := THIS^);
+	{attribute addProperty Name "<#MANUAL#>"}
+    {attribute addProperty ToolTip "<#Start manual/Service mode#>"}	
+    _manualTask : CU020ManualTask(THIS^);
+	{attribute addProperty Name "<#GROUND#>"}
+	{attribute addProperty ToolTip "<#Brings the device into basic position.#>"}
+	_groundTask : CU020GroundTask(THIS^, TcoCore.eRestoreMode.None);
+	{attribute addProperty Name "<#AUTOMAT#>"}
+	{attribute addProperty ToolTip "<#Starts automatic sequence. Before start you need to perform grounding sequence.#>"}	
+	_automatTask : CU020AutomatTask(THIS^, TcoCore.eRestoreMode.None);     
+	{attribute addProperty Name "<#SUSPEND PROCESS#>"}
+    {attribute addProperty ToolTip "<#Starts suspend sequence of process(automatic,ground sequence).#>"}	
+    _suspendTask : CU020SuspendTask(THIS^, TcoCore.eRestoreMode.None);     
+	{attribute addProperty Name "<#RECOVER PROCESS#>"}
+    {attribute addProperty ToolTip "<#Starts suspend sequence of process(automatic,ground sequence).#>"}	
+    _recoverTask : CU020RecoverTask(THIS^, TcoCore.eRestoreMode.None);     
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[THIS^.CuId := eStations.CU020;
+
+
+
+(*
+	This controlled unit's component initialization.
+*)
+
+THIS^.InitializeComponents();
+
+(*
+	This controlled unit process data crud operations handler.
+	Control exchange of process data between this controlled unit and the data repository.
+*)
+
+_processData();
+_productionPlaner();
+
+
+(*
+	
+	Cu's Modes
+	
+*)
+
+Automat();
+Ground();
+Manual();
+
+
+_suspendTask();
+_recoverTask();
+
+
+
+
+
+
+
+(*
+	When no mode is active 'Idle' method should be called.
+	'NoMode' method shouls contain code that renders this cu idle. 
+*)
+
+IF NOT (AutomatTask.Task.Busy 
+		OR GroundTask.Task.Busy
+		OR ManualTask.Task.Busy) 
+THEN
+	Idle();
+END_IF
+
+
+
+(*
+	Updates this controlled unit's information for the UI.
+*)
+
+
+UpdateInfo();
+
+_cuProcessDataDisplay := ProcessDataManager.Data.CU020;
+_cuTechnologicalDataDisplay := Technology.TechnologicalSettings.Data.CU020;
+
+_settings.WarningCycleTime:= _cuTechnologicalDataDisplay.WarningCycleTime;
+_settings.ErrorCycleTime:= _cuTechnologicalDataDisplay.ErrorCycleTime;
+_settings.AnyRecurringFailure:= _cuTechnologicalDataDisplay.AnyRecurringFailure;
+_settings.SameRecurringFailure:= _cuTechnologicalDataDisplay.SameRecurringFailure;
+
+]]></ST>
+    </Implementation>
+    <Folder Name="Modes" Id="{26a53860-7a82-413f-8970-bd591263019c}" />
+    <Folder Name="Tasks" Id="{f7f40681-62d2-4c62-b997-4120fac3b721}" />
+    <Method Name="Automat" Id="{97bd36e6-62c6-4597-80d6-dddc01fb30cf}" FolderPath="Modes\">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Controls `automatic` mode of `CU020`.
+		</summary>
+	</docu>
+~*)
+METHOD Automat
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[(*
+	Enable condition to start `automatTask`.
+	Modify according your needs.
+	[! 
+	THIS IS NOT SAFETY CONDITION. THE SAFETY OF PRESONNEL AND EQUIPMENT MUST BE ENSURED BY ADDITIONAL MEANS 
+	TO COMPLY WITH REGULATIONS
+	]
+*)
+
+
+//_automatTask.Task.Enabled := (_groundTask.GroundDone OR  _automatTask.Task.Busy) AND THIS^.Technology.AllowAutomat();
+
+(*
+	Invokes `groundTask` from technology object.
+*)
+
+//IF(Technology.AutomatAllTask.Execute()) THEN _automatTask.Task.Invoke(); END_IF;
+
+//IF(Technology.ForceStepMode()) THEN
+ //	_automatTask.ModeController.Mode := eSequencerMode.StepMode;
+//END_IF 
+
+
+
+(*
+	or use default behavior from abstraction
+*)
+	SUPER^.Automat();
+
+(*
+
+	Executes sequence of automatic mode.
+
+*)
+
+_automatTask();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="AutomatTask" Id="{263c0790-2610-457e-8be6-471f738f82b7}" FolderPath="Tasks\">
+      <Declaration><![CDATA[PROPERTY AutomatTask : REFERENCE TO CUBaseAutomat]]></Declaration>
+      <Get Name="Get" Id="{07142b33-e11c-40f3-974a-f29d42ed792f}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[AutomatTask REF= _automatTask;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Components" Id="{1f4e4f99-c548-4754-a64d-53e69f614ab3}">
+      <Declaration><![CDATA[PROPERTY Components : REFERENCE TO CU020Components]]></Declaration>
+      <Get Name="Get" Id="{3e675dad-b143-40aa-9d10-89a153b46702}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Components REF= _components;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="CuProcessData" Id="{d8021f99-3946-4b4d-b541-8e43206bc734}">
+      <Declaration><![CDATA[PROPERTY CuProcessData : REFERENCE TO CU020ProcessData]]></Declaration>
+      <Get Name="Get" Id="{87eb25ee-a8c2-4705-9c00-5d908b3839ef}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[CuProcessData ref=ProcessDataManager.Data.CU020;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Ground" Id="{20274fbe-1c91-4f01-b696-4b193018d1ea}" FolderPath="Modes\">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Controls `ground` mode of `CU020`.
+		</summary>
+	</docu>
+~*)
+METHOD Ground : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[(*
+	Enable condition to start `groundTask`.
+	Modify according your needs.
+	[! 
+	THIS IS NOT SAFETY CONDITION. THE SAFETY OF PRESONNEL AND EQUIPMENT MUST BE ENSURED BY ADDITIONAL MEANS 
+	TO COMPLY WITH REGULATIONS
+	]
+*)
+
+//_groundTask.Task.Enabled :=  THIS^.Technology.AllowGround();
+
+(*
+	Invokes `groundTask` from technology object.
+*)
+
+//IF(Technology.GroundAllTask.Execute()) THEN _groundTask.Task.Invoke(); END_IF;
+
+
+//IF _groundTask.GroundDone AND _groundTask.Task.Execute() THEN _groundTask.Restore();_groundTask.Task.Invoke();END_IF;
+
+
+(*
+	or use default behavior from abstraction
+*)
+	SUPER^.Ground();
+
+
+
+
+(*
+
+	Executes sequence of groundTask.
+
+*)
+
+_groundTask();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="GroundTask" Id="{ad62f8a7-3e0b-436e-bc31-b9f5367fd779}" FolderPath="Tasks\">
+      <Declaration><![CDATA[PROPERTY GroundTask : REFERENCE TO CUBaseGround]]></Declaration>
+      <Get Name="Get" Id="{5a5158a1-08b8-4598-b237-edeca4144eb0}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[GroundTask REF= _groundTask;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Idle" Id="{2e545d61-ceb8-4f60-b6e6-9c3f9b0c0007}" FolderPath="Modes\">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Code to be called cylically when `CU020` idle; no other mode is active.
+		</summary>
+	</docu>
+~*)
+METHOD Idle : BOOL
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="InitializeComponents" Id="{2c6cf668-5811-4e67-9db4-470d1b4aec9d}">
+      <Declaration><![CDATA[METHOD InitializeComponents : BOOL
+
+VAR_INST
+	tempBoolHome: BOOL;
+	tempBoolWork: BOOL;
+	tempBoolP4Home: BOOL;
+	tempBoolP4Work: BOOL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+Components.PairTagTask();
+Components.ReworkInstructionTask();
+(*
+components.Group1.horizontalCylinder(inoAtHomePos:=GVL_iXlinker.EC1.EK1200.IA1_EL1809.Channel_1.Input, 
+							   inoAtWorkPos:=GVL_iXlinker.EC1.EK1200.IA1_EL1809.Channel_2.Input, 
+							   inoToHomePos:=GVL_iXlinker.EC1.EK1200.IA1_EL1809.Channel_3.Input, 
+							   inoToWorkPos:=GVL_iXlinker.EC1.EK1200.IA1_EL1809.Channel_4.Input);
+Components.SingleAxis.Config.InfoTime:=T#4S;
+Components.SingleAxis.Config.ErrorTime:=T#10S;
+
+
+
+Components.SingleAxis(inEnable := ,
+    inEnablePositive := ,
+    inEnableNegative := ,
+    inCalibrationCam := ,
+    refAxis := GVL_iXlinker.Axis1,
+	inoPositions:= _positions);
+	
+	
+
+//Components.PickAndPlace();
+//Components.PickAndPlace.Service();
+		
+Components.MultiAxis(inEnableAxis1 := ,
+    inEnablePositiveAxis1 := ,
+    inEnableNegativeAxis1 := ,
+    inCalibrationCamAxis1 := ,
+    refAxis1 := GVL_iXlinker.Axis1,
+	inoPositions:= _positionsMulti);
+	
+			
+//Components.PickAndPlace.Components.Manipulator(inEnableAxis1 := ,
+//    inEnablePositiveAxis1 := ,
+//    inEnableNegativeAxis1 := ,
+//    inCalibrationCamAxis1 := ,
+//    refAxis1 := GVL_iXlinker.Axis1,
+//	inoPositions:= _positionsMulti);
+*)
+
+Components.PlsPaletizator.Components.I1_PresentBlisterEntry(inoSignal:=GVL_iXlinker.Ec.EC.EK.AB23.Channel_1.Input);
+Components.PlsPaletizator.Components.I2_PresentBlisterEntryEmptySpace(inoSignal:=GVL_iXlinker.Ec.EC.Ek.AB23.Channel_2.Input);
+Components.PlsPaletizator.Components.I3_PresentBlistersInBufferEmpty(inoSignal:=GVL_iXlinker.Ec.EC.Ek.AB23.Channel_3.Input);
+Components.PlsPaletizator.Components.I4_PresentBlisterInWorkingPos(inoSignal:=GVL_iXlinker.Ec.EC.Ek.AB23.Channel_4.Input);
+Components.PlsPaletizator.Components.I5_OutBlistersIsThrowedCorrectly(inoSignal:=GVL_iXlinker.Ec.EC.Ek.AB23.Channel_5.Input);
+Components.PlsPaletizator.Components.I6_OutBlistersLisftSignal(inoSignal:=GVL_iXlinker.Ec.EC.Ek.AB23.Channel_6.Input);
+Components.PlsPaletizator.Components.I7_OutBlistersIsAboveOutBuffer(inoSignal:=GVL_iXlinker.Ec.EC.Ek.AB23.Channel_7.Input);
+Components.PlsPaletizator.Components.I8_OutBlistersBufferIsFull(inoSignal:=GVL_iXlinker.Ec.EC.Ek.AB23.Channel_8.Input);
+
+
+
+Components.PlsPaletizator.Components.P1_VerticalSepareEntryBlisters
+				(inoAtHomePos:=GVL_iXlinker.Ec.EC.Ek.AB21.Channel_1.Input,
+				inoAtWorkPos:=GVL_iXlinker.Ec.EC.Ek.AB21.Channel_2.Input,
+				inoToHomePos:=tempBoolHome,
+				inoToWorkPos:=tempBoolWork);
+GVL_iXlinker.Ec.EC.Ek.PNEU.Modules.Outputs.digital_Data_O[0].1:=tempBoolHome;
+GVL_iXlinker.Ec.EC.Ek.PNEU.Modules.Outputs.digital_Data_O[0].0:=tempBoolWork;
+
+Components.PlsPaletizator.Components.P2_VerticalSepareEntryBlisters
+				(inoAtHomePos:=GVL_iXlinker.Ec.EC.Ek.AB21.Channel_3.Input,
+				inoAtWorkPos:=GVL_iXlinker.Ec.EC.Ek.AB21.Channel_4.Input,
+				inoToHomePos:=tempBoolHome,
+				inoToWorkPos:=tempBoolWork);
+GVL_iXlinker.Ec.EC.Ek.PNEU.Modules.Outputs.digital_Data_O[0].3:=tempBoolHome;
+GVL_iXlinker.Ec.EC.Ek.PNEU.Modules.Outputs.digital_Data_O[0].2:=tempBoolWork;
+
+
+Components.PlsPaletizator.Components.P3_HorizontalSepareEntryBlisters
+				(inoAtHomePos1:=GVL_iXlinker.Ec.EC.Ek.AB21.Channel_5.Input,
+				inoAtWorkPos1:=GVL_iXlinker.Ec.EC.Ek.AB21.Channel_6.Input,
+				inoAtHomePos2:=GVL_iXlinker.Ec.EC.Ek.AB21.Channel_7.Input,
+				inoAtWorkPos2:=GVL_iXlinker.Ec.EC.Ek.AB21.Channel_8.Input,
+				inoToHomePos:=tempBoolHome,
+				inoToWorkPos:=tempBoolWork);
+GVL_iXlinker.Ec.EC.Ek.PNEU.Modules.Outputs.digital_Data_O[0].5:=tempBoolHome;
+GVL_iXlinker.Ec.EC.Ek.PNEU.Modules.Outputs.digital_Data_O[0].4:=tempBoolWork;
+
+Components.PlsPaletizator.Components.P4_FeedEntryBlister
+				(inoAtHomePos:=GVL_iXlinker.Ec.EC.Ek.AB21.Channel_9.Input,
+				inoAtWorkPos:=GVL_iXlinker.Ec.EC.Ek.AB21.Channel_10.Input,
+				inoToHomePos:=tempBoolP4Home,
+				inoToWorkPos:=tempBoolP4Work);
+				
+
+GVL_iXlinker.Ec.EC.Ek.PNEU.Modules.Outputs.digital_Data_O[0].7:=tempBoolP4Home;
+GVL_iXlinker.Ec.EC.Ek.PNEU.Modules.Outputs.digital_Data_O[0].6:=tempBoolP4Work;
+
+Components.PlsPaletizator.Components.P5_HorizontalSepareOutBlisters
+				(inoAtHomePos1:=GVL_iXlinker.Ec.EC.Ek.AB21.Channel_11.Input,
+				inoAtWorkPos1:=GVL_iXlinker.Ec.EC.Ek.AB21.Channel_12.Input,
+				inoAtHomePos2:=GVL_iXlinker.Ec.EC.Ek.AB21.Channel_13.Input,
+				inoAtWorkPos2:=GVL_iXlinker.Ec.EC.Ek.AB21.Channel_14.Input,
+				inoToHomePos:=tempBoolHome,
+				inoToWorkPos:=tempBoolWork);
+GVL_iXlinker.Ec.EC.Ek.PNEU.Modules.Outputs.digital_Data_O[1].1:=tempBoolHome;
+GVL_iXlinker.Ec.EC.Ek.PNEU.Modules.Outputs.digital_Data_O[1].0:=tempBoolWork;
+
+Components.PlsPaletizator.Components.P6_VerticalSepareOutBlister
+				(inoAtHomePos:=GVL_iXlinker.Ec.EC.Ek.AB21.Channel_15.Input,
+				inoAtWorkPos:=GVL_iXlinker.Ec.EC.Ek.AB21.Channel_16.Input,
+				inoToHomePos:=tempBoolHome,
+				inoToWorkPos:=tempBoolWork);
+GVL_iXlinker.Ec.EC.Ek.PNEU.Modules.Outputs.digital_Data_O[1].3:=tempBoolHome;
+GVL_iXlinker.Ec.EC.Ek.PNEU.Modules.Outputs.digital_Data_O[1].2:=tempBoolWork;
+
+
+Components.PlsPaletizator.Components.P7_SupportEntryBlister
+				(inoAtHomePos:=GVL_iXlinker.Ec.EC.Ek.AB22.Channel_1.Input,
+				inoAtWorkPos:=GVL_iXlinker.Ec.EC.Ek.AB22.Channel_2.Input,
+				inoToHomePos:=tempBoolHome,
+				inoToWorkPos:=tempBoolWork);
+GVL_iXlinker.Ec.EC.Ek.PNEU.Modules.Outputs.digital_Data_O[2].1:=tempBoolHome;
+GVL_iXlinker.Ec.EC.Ek.PNEU.Modules.Outputs.digital_Data_O[2].0:=tempBoolWork;
+
+Components.PlsPaletizator.Components.P8_FixEntryBlisterSide
+				(inoAtHomePos1:=GVL_iXlinker.Ec.EC.Ek.AB22.Channel_3.Input,
+				inoAtWorkPos1:=GVL_iXlinker.Ec.EC.Ek.AB22.Channel_4.Input,
+				inoAtHomePos2:=GVL_iXlinker.Ec.EC.Ek.AB22.Channel_5.Input,
+				inoAtWorkPos2:=GVL_iXlinker.Ec.EC.Ek.AB22.Channel_6.Input,
+				inoToHomePos:=tempBoolHome,
+				inoToWorkPos:=tempBoolWork);
+GVL_iXlinker.Ec.EC.Ek.PNEU.Modules.Outputs.digital_Data_O[2].3:=tempBoolHome;
+GVL_iXlinker.Ec.EC.Ek.PNEU.Modules.Outputs.digital_Data_O[2].2:=tempBoolWork;
+
+Components.PlsPaletizator(inSafeCondition:=GVL_iXlinker.Ec.EC.IA1.Channel_1.Input);
+Components.PlsPaletizator.Service();
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Manual" Id="{bc83a5bd-4bbb-47a5-97bd-d1a502e0a034}" FolderPath="Modes\">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Controls `manual` mode of `CU020`.
+		</summary>
+	</docu>
+~*)
+METHOD Manual : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[(*
+	Enable condition to start `automatTask`.
+	Modify according your needs.
+	[! 
+	THIS IS NOT SAFETY CONDITION. THE SAFETY OF PRESONNEL AND EQUIPMENT MUST BE ENSURED BY ADDITIONAL MEANS 
+	TO COMPLY WITH REGULATIONS
+	]
+*)
+
+	//_manualTask.Task.Enabled := THIS^.Technology.AllowManual();
+
+	
+(*
+	or use default behavior from abstraction
+*)
+	SUPER^.Manual();
+	
+
+(*
+
+	Executes sequence of manualTask.
+
+*)
+_manualTask();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="ManualTask" Id="{8089fdbc-c616-4b97-9b39-39bec213227b}" FolderPath="Tasks\">
+      <Declaration><![CDATA[PROPERTY ManualTask : REFERENCE TO TcoTaskedService]]></Declaration>
+      <Get Name="Get" Id="{3a9596b1-0906-4be3-a0db-409d1856a0a3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ManualTask REF= _manualTask;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="ProductionPlanerTask" Id="{919dd269-6bdd-4bd9-9064-1a98ff10bfc9}" FolderPath="Tasks\">
+      <Declaration><![CDATA[PROPERTY ProductionPlanerTask : REFERENCE TO ProductionPlaner]]></Declaration>
+      <Get Name="Get" Id="{e7221180-b15d-4728-b613-38b9182fe370}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ProductionPlanerTask REF= _productionPlaner;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="RecoverTask" Id="{3d0050a4-c6ad-486c-aa4f-b5f9c586f3b1}" FolderPath="Tasks\">
+      <Declaration><![CDATA[PROPERTY RecoverTask : REFERENCE TO CUBaseRecover]]></Declaration>
+      <Get Name="Get" Id="{3eb396d9-ab1b-4523-a73e-32cf109b2443}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[RecoverTask REF= _recoverTask;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="StatusInfo" Id="{dc2a7db4-11ea-4a43-9afb-218833449724}">
+      <Declaration><![CDATA[PROPERTY StatusInfo : REFERENCE TO CUBaseStatusInfo]]></Declaration>
+      <Get Name="Get" Id="{08adc699-c7a1-4a74-979a-431801162267}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[StatusInfo ref= _statusInfo;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="SuspendTask" Id="{a38a55d4-f62e-4f8b-84da-9bddb9f7a9b8}" FolderPath="Tasks\">
+      <Declaration><![CDATA[PROPERTY SuspendTask : REFERENCE TO CUBaseSuspend]]></Declaration>
+      <Get Name="Get" Id="{5c4119f0-6f77-4bb4-8229-ecde8291c898}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[SuspendTask REF= _suspendTask;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="Technology" Id="{adfa7204-45a8-4eef-8b69-c865775d9bd1}">
+      <Declaration><![CDATA[PROPERTY Technology : REFERENCE TO Technology]]></Declaration>
+      <Get Name="Get" Id="{8d7df3fa-d1e7-4f85-8c84-f3393e2c101a}">
+        <Declaration><![CDATA[VAR
+    _technology : POINTER TO Technology;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IF __QUERYPOINTER(Parent, _technology) THEN // Check if _Parent is Station001
+    Technology REF= _technology^;              // If the check is successful dereference a pointer. simlar to THIS^ or SUPER^
+END_IF]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="TechnologyData" Id="{696cf550-fc40-4888-b36a-62538ed23a61}">
+      <Declaration><![CDATA[PROPERTY TechnologyData : REFERENCE TO CU020TechnologicalData]]></Declaration>
+      <Get Name="Get" Id="{16d09479-6a9f-4e44-a343-b3eec1e7bcd8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[TechnologyData ref=_cuTechnologicalDataDisplay;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <LineIds Name="CU020">
+      <LineId Id="3" Count="67" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU020.Automat">
+      <LineId Id="3" Count="34" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU020.AutomatTask.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU020.Components.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU020.CuProcessData.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU020.Ground">
+      <LineId Id="3" Count="34" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU020.GroundTask.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU020.Idle">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU020.InitializeComponents">
+      <LineId Id="3" Count="128" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU020.Manual">
+      <LineId Id="3" Count="22" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU020.ManualTask.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU020.ProductionPlanerTask.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU020.RecoverTask.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU020.StatusInfo.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU020.SuspendTask.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU020.Technology.Get">
+      <LineId Id="3" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU020.TechnologyData.Get">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

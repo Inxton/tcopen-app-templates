@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="CU010TechnologicalData" Id="{9f5616e0-575f-43cc-91b6-cb244021a583}">
+    <Declaration><![CDATA[TYPE
+    CU010TechnologicalData EXTENDS CUTechnologicalDataBase : 
+    STRUCT		
+		{attribute wpf [Container(Layout.Stack,"Station specific data")]}
+		{attribute wpf [Group(Layout.GroupBox)]}
+		{attribute addProperty Name "Axis Home position"}
+        ServoHomePosition : LREAL;
+		{attribute addProperty Name "Axis Work position"}
+		ServoWorkPosition : LREAL;
+    END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

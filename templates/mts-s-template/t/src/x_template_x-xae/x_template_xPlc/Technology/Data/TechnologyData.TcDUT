@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <DUT Name="TechnologyData" Id="{117cc65d-87e4-0834-348f-298728a9d5a3}">
     <Declaration><![CDATA[{attribute clr [Container(Layout.Tabs)]}
@@ -7,6 +7,11 @@ TYPE
     STRUCT
 
         CU00x : CU00xTechnologicalData := (Parent := THISSTRUCT);
+		CU010 : CU010TechnologicalData := (Parent := THISSTRUCT);
+		CU020 : CU020TechnologicalData := (Parent := THISSTRUCT);
+		CU030 : CU030TechnologicalData := (Parent := THISSTRUCT);
+		CU040 : CU040TechnologicalData := (Parent := THISSTRUCT);
+		CU050 : CU050TechnologicalData := (Parent := THISSTRUCT);
     END_STRUCT
 END_TYPE
 ]]></Declaration>

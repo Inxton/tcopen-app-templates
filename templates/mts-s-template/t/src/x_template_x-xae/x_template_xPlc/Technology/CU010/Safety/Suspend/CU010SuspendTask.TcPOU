@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="CU010SuspendTask" Id="{afedf12f-ca70-450e-8b3c-625c5da0a8a7}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK CU010SuspendTask EXTENDS CUBaseSuspend IMPLEMENTS ICUTask
+VAR
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Run();
+]]></ST>
+    </Implementation>
+    <Method Name="Main" Id="{0b06794c-bee3-42db-8f39-31d5a6d19c03}">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Main method of the sequener. Custom code needs to be placed here. The sequencer is executed by call of **Instance.Run()** method.
+			This method is abstract, and it must be overridden in derived block.
+		</summary>
+	</docu>
+~*)
+METHOD PROTECTED Main : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[(*
+
+	SUSPEND PROCESS 
+	Following steps provide suspend actions for this controlled unit.
+	Add components add write customized sequence according to your need.
+*)
+
+		
+//
+IF (Step(100, TRUE, '<#WAITING FOR START#>')) THEN
+    //-------------------------------------    
+
+    StepCompleteWhen(TRUE);
+    //-------------------------------------
+END_IF
+
+//HERE  YOU CAN WRITE  WHAT IS NECESSARY 
+//TO SUPSEND  PROCESS..... TO INTERUPT SAFETY
+
+IF (Step(1000, TRUE, '<#SUSPENDING COMPONENTS#>')) THEN
+ 	//-------------------------------------    
+	//StepCompleteWhen(Station.AutomatTask.CurrentStep.Status <> eStepStatus.Running);
+		
+    StepCompleteWhen( CurrentStep.Duration >= T#3000MS);
+    //-------------------------------------
+END_IF
+
+IF (Step(30000, TRUE, 'SUSPEND DONE')) THEN
+    //-------------------------------------
+		
+        THIS^._done:=TRUE;
+		THIS^.Task.DoneWhen(TRUE);
+	
+   
+    //-------------------------------------	
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnStart" Id="{8a33d9a2-474c-4fff-9a6f-3b9e17fc0069}">
+      <Declaration><![CDATA[METHOD PUBLIC OnStart
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.OnStart();
+Station.RecoverTask.Restore();
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Station" Id="{9ee83c1a-9f7d-41bc-8bbe-fc1dbd27ee12}">
+      <Declaration><![CDATA[PROPERTY Station : REFERENCE TO CU010]]></Declaration>
+      <Get Name="Get" Id="{4ca0ef88-fe4e-4127-bb27-7aa372f83574}">
+        <Declaration><![CDATA[VAR
+    _station : POINTER TO CU010;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IF __QUERYPOINTER(Parent, _station) THEN // Check if _Parent is Station001
+    Station REF= _station^;              // If the check is successful dereference a pointer. simlar to THIS^ or SUPER^
+END_IF]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <LineIds Name="CU010SuspendTask">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU010SuspendTask.Main">
+      <LineId Id="3" Count="35" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU010SuspendTask.OnStart">
+      <LineId Id="3" Count="2" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU010SuspendTask.Station.Get">
+      <LineId Id="3" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

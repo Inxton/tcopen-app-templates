@@ -9,7 +9,7 @@ namespace x_template_xPlcConnector
         public DatabaseEngine DatabaseEngine { get; set; } = DatabaseEngine.MongoDb;
 
 
-        public string PlcAmsId = Environment.GetEnvironmentVariable("Tc3Target");
+        public string PlcAmsId = "192.168.4.1.1.1";//Environment.GetEnvironmentVariable("Tc3Target");
         public bool ShowConsoleOutput { get; set; } = true;
 
         public int ReadWriteCycleDelay { get; set; } = 100;

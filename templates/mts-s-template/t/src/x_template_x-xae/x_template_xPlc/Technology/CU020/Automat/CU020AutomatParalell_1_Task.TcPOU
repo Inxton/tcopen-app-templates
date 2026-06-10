@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="CU020AutomatParalell_1_Task" Id="{7dce8988-4b2b-4216-8f19-55921a520122}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK CU020AutomatParalell_1_Task EXTENDS TcoTaskedSequencer 
+
+VAR
+	_customTimer: TON;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Run();]]></ST>
+    </Implementation>
+    <Method Name="Main" Id="{483b5000-d54a-4421-a56c-2043f42afb90}">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Main method of the sequener. Custom code needs to be placed here. The sequencer is executed by call of **Instance.Run()** method.
+			This method is abstract, and it must be overridden in derived block.
+		</summary>
+	</docu>
+~*)
+METHOD PROTECTED Main : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[// Takes mode (step/continous) from the parent controller
+THIS^.ModeController.Mode := ParentSequence.ModeController.Mode;
+
+IF (Step(1000, TRUE, 'PARALELL STEP - EXAMPLE OF TIMERS')) THEN
+    //-------------------------------------    
+		StepCompleteWhen(CurrentStep.Duration >= T#300mS);	
+    //-------------------------------------
+END_IF
+IF (Step(1100, TRUE, 'PARALELL STEP - EXAMPLE OF TIMERS')) THEN
+    //-------------------------------------    
+		StepCompleteWhen(inCondition:=Timer_1(TRUE,T#100MS));	
+    //-------------------------------------
+END_IF
+IF (Step(1200, TRUE, 'PARALELL STEP - EXAMPLE OF TIMERS')) THEN
+    //-------------------------------------    
+		StepCompleteWhen(inCondition:=Timer_1(TRUE,T#200MS));	
+    //-------------------------------------
+END_IF
+
+
+IF THIS^.IsFreshState THEN
+	_customTimer(IN:=FALSE);
+END_IF
+IF (Step(1300, TRUE, 'PARALELL STEP - EXAMPLE OF TIMERS')) THEN
+    //-------------------------------------    
+
+		_customTimer(IN:=TRUE,PT:=T#200MS);
+		StepCompleteWhen(inCondition:=_customTimer.Q);	
+    //-------------------------------------
+END_IF
+
+
+IF (Step(10000, TRUE, 'PARALELL TASK DONE')) THEN
+    //-------------------------------------
+    _task.DoneWhen(TRUE );
+    //-------------------------------------	
+END_IF
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="ParentSequence" Id="{1d0d157e-843a-44ea-9393-c780dd43c67c}">
+      <Declaration><![CDATA[PROPERTY ParentSequence : REFERENCE TO CU020AutomatTask]]></Declaration>
+      <Get Name="Get" Id="{e34b7924-2f1c-4f2b-8b01-7a6802702a95}">
+        <Declaration><![CDATA[VAR
+    _parentSequence : POINTER TO CU020AutomatTask;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IF __QUERYPOINTER(Parent, _parentSequence) THEN 
+    ParentSequence REF= _parentSequence^;              
+END_IF]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <LineIds Name="CU020AutomatParalell_1_Task">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU020AutomatParalell_1_Task.Main">
+      <LineId Id="3" Count="37" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU020AutomatParalell_1_Task.ParentSequence.Get">
+      <LineId Id="3" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

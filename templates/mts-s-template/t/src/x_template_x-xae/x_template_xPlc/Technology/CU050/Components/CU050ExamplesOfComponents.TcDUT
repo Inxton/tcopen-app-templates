@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="CU050ExamplesOfComponents" Id="{9e44e432-9c69-4380-938b-f0175fa469dd}">
+    <Declaration><![CDATA[{attribute wpf [Container(Layout.Stack)]}	
+{attribute wpf [Group(Layout.Scroll)]}
+TYPE CU050ExamplesOfComponents EXTENDS TcoCore.TcoStruct:
+STRUCT
+		{attribute wpf [Container(Layout.Stack,"PNEU")]}	
+		{attribute addProperty Name "(A1)HORIZONTAL AXIS"}
+      	horizontalCylinder : TcoPneumatics.TcoCylinder(THISSTRUCT); 
+		{attribute addProperty Name "(A2)VERTICAL AXIS"}
+      	verticalCylinder : TcoPneumatics.TcoCylinder(THISSTRUCT); 
+		
+		{attribute addProperty Name "(A3)DOUBLE "}
+      	doubleCylinder : TcoPneumatics.TcoDoubleCylinder(THISSTRUCT); 
+		
+		{attribute wpf [Container(Layout.Stack,"INPUTS")]}	
+		{attribute addProperty Name "PRESENCE ON INSPECTION"}
+     	PresenceOnInspection : TcoElements.TcoDi(THISSTRUCT);
+		
+		{attribute addProperty Name "PRESENCE AT ENTRY CONVEYOR"}
+     	PresenceComponentAtEntr: TcoElements.TcoDi(THISSTRUCT);
+		
+		{attribute addProperty Name "COLISION SENSOR"}
+     	ColisonSensorComponent: TcoElements.TcoDi(THISSTRUCT);
+
+		{attribute addProperty Name "CONVEYOR AT ENTRY IS EMPTY"}
+     	ConvAtEntryIsEmpty : TcoElements.TcoDi(THISSTRUCT);
+		
+		{attribute addProperty Name "INSPECTION NOK"}
+     	InspectionIsNok : TcoElements.TcoDi(THISSTRUCT);
+		
+
+		{attribute wpf [Container(Layout.Stack,"OUTPUTS")]}		
+		{attribute addProperty Name "LIGHT ON"}
+     	LightOn : TcoElements.TcoDi(THISSTRUCT); 
+		
+		{attribute addProperty Name "LIGHT OFF"}
+     	LightOff : TcoElements.TcoDi(THISSTRUCT);
+		{attribute wpf [Container(Layout.Stack,"ANALOGS")]}	
+		{attribute addProperty Name "VERIFY SETPOINT"}
+     	VerifySetpoint : TcoElements.TcoAi(THISSTRUCT);
+		{attribute addProperty Name "SETPOINT"}
+     	Setpoint : TcoElements.TcoAo(THISSTRUCT);   
+		
+		{attribute addProperty Name "SampleDataToRender"}
+     	ArrayToRender : SampleArrayToRender;   
+
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

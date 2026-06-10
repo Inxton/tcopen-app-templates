@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <DUT Name="ProcessData" Id="{113396d1-0fe0-4862-b140-87fe92cd116d}">
     <Declaration><![CDATA[{attribute clr [Container(Layout.Tabs)]}
@@ -13,6 +13,11 @@ TYPE
         CU00x : CU00xProcessData := (Parent := THISSTRUCT);
 		
 //		
+		CU010 : CU010ProcessData := (Parent := THISSTRUCT);
+		CU020 : CU020ProcessData := (Parent := THISSTRUCT);
+		CU030 : CU030ProcessData := (Parent := THISSTRUCT);
+		CU040 : CU040ProcessData := (Parent := THISSTRUCT);
+		CU050 : CU050ProcessData := (Parent := THISSTRUCT);
     END_STRUCT
 END_TYPE
 ]]></Declaration>

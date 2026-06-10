@@ -11,6 +11,7 @@
     xmlns:view1="clr-namespace:x_template_xStatistic.Statistics.View;assembly=x_template_xStatistic" 
     xmlns:view2="clr-namespace:x_template_xTagsDictionary.View;assembly=x_template_xTagsDictionary" 
     xmlns:mainplc="clr-namespace:x_template_xPlc;assembly=x_template_xHmi.Wpf"
+    xmlns:controls="clr-namespace:x_template_xHmi.Wpf.Controls;assembly=x_template_xHmi.Wpf"
     mc:Ignorable="d"
     d:DesignHeight="450"
     d:DesignWidth="800">
@@ -112,8 +113,27 @@
 
                     <view2:TagsPairingView DataContext="{Binding TagsPairingViewModel}"></view2:TagsPairingView>
                 </vortexs:PermissionBox>
+            </TabItem>
 
 
+            <TabItem Header="Carousel radial panel example">
+                <Viewbox Stretch="Uniform"
+             StretchDirection="DownOnly">
+
+                    <controls:RadialPanel RotationOffset="90" Clockwise="true" Radius="150">
+                        <vortex:TcoCarouselSpotView 
+                    DataContext="{Binding x_template_xPlc.MAIN._technology._components.Carousel, Mode=OneWay}"
+                    controls:RadialPanel.IsCenter="True"
+                    x:Name="CenterElement"/>
+
+                        <!--<mainplc:CUBaseSpotView DataContext="{Binding _sandboxPlc.MAIN._technology._cu00x}"/>-->
+                        <mainplc:CUBaseSpotView DataContext="{Binding x_template_xPlc.MAIN._technology._cu010}"/>
+                        <mainplc:CUBaseSpotView DataContext="{Binding x_template_xPlc.MAIN._technology._cu020}"/>
+                        <mainplc:CUBaseSpotView DataContext="{Binding x_template_xPlc.MAIN._technology._cu030}"/>
+                        <mainplc:CUBaseSpotView DataContext="{Binding x_template_xPlc.MAIN._technology._cu040}"/>
+                        <mainplc:CUBaseSpotView DataContext="{Binding x_template_xPlc.MAIN._technology._cu050}"/>
+                    </controls:RadialPanel>
+                </Viewbox>
             </TabItem>
 
         </TabControl>

@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="CU040GroundTask" Id="{d08529f4-c2f9-4f03-813c-f12f4647c9c9}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK CU040GroundTask EXTENDS CUBaseGround IMPLEMENTS ICUTask
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Run();]]></ST>
+    </Implementation>
+    <Folder Name="DataOperations" Id="{0b5739ef-83a3-48e1-a24c-d887b9c01d1a}" />
+    <Method Name="DataEntityDiscard" Id="{95f3fd13-c32f-4a07-8008-862ed1324e15}" FolderPath="DataOperations\">
+      <Declaration><![CDATA[METHOD DataEntityDiscard
+VAR_INPUT	
+	inStepID : INT;
+	EntityId : STRING(255);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (Step(inStepID, TRUE, 'DISCARD ENTITY')) THEN	
+    //-------------------------------------		
+	IF(Station.ProcessDataManager.Exists(EntityId).Done) THEN
+		IF(Station.ProcessDataManager._idExistsTask.Exists) THEN
+			StepCompleteWhen(THIS^.Station.EntityFlowDiscard(EntityId, Station.ProcessDataManager.Data.CU040.Header).Done);
+		ELSE
+			CompleteStep();
+		END_IF
+	END_IF;					   		    				
+    //-------------------------------------
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Main" Id="{6e833568-ed3f-4523-8bfe-5958f1dde598}">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Main method of the sequener. Custom code needs to be placed here. The sequencer is executed by call of **Instance.Run()** method.
+			This method is abstract, and it must be overridden in derived block.
+		</summary>
+	</docu>
+~*)
+METHOD PROTECTED Main : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF (Step(100, TRUE, 'STOPPING OTHER MODES')) THEN
+	Station.AutomatTask.ResetCycleTime();//here we can reset averages values of CT
+	Station.AutomatTask.Restore();
+	Station.ManualTask.Restore();
+	Station.ProcessDataManager.Restore();
+	Station.AutomatTask.HideAllDialogs();
+	Station.GroupInspection.Restore();// hide all dialogs 
+    StepCompleteWhen(TRUE);
+END_IF
+
+IF (Step(200, TRUE, 'STOPPING OTHER MODES')) THEN	
+//	---------------------------------------------------
+	
+	Station.AutomatTask.ResetCycleTime();
+	Station.ProductionPlanerTask.Restore();
+	Station.Components.PairTagTask.Restore();
+	
+	Messenger.Info('INFO MESSAGE');
+	
+    StepCompleteWhen(THIS^._currentStep.Duration > T#500MS);
+//	---------------------------------------------------
+END_IF
+
+DataEntityDiscard(5000, THIS^.Station.ProcessDataManager.Data._EntityId);
+
+IF (Step(10000, TRUE, 'LAST STEP')) THEN	
+	//---------------------------------------------------
+	_groundDone := TRUE;
+	THIS^._task.DoneWhen(_groundDone);
+	//---------------------------------------------------
+END_IF]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnStart" Id="{e98339ee-c1f9-434e-a0d9-70b008eded3a}">
+      <Declaration><![CDATA[METHOD PUBLIC OnStart]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.OnStart();
+Station.AutomatTask.Restore();
+Station.ManualTask.Restore();
+Station.GroundTask.CancelGround();
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Station" Id="{0b3ed50a-81b2-40eb-b5ec-2435ac780206}">
+      <Declaration><![CDATA[PROPERTY Station : REFERENCE TO CU040]]></Declaration>
+      <Get Name="Get" Id="{71a78d7a-2ab0-466b-bd3c-3f0cb854c228}">
+        <Declaration><![CDATA[VAR
+    _station : POINTER TO CU040;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IF __QUERYPOINTER(Parent, _station) THEN // Check if _Parent is Station001
+    Station REF= _station^;              // If the check is successful dereference a pointer. simlar to THIS^ or SUPER^
+END_IF]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <LineIds Name="CU040GroundTask">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU040GroundTask.DataEntityDiscard">
+      <LineId Id="3" Count="9" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU040GroundTask.Main">
+      <LineId Id="3" Count="29" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU040GroundTask.OnStart">
+      <LineId Id="3" Count="5" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU040GroundTask.Station.Get">
+      <LineId Id="3" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

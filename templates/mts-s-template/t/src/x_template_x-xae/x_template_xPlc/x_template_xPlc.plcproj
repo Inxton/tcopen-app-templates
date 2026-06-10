@@ -449,6 +449,162 @@
     <Compile Include="Technology\CU00x\Safety\Recover\CU00xRecoverTask.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Technology\CU010\Automat\CU010AutomatParalell_1_Task.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\Automat\CU010AutomatTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\Components\CU010Components.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\Components\CU010ExampleCompositComponent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\Components\CU010ExamplesOfComponents.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\CU010.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\Data\CU010DialogContent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\Data\CU010ProcessData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\Data\CU010TechnologicalData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\Ground\CU010GroundTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\Manual\CU010ManualTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\Safety\Recover\CU010RecoverTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\Safety\Suspend\CU010SuspendTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Automat\CU020AutomatParalell_1_Task.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Automat\CU020AutomatTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Components\CU020Components.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Components\CU020ExampleCompositComponent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Components\CU020ExamplesOfComponents.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\CU020.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Data\CU020DialogContent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Data\CU020ProcessData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Data\CU020TechnologicalData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Ground\CU020GroundTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Manual\CU020ManualTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Safety\Recover\CU020RecoverTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Safety\Suspend\CU020SuspendTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Automat\CU030AutomatParalell_1_Task.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Automat\CU030AutomatTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Components\CU030Components.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Components\CU030ExampleCompositComponent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Components\CU030ExamplesOfComponents.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\CU030.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Data\CU030DialogContent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Data\CU030ProcessData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Data\CU030TechnologicalData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Ground\CU030GroundTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Manual\CU030ManualTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Safety\Recover\CU030RecoverTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Safety\Suspend\CU030SuspendTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Automat\CU040AutomatParalell_1_Task.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Automat\CU040AutomatTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Components\CU040Components.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Components\CU040ExampleCompositComponent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Components\CU040ExamplesOfComponents.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\CU040.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Data\CU040DialogContent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Data\CU040ProcessData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Data\CU040TechnologicalData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Ground\CU040GroundTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Manual\CU040ManualTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Safety\Recover\CU040RecoverTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Safety\Suspend\CU040SuspendTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Technology\Data\InternalStorage.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -474,6 +630,201 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Technology\Data\TechnologyData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\CU010.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\Automat\CU010AutomatParalell_1_Task.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\Automat\CU010AutomatTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\Components\CU010Components.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\Components\CU010ExampleCompositComponent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\Components\CU010ExamplesOfComponents.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\Data\CU010DialogContent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\Data\CU010ProcessData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\Data\CU010TechnologicalData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\Ground\CU010GroundTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\Manual\CU010ManualTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\Safety\Recover\CU010RecoverTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU010\Safety\Suspend\CU010SuspendTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\CU020.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Automat\CU020AutomatParalell_1_Task.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Automat\CU020AutomatTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Components\CU020Components.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Components\CU020ExampleCompositComponent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Components\CU020ExamplesOfComponents.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Data\CU020DialogContent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Data\CU020ProcessData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Data\CU020TechnologicalData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Ground\CU020GroundTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Manual\CU020ManualTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Safety\Recover\CU020RecoverTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU020\Safety\Suspend\CU020SuspendTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\CU030.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Automat\CU030AutomatParalell_1_Task.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Automat\CU030AutomatTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Components\CU030Components.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Components\CU030ExampleCompositComponent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Components\CU030ExamplesOfComponents.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Data\CU030DialogContent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Data\CU030ProcessData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Data\CU030TechnologicalData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Ground\CU030GroundTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Manual\CU030ManualTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Safety\Recover\CU030RecoverTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU030\Safety\Suspend\CU030SuspendTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\CU040.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Automat\CU040AutomatParalell_1_Task.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Automat\CU040AutomatTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Components\CU040Components.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Components\CU040ExampleCompositComponent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Components\CU040ExamplesOfComponents.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Data\CU040DialogContent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Data\CU040ProcessData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Data\CU040TechnologicalData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Ground\CU040GroundTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Manual\CU040ManualTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Safety\Recover\CU040RecoverTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU040\Safety\Suspend\CU040SuspendTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU050\CU050.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU050\Automat\CU050AutomatParalell_1_Task.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU050\Automat\CU050AutomatTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU050\Components\CU050Components.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU050\Components\CU050ExampleCompositComponent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU050\Components\CU050ExamplesOfComponents.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU050\Data\CU050DialogContent.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU050\Data\CU050ProcessData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU050\Data\CU050TechnologicalData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU050\Ground\CU050GroundTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU050\Manual\CU050ManualTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU050\Safety\Recover\CU050RecoverTask.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Technology\CU050\Safety\Suspend\CU050SuspendTask.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Technology\Technology.TcPOU">
@@ -589,11 +940,56 @@
     <Folder Include="Technology" />
     <Folder Include="Technology\CU00x\Automat" />
     <Folder Include="Technology\CU00x\Ground" />
+    <Folder Include="Technology\CU050" />
     <Folder Include="Technology\CU00x\Manual" />
     <Folder Include="Technology\CU00x\Safety" />
     <Folder Include="Technology\CU00x\Positions" />
     <Folder Include="Technology\CU00x\Safety\Suspend" />
     <Folder Include="Technology\CU00x\Safety\Recover" />
+    <Folder Include="Technology\CU010" />
+    <Folder Include="Technology\CU010\Automat" />
+    <Folder Include="Technology\CU010\Components" />
+    <Folder Include="Technology\CU010\Data" />
+    <Folder Include="Technology\CU010\Ground" />
+    <Folder Include="Technology\CU010\Manual" />
+    <Folder Include="Technology\CU010\Safety" />
+    <Folder Include="Technology\CU010\Safety\Recover" />
+    <Folder Include="Technology\CU010\Safety\Suspend" />
+    <Folder Include="Technology\CU020" />
+    <Folder Include="Technology\CU020\Automat" />
+    <Folder Include="Technology\CU020\Components" />
+    <Folder Include="Technology\CU020\Data" />
+    <Folder Include="Technology\CU020\Ground" />
+    <Folder Include="Technology\CU020\Manual" />
+    <Folder Include="Technology\CU020\Safety" />
+    <Folder Include="Technology\CU020\Safety\Recover" />
+    <Folder Include="Technology\CU020\Safety\Suspend" />
+    <Folder Include="Technology\CU030" />
+    <Folder Include="Technology\CU030\Automat" />
+    <Folder Include="Technology\CU030\Components" />
+    <Folder Include="Technology\CU030\Data" />
+    <Folder Include="Technology\CU030\Ground" />
+    <Folder Include="Technology\CU030\Manual" />
+    <Folder Include="Technology\CU030\Safety" />
+    <Folder Include="Technology\CU030\Safety\Recover" />
+    <Folder Include="Technology\CU030\Safety\Suspend" />
+    <Folder Include="Technology\CU040" />
+    <Folder Include="Technology\CU040\Automat" />
+    <Folder Include="Technology\CU040\Components" />
+    <Folder Include="Technology\CU040\Data" />
+    <Folder Include="Technology\CU040\Ground" />
+    <Folder Include="Technology\CU040\Manual" />
+    <Folder Include="Technology\CU040\Safety" />
+    <Folder Include="Technology\CU040\Safety\Recover" />
+    <Folder Include="Technology\CU040\Safety\Suspend" />
+    <Folder Include="Technology\CU050\Automat" />
+    <Folder Include="Technology\CU050\Components" />
+    <Folder Include="Technology\CU050\Data" />
+    <Folder Include="Technology\CU050\Ground" />
+    <Folder Include="Technology\CU050\Manual" />
+    <Folder Include="Technology\CU050\Safety" />
+    <Folder Include="Technology\CU050\Safety\Recover" />
+    <Folder Include="Technology\CU050\Safety\Suspend" />
     <Folder Include="Technology\Data" />
     <Folder Include="Technology\CU00x" />
     <Folder Include="Technology\CU00x\Components" />

@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="CU050ManualTask" Id="{f613db05-9014-442d-b92a-681bdad49089}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK CU050ManualTask EXTENDS TcoTaskedService IMPLEMENTS ICUTask
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Run();]]></ST>
+    </Implementation>
+    <Method Name="Main" Id="{4c3dd489-b605-4a19-82dd-becc292d88df}">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Main method of the sequener. Custom code needs to be placed here. The sequencer is executed by call of **Instance.Run()** method.
+			This method is abstract, and it must be overridden in derived block.
+		</summary>
+	</docu>
+~*)
+METHOD PROTECTED Main : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Messenger.Notify('Running manual mode');
+Station.Components.Group1.horizontalCylinder.Service();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnStart" Id="{aeadeb5a-295e-4b0e-bf8f-2dde1f3b6e99}">
+      <Declaration><![CDATA[METHOD PROTECTED OnStart]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[Station.AutomatTask.Restore();
+Station.GroundTask.Restore();
+Station.GroundTask.CancelGround();]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Station" Id="{fffabdf1-3e1c-4c1e-a9f0-120e10625bd9}">
+      <Declaration><![CDATA[PROPERTY Station : REFERENCE TO CU050]]></Declaration>
+      <Get Name="Get" Id="{49a059f4-9691-4dd7-b391-fbbc1cb3f267}">
+        <Declaration><![CDATA[VAR
+    _station : POINTER TO CU050;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IF __QUERYPOINTER(Parent, _station) THEN // Check if _Parent is Station001
+    Station REF= _station^;              // If the check is successful dereference a pointer. simlar to THIS^ or SUPER^
+END_IF]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <LineIds Name="CU050ManualTask">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU050ManualTask.Main">
+      <LineId Id="3" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU050ManualTask.OnStart">
+      <LineId Id="3" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU050ManualTask.Station.Get">
+      <LineId Id="3" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

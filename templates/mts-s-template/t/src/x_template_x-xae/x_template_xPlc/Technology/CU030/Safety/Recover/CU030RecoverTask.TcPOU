@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="CU030RecoverTask" Id="{ca90e0f1-5761-4022-9391-8096db0a2873}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK CU030RecoverTask EXTENDS CUBaseRecover IMPLEMENTS ICUTask
+VAR
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Run();
+]]></ST>
+    </Implementation>
+    <Method Name="Main" Id="{9032f4bd-2db9-42d3-874a-552f2c8a2ade}">
+      <Declaration><![CDATA[(*~
+	<docu>
+		<summary>
+			Main method of the sequener. Custom code needs to be placed here. The sequencer is executed by call of **Instance.Run()** method.
+			This method is abstract, and it must be overridden in derived block.
+		</summary>
+	</docu>
+~*)
+METHOD PROTECTED Main : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[(*
+
+	RECOVER PROCESS 
+	Following steps provide recover action for this controlled unit.
+	Add components add write customized sequence according to your need.
+*)
+
+		
+//
+IF (Step(100, TRUE, '<#WAITING FOR START#>')) THEN
+    //-------------------------------------    
+
+    StepCompleteWhen(TRUE);
+    //-------------------------------------
+END_IF
+
+//HERE  YOU CAN WRITE  WHAT IS NECESSARY 
+//TO RECOVER AFTER INTERUPTED PROCESS.....
+
+IF (Step(1000, TRUE, '<#RECOVER ANY COMPONENTS#>')) THEN
+    //-------------------------------------    
+
+    StepCompleteWhen(CurrentStep.Duration >= T#3000MS);
+    //-------------------------------------
+END_IF
+
+IF (Step(30000, TRUE, 'RECOVER DONE')) THEN
+    //-------------------------------------
+		
+        this^._done:=true;
+		THIS^.Task.DoneWhen(TRUE);
+		
+   
+    //-------------------------------------	
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="OnStart" Id="{332d0dbd-c8ea-4cd9-b3ab-735173e6c186}">
+      <Declaration><![CDATA[METHOD PUBLIC OnStart
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[SUPER^.OnStart();
+Station.SuspendTask.Restore();
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="Station" Id="{659a7fee-409b-4a8c-9d96-e19d9afb17b1}">
+      <Declaration><![CDATA[PROPERTY Station : REFERENCE TO CU030]]></Declaration>
+      <Get Name="Get" Id="{dcb08fe4-e3f7-4ec4-ade9-c87784d6d2c4}">
+        <Declaration><![CDATA[VAR
+    _station : POINTER TO CU030;
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IF __QUERYPOINTER(Parent, _station) THEN // Check if _Parent is Station001
+    Station REF= _station^;              // If the check is successful dereference a pointer. simlar to THIS^ or SUPER^
+END_IF]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <LineIds Name="CU030RecoverTask">
+      <LineId Id="3" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU030RecoverTask.Main">
+      <LineId Id="3" Count="34" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU030RecoverTask.OnStart">
+      <LineId Id="3" Count="2" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="CU030RecoverTask.Station.Get">
+      <LineId Id="3" Count="1" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="CU010DialogContent" Id="{b1b31a99-f496-46e6-9a80-961c35d01f3d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK CU010DialogContent EXTENDS TcoCore.TcoInputDialogContentContainer
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	{attribute addProperty Name "<#Recipe#>"}
+	Recipe:STRING;
+	{attribute addProperty Name "<#Qantity#>"}
+	RequiredQuantity:INT;
+	{attribute addProperty Name "<#Timeout#>"}
+	Timeout:DATE_AND_TIME;
+	{attribute addProperty Name "<#Exclude#>"}
+	Exclude:BOOL;
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <LineIds Name="CU010DialogContent">
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

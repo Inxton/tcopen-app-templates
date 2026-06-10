@@ -980,9 +980,6 @@
   <data name="___RECOVER_ANY_COMPONENTS__" xml:space="preserve">
     <value>RECOVER ANY COMPONENTS</value>
   </data>
-  <data name="___Requested_carrier_is_out_of_range_of_internal_storage__Max_number_of_carriers_is__" xml:space="preserve">
-    <value>Requested carrier is out of range of internal storage. Max number of carriers is</value>
-  </data>
   <data name="___Start_manual_Service_mode__" xml:space="preserve">
     <value>Start manual/Service mode</value>
   </data>
@@ -1001,6 +998,9 @@
   <data name="___RECOVER_PROCESS__" xml:space="preserve">
     <value>RECOVER PROCESS</value>
   </data>
+  <data name="___Requested_carrier_is_out_of_range_of_internal_storage__Max_number_of_carriers_is__" xml:space="preserve">
+    <value>Requested carrier is out of range of internal storage. Max number of carriers is</value>
+  </data>
   <data name="___Test_multi_positions__" xml:space="preserve">
     <value>Test multi positions</value>
   </data>
@@ -1012,6 +1012,21 @@
   </data>
   <data name="____cu00x__" xml:space="preserve">
     <value>_cu00x</value>
+  </data>
+  <data name="____cu010__" xml:space="preserve">
+    <value>_cu010</value>
+  </data>
+  <data name="____cu020__" xml:space="preserve">
+    <value>_cu020</value>
+  </data>
+  <data name="____cu030__" xml:space="preserve">
+    <value>_cu030</value>
+  </data>
+  <data name="____cu040__" xml:space="preserve">
+    <value>_cu040</value>
+  </data>
+  <data name="____cu050__" xml:space="preserve">
+    <value>_cu050</value>
   </data>
   <data name="___Technology_Components__" xml:space="preserve">
     <value>Technology Components</value>
@@ -1730,11 +1745,11 @@
   <data name="___Time_Stamp_Struct__" xml:space="preserve">
     <value>Time Stamp Struct</value>
   </data>
-  <data name="___CU00x__" xml:space="preserve">
-    <value>CU00x</value>
-  </data>
   <data name="___ReworkInstruction__" xml:space="preserve">
     <value>ReworkInstruction</value>
+  </data>
+  <data name="___CU00x__" xml:space="preserve">
+    <value>CU00x</value>
   </data>
   <data name="___Created__" xml:space="preserve">
     <value>Created</value>

@@ -20,6 +20,16 @@ VAR
 
 	{attribute addProperty Name "<#_cu00x#>"}					
     _cu00x         : CU00x(THIS^);
+		{attribute addProperty Name "<#_cu010#>"}					
+    _cu010         : CU010(THIS^);
+		{attribute addProperty Name "<#_cu020#>"}					
+    _cu020         : CU020(THIS^);
+		{attribute addProperty Name "<#_cu030#>"}					
+    _cu030         : CU030(THIS^);
+		{attribute addProperty Name "<#_cu040#>"}					
+    _cu040        : CU040(THIS^);
+			{attribute addProperty Name "<#_cu050#>"}					
+    _cu050        : CU050(THIS^);
 	
 	{attribute addProperty Name "<#Technology Components#>"}	
 	_components : TechnologyComponents:= (Parent := THIS^);
@@ -483,6 +493,11 @@ _technologySettings();
 *)
 
 _cu00x();
+_cu010();
+_cu020();
+_cu030();
+_cu040();
+_cu050();
 
 
 _automatAllTask();
@@ -599,12 +614,19 @@ END_VAR
       <LineId Id="17" Count="4" />
       <LineId Id="2" Count="0" />
     </LineIds>
+    <LineIds Name="Technology.InitializeNotificationPanel">
+      <LineId Id="3" Count="98" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
     <LineIds Name="Technology.InternalStorage.Get">
       <LineId Id="2" Count="0" />
     </LineIds>
     <LineIds Name="Technology.Main">
-      <LineId Id="3" Count="98" />
-      <LineId Id="2" Count="0" />
+      <LineId Id="3" Count="61" />
+      <LineId Id="84" Count="2" />
+      <LineId Id="83" Count="0" />
+      <LineId Id="97" Count="0" />
+      <LineId Id="65" Count="8" />
     </LineIds>
     <LineIds Name="Technology.OnExit">
       <LineId Id="3" Count="0" />

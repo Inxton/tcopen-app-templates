@@ -43,7 +43,35 @@ The production environment is represented by a series of hierarchically organize
 
 ## Application
 
+### HMI Application Projects
 
+The template provides two WPF-based HMI applications with distinct roles in the deployment architecture.
+
+#### `x_template_xHmi.Wpf` — Supervisor / All-in-One Application
+
+This is the **primary application** and should be used in every deployment. It is the full-featured supervisor interface that provides access to all functionality: production control, recipe management, traceability data, statistics, user management, technology settings, and diagnostics.
+
+**Use `x_template_xHmi.Wpf` when:**
+
+- There is only **one PC** connected to the PLC — this is the single control point for the entire technology.
+- A **supervisor or engineer** needs access to all functions of the application.
+- The application runs as the **central point of control** in a distributed deployment alongside one or more operator panels.
+
+This application should always be running on the main control PC. It references `x_template_xPlcConnector` and owns the full application lifecycle (settings, database initialization, PLC connection).
+
+#### `x_template_xOp` — Operator Panel Application
+
+This is a **lightweight operator-facing application** intended for use alongside `x_template_xHmi.Wpf`. It provides a reduced view optimized for day-to-day operator interaction at a workstation.
+
+**Use `x_template_xOp` when:**
+
+- A supervisor application (`x_template_xHmi.Wpf`) is **already running** on another PC (in same cases might be same PC).
+- The operator station needs only a **restricted view**: starting/stopping cycles, monitoring the online process state, acknowledging messages, and service-mode manual operations.
+- The deployment has **multiple operator PCs** at individual stations while a central supervisor PC runs the full HMI.
+
+`x_template_xOp` is **not** a standalone application — it depends on the supervisor for database access and full technology control. Do not use it as the sole interface on a single-PC deployment.
+
+---
 
 - `Application settings`
 

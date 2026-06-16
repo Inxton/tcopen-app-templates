@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using TcoCore;
 using x_template_xHmi.Wpf;
 using x_template_xInstructor;
 using x_template_xPlc;
@@ -41,6 +42,16 @@ namespace x_template_xOp.Views.Operator
 
         }
 
+        public IEnumerable<CUBase> Stations
+        {
+            get
+            {
+
+                var stations = x_template_xPlc.MAIN._technology.GetDescendants<CUBase>();
+
+                return stations;
+            }
+        }
         public x_template_xPlcTwinController x_template_xPlc { get { return App.x_template_xPlc; } }
 
         public ProductionPlanViewModel ProductionPlanViewModel { get; private set; }

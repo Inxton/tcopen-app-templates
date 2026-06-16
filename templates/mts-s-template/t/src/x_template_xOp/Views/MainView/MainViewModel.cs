@@ -24,7 +24,7 @@ namespace x_template_xOp.Views.MainView
             OpenCommand(this.AddCommand(typeof(OperatorView), strings.Operator));
             AddCommand(typeof(TechnologyView), strings.Technology);
             AddCommand(typeof(UserManagementGroupManagementView), strings.UserManagement);
-            AddCommand(typeof(DiagnosticsView), strings.Diagnostics);
+           AddCommand(typeof(DiagnosticsView), strings.Diagnostics);
             OpenLoginWindowCommand = new TcOpen.Inxton.Input.RelayCommand(a => OpenLoginWindow());
             LogOutWindowCommand = new TcOpen.Inxton.Input.RelayCommand(a => TcOpen.Inxton.TcoAppDomain.Current.AuthenticationService.DeAuthenticateCurrentUser());
             OpenLanguageCommand = new TcOpen.Inxton.Input.RelayCommand(a => OpenLanguageWindow());

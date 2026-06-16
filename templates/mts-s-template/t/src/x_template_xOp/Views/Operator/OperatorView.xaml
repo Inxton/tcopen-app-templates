@@ -10,7 +10,7 @@
      xmlns:x_template_xinstructor="clr-namespace:x_template_xInstructor;assembly=x_template_xInstructor"
     xmlns:view1="clr-namespace:x_template_xStatistic.Statistics.View;assembly=x_template_xStatistic" 
     xmlns:view2="clr-namespace:x_template_xTagsDictionary.View;assembly=x_template_xTagsDictionary" 
-    xmlns:mainplc="clr-namespace:x_template_xPlc;assembly=x_template_xHmi.Wpf"
+    xmlns:mainplc="clr-namespace:x_template_xPlc;assembly=x_template_xHmi.Wpf" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     mc:Ignorable="d"
     d:DesignHeight="450"
     d:DesignWidth="800">
@@ -35,6 +35,29 @@
                     <mainplc:CUBaseSpotLiteView  Canvas.Top="300" DataContext="{Binding x_template_xPlc.MAIN._technology._cu00x, Mode=OneWay}"/>
 
                 </Canvas>
+            </TabItem>
+            <TabItem Header="ALL STATIONS">
+                <materialDesign:Card              
+                    materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                    Padding="2.5">
+                    <ScrollViewer>
+                        <ItemsControl  ItemsSource="{Binding Stations}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl>
+                                        <vortex:RenderableContentControl DataContext="{Binding }" PresentationType="Spot" MinWidth="400" MinHeight="200"    MaxWidth="400" MaxHeight="200"/>
+                                    </ContentControl>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                    </ScrollViewer>
+                </materialDesign:Card>
             </TabItem>
             <TabItem Header="SINGLE STATION">
                 <!--<mainplc:CUBaseSpotView MinHeight="200"  DataContext="{Binding x_template_xPlc.MAIN._technology._cu00x, Mode=OneWay}"/>-->
@@ -80,41 +103,7 @@
 
             </TabItem>
 
-            <TabItem Header="STATISTICS CUSTOMIZED">
-                <UniformGrid>
-                    <view1:ErrorsDataView DataContext="{Binding StatisticViewModel}"></view1:ErrorsDataView>
-                    <view1:RecipesDataView DataContext="{Binding StatisticViewModel}"></view1:RecipesDataView>
-                    <view1:CarriersDataView DataContext="{Binding StatisticViewModel}"></view1:CarriersDataView>
-                    <view1:ReworksDataView DataContext="{Binding StatisticViewModel}"></view1:ReworksDataView>
-                </UniformGrid>
-
-            </TabItem>
-            <TabItem Header="PRODUCTION TREND">
-                <UniformGrid>
-                    <view1:TrendDataView DataContext="{Binding StatisticViewModel}"></view1:TrendDataView>
-                 
-                </UniformGrid>
-
-            </TabItem>
-            <TabItem Header="STATISTICS ADMIN">
-  
-                        <vortexs:PermissionBox  Permissions="Administrator|instructor_access" SecurityMode="Disabled">
-
-                            <view1:StatisticsDataView DataContext="{Binding StatisticViewModel}"></view1:StatisticsDataView>
-                        </vortexs:PermissionBox>
-                 
-
-            </TabItem>
-
-            <TabItem Header="TAGS PAIRING">
-
-                <vortexs:PermissionBox  Permissions="Administrator|instructor_access" SecurityMode="Disabled">
-
-                    <view2:TagsPairingView DataContext="{Binding TagsPairingViewModel}"></view2:TagsPairingView>
-                </vortexs:PermissionBox>
-
-
-            </TabItem>
+            
 
         </TabControl>
      

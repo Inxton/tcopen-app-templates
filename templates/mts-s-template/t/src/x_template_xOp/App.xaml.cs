@@ -61,8 +61,11 @@ namespace x_template_xOp
 
             Entry.LoadAppSettings("defaultOP", RepositoryEntry.IsDebug());
 
-   
-            DataExchangeActive = Entry.Settings.DataExchange;
+            if (!RepositoryEntry.IsDebug())
+                DataExchangeActive = Entry.Settings.DataExchange;
+            else
+                DataExchangeActive = false; //should be false  ,  exchange data are hanlded by another instance 
+           
           
             Console.WriteLine("-------------------------------Settings-----------------------------------");
             Console.WriteLine(JsonConvert.SerializeObject(Entry.Settings, Formatting.Indented));

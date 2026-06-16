@@ -11,6 +11,7 @@ using x_template_xStatistic.Statistics.View;
 using x_template_xTagsDictionary.View;
 using x_template_xPlcConnector;
 using x_template_xReworkInstructor.Instructor.View;
+using TcoCore;
 
 namespace x_template_xHmi.Wpf.Views.Operator
 {
@@ -43,6 +44,16 @@ namespace x_template_xHmi.Wpf.Views.Operator
 
         }
 
+        public IEnumerable<CUBase> Stations
+        {
+            get
+            {
+
+                var stations = x_template_xPlc.MAIN._technology.GetDescendants<CUBase>();
+
+                return stations;
+            }
+        }
         public x_template_xPlcTwinController x_template_xPlc { get { return App.x_template_xPlc; } }
 
         public ProductionPlanViewModel ProductionPlanViewModel { get; private set; }

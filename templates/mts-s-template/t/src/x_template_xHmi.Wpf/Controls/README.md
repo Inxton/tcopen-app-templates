@@ -198,14 +198,6 @@ The following image shows a typical usage scenario. The carousel (`TcoCarouselSp
 
 ![RadialPanel Example](../../../assets/RadialPanel/RadialPanelExample.png)
 
-Recommended file structure:
-
-```text
-RadialPanel/
-├── README.md
-└── RadialPanelExample.png
-```
-
 ---
 
 # Notes

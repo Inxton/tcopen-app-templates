@@ -147,4 +147,7 @@
   <data name="Status" xml:space="preserve">
     <value>Stav</value>
   </data>
+  <data name="AnExportPathIsRequired" xml:space="preserve">
+    <value>An export path is required!</value>
+  </data>
 </root>

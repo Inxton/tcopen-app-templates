@@ -88,6 +88,15 @@ namespace x_template_xHmi.Wpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An export path is required!.
+        /// </summary>
+        public static string AnExportPathIsRequired {
+            get {
+                return ResourceManager.GetString("AnExportPathIsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Application info.
         /// </summary>
         public static string AppInfo {
@@ -129,6 +138,15 @@ namespace x_template_xHmi.Wpf.Properties {
         public static string AverageCycleTime {
             get {
                 return ResourceManager.GetString("AverageCycleTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse.
+        /// </summary>
+        public static string Browse {
+            get {
+                return ResourceManager.GetString("Browse", resourceCulture);
             }
         }
         
@@ -232,6 +250,15 @@ namespace x_template_xHmi.Wpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data to export.
+        /// </summary>
+        public static string DataToExport {
+            get {
+                return ResourceManager.GetString("DataToExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to APP INFO.
         /// </summary>
         public static string DebugAndClose {
@@ -255,6 +282,15 @@ namespace x_template_xHmi.Wpf.Properties {
         public static string Diagnostics {
             get {
                 return ResourceManager.GetString("Diagnostics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Directory does not exist!.
+        /// </summary>
+        public static string DirectoryDoesNotExist {
+            get {
+                return ResourceManager.GetString("DirectoryDoesNotExist", resourceCulture);
             }
         }
         
@@ -286,11 +322,65 @@ namespace x_template_xHmi.Wpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Evaluators.
         /// </summary>
         public static string EvalutatorsList {
             get {
                 return ResourceManager.GetString("EvalutatorsList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exact time.
+        /// </summary>
+        public static string ExactTime {
+            get {
+                return ResourceManager.GetString("ExactTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export.
+        /// </summary>
+        public static string Export {
+            get {
+                return ResourceManager.GetString("Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export Cancelled.
+        /// </summary>
+        public static string ExportCancelled {
+            get {
+                return ResourceManager.GetString("ExportCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export Error.
+        /// </summary>
+        public static string ExportError {
+            get {
+                return ResourceManager.GetString("ExportError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export settings.
+        /// </summary>
+        public static string ExportSettings {
+            get {
+                return ResourceManager.GetString("ExportSettings", resourceCulture);
             }
         }
         
@@ -340,6 +430,15 @@ namespace x_template_xHmi.Wpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to From.
+        /// </summary>
+        public static string From {
+            get {
+                return ResourceManager.GetString("From", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Full process  data.
         /// </summary>
         public static string FullProcessData {
@@ -372,6 +471,15 @@ namespace x_template_xHmi.Wpf.Properties {
         public static string InProgress {
             get {
                 return ResourceManager.GetString("InProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inspectors&apos; data fields to export.
+        /// </summary>
+        public static string InspectorsDataFieldsToExport {
+            get {
+                return ResourceManager.GetString("InspectorsDataFieldsToExport", resourceCulture);
             }
         }
         
@@ -574,6 +682,15 @@ namespace x_template_xHmi.Wpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot locate Mongo Export at: {0} Please check if it is installed at the default location!.
+        /// </summary>
+        public static string MongoExportPathErrorMsg {
+            get {
+                return ResourceManager.GetString("MongoExportPathErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No action.
         /// </summary>
         public static string NoAction {
@@ -610,6 +727,15 @@ namespace x_template_xHmi.Wpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Output location.
+        /// </summary>
+        public static string OutputLocation {
+            get {
+                return ResourceManager.GetString("OutputLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Overview.
         /// </summary>
         public static string Overview {
@@ -633,6 +759,24 @@ namespace x_template_xHmi.Wpf.Properties {
         public static string Passed {
             get {
                 return ResourceManager.GetString("Passed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick Date.
+        /// </summary>
+        public static string PickDate {
+            get {
+                return ResourceManager.GetString("PickDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick Time.
+        /// </summary>
+        public static string PickTime {
+            get {
+                return ResourceManager.GetString("PickTime", resourceCulture);
             }
         }
         
@@ -799,6 +943,15 @@ namespace x_template_xHmi.Wpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Starting process failed: {0}.
+        /// </summary>
+        public static string StartingProcessFailed {
+            get {
+                return ResourceManager.GetString("StartingProcessFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to STATION 1.
         /// </summary>
         public static string STATION1 {
@@ -943,6 +1096,15 @@ namespace x_template_xHmi.Wpf.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The export operation was cancelled..
+        /// </summary>
+        public static string TheExportOperationWasCancelled {
+            get {
+                return ResourceManager.GetString("TheExportOperationWasCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Timestamp.
         /// </summary>
         public static string Timestamp {
@@ -957,6 +1119,15 @@ namespace x_template_xHmi.Wpf.Properties {
         public static string To {
             get {
                 return ResourceManager.GetString("To", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To.
+        /// </summary>
+        public static string ToDT {
+            get {
+                return ResourceManager.GetString("ToDT", resourceCulture);
             }
         }
         

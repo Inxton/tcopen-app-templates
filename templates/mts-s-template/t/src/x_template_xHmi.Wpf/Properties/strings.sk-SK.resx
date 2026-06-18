@@ -444,4 +444,61 @@
   <data name="InProgress" xml:space="preserve">
     <value>Prebieha</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Chyba</value>
+  </data>
+  <data name="MongoExportPathErrorMsg" xml:space="preserve">
+    <value>Nemožno nájsť Mongo Export na: {0} Skontrolujte, či je nainštalovaný na predvolenom mieste!</value>
+  </data>
+  <data name="ExportError" xml:space="preserve">
+    <value>Chyba exportu</value>
+  </data>
+  <data name="StartingProcessFailed" xml:space="preserve">
+    <value>Zlyhanie spustenia procesu: {0}</value>
+  </data>
+  <data name="ExportCancelled" xml:space="preserve">
+    <value>Export zrušený</value>
+  </data>
+  <data name="TheExportOperationWasCancelled" xml:space="preserve">
+    <value>Operácia exportu bola zrušená.</value>
+  </data>
+  <data name="DataToExport" xml:space="preserve">
+    <value>Údaje na export</value>
+  </data>
+  <data name="InspectorsDataFieldsToExport" xml:space="preserve">
+    <value>Údaje polí inšpektorov na export</value>
+  </data>
+  <data name="ExportSettings" xml:space="preserve">
+    <value>Nastavenia exportu</value>
+  </data>
+  <data name="OutputLocation" xml:space="preserve">
+    <value>Miesto výstupu</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Vyhladat</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Od</value>
+  </data>
+  <data name="PickDate" xml:space="preserve">
+    <value>Vybrať dátum</value>
+  </data>
+  <data name="PickTime" xml:space="preserve">
+    <value>Vybrať čas</value>
+  </data>
+  <data name="ToDT" xml:space="preserve">
+    <value>Pri</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Exportovať</value>
+  </data>
+  <data name="ExactTime" xml:space="preserve">
+    <value>Presný čas</value>
+  </data>
+  <data name="DirectoryDoesNotExist" xml:space="preserve">
+    <value>Adresár neexistuje!</value>
+  </data>
+  <data name="AnExportPathIsRequired" xml:space="preserve">
+    <value>Vyžaduje sa exportná cesta!</value>
+  </data>
 </root>

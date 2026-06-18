@@ -11,20 +11,13 @@ namespace x_template_xHmi.Wpf.Data.MongoExport
         public bool Included
         {
             get => _included;
-            set { _included = value; OnPropertyChanged(nameof(Included)); }
+            set { _included = value; NotifyPropertyChanged(nameof(Included)); }
         }
 
         public override string ToString() { return Field; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
         protected void NotifyPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

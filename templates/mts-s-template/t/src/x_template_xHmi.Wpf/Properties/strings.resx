@@ -444,4 +444,63 @@
   <data name="InProgress" xml:space="preserve">
     <value>In progress</value>
   </data>
+  <data name="AnExportPathIsRequired" xml:space="preserve">
+    <value>An export path is required!</value>
+  </data>
+  <data name="DirectoryDoesNotExist" xml:space="preserve">
+    <value>Directory does not exist!</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="MongoExportPathErrorMsg" xml:space="preserve">
+    <value>Cannot locate Mongo Export at: {0} Please check if it is installed at the default location!</value>
+  </data>
+  <data name="ExportError" xml:space="preserve">
+    <value>Export Error</value>
+  </data>
+  <data name="StartingProcessFailed" xml:space="preserve">
+    <value>Starting process failed: {0}</value>
+  </data>
+  <data name="ExportCancelled" xml:space="preserve">
+    <value>Export Cancelled</value>
+  </data>
+  <data name="TheExportOperationWasCancelled" xml:space="preserve">
+    <value>The export operation was cancelled.</value>
+  </data>
+  <data name="DataToExport" xml:space="preserve">
+    <value>Data to export</value>
+  </data>
+  <data name="InspectorsDataFieldsToExport" xml:space="preserve">
+    <value>Inspectors' data fields to export</value>
+  </data>
+  <data name="ExportSettings" xml:space="preserve">
+    <value>Export settings</value>
+  </data>
+  <data name="OutputLocation" xml:space="preserve">
+    <value>Output location</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+    <comment>date and time</comment>
+  </data>
+  <data name="PickDate" xml:space="preserve">
+    <value>Pick Date</value>
+  </data>
+  <data name="PickTime" xml:space="preserve">
+    <value>Pick Time</value>
+  </data>
+  <data name="ToDT" xml:space="preserve">
+    <value>To</value>
+    <comment>Date and time</comment>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="ExactTime" xml:space="preserve">
+    <value>Exact time</value>
+  </data>
 </root>

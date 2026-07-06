@@ -45,7 +45,6 @@ namespace x_template_xHmi.Wpf.Data.MongoExport
         public void Add(FieldItem item)
         {
             if (item.Field == string.Empty) return;
-            FieldItem i = Items.Find(x => x.Field.Equals(item.Field));
             if (Items.Find(x => x.Field.Equals(item.Field)) is null)
             {
                 Items.Add(item);

@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:properties="clr-namespace:x_template_xHmi.Wpf.Properties"
              xmlns:vortex="http://vortex.mts/xaml" xmlns:vortexs="http://vortex.security.mts/xaml"   
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:mongoexport="clr-namespace:x_template_xHmi.Wpf.Data.MongoExport"
              mc:Ignorable="d" 
@@ -24,9 +25,9 @@
             
         </Style>
     </UserControl.Resources>
-    
+
     <Grid>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="*"/>
@@ -34,79 +35,81 @@
 
         <!--DATA TREE-->
         <TabControl>
-            <TabItem Header="Data">
-                <ScrollViewer PanningMode="Both" Background="Transparent">
-                    <StackPanel>
+            <TabItem Header="{x:Static properties:strings.Data}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                        <TextBlock Text="Data to export" Style="{StaticResource HeaderStyle}" Margin="10,10,10,30"/>
+                    <TextBlock Text="{x:Static properties:strings.DataToExport}" Style="{StaticResource HeaderStyle}" Margin="10,10,10,30"/>
 
-                        <TreeView ItemsSource="{Binding Model.Items}">
-                            <TreeView.Resources>
-                                <!-- Template for HeaderItem -->
-                                <HierarchicalDataTemplate DataType="{x:Type mongoexport:HeaderItem}" ItemsSource="{Binding Items}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" />
-                                        <CheckBox IsChecked="{Binding Required,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
-                                  IsThreeState="{Binding MidState,Mode=OneWay}"/>
-                                    </StackPanel>
+                    <TreeView ItemsSource="{Binding Model.Items}" Grid.Row="1">
+                        <TreeView.Resources>
+                            <!-- Template for HeaderItem -->
+                            <HierarchicalDataTemplate DataType="{x:Type mongoexport:HeaderItem}" ItemsSource="{Binding Items}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                                    <CheckBox IsChecked="{Binding Required,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                                  IsThreeState="{Binding MidState,Mode=OneWay}"/>
+                                </StackPanel>
 
-                                    <HierarchicalDataTemplate.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <CheckBox IsChecked="{Binding Included,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                                <!--<TextBlock Text="{Binding Field}"/>-->
-                                                <TextBlock Margin="10,0" Text="{Binding AttributeName}"/>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </HierarchicalDataTemplate.ItemTemplate>
-                                </HierarchicalDataTemplate>
-                            </TreeView.Resources>
-                        </TreeView>
-                    </StackPanel>
-                </ScrollViewer>
-
+                                <HierarchicalDataTemplate.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <CheckBox IsChecked="{Binding Included,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                            <TextBlock Margin="10,0" Text="{Binding AttributeName}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </HierarchicalDataTemplate.ItemTemplate>
+                            </HierarchicalDataTemplate>
+                        </TreeView.Resources>
+                    </TreeView>
+                </Grid>
             </TabItem>
-            <TabItem Header="Settings">
-                <ScrollViewer PanningMode="Both" Background="Transparent">
 
-                    <StackPanel>
+            <!--SETTINGS TAB-->
+            <TabItem Header="{x:Static properties:strings.Settings}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                        <TextBlock Text="Inspectors data fields to export" Style="{StaticResource HeaderStyle}" Margin="10,10,10,30"/>
+                    <TextBlock Text="{x:Static properties:strings.InspectorsDataFieldsToExport}" Style="{StaticResource HeaderStyle}" Margin="10,10,10,30"/>
 
-                        <TreeView ItemsSource="{Binding Model.InspectorsItems}">
-                            <TreeView.Resources>
-                                <!-- Template for HeaderItem -->
-                                <HierarchicalDataTemplate DataType="{x:Type mongoexport:HeaderItem}" ItemsSource="{Binding Items}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Name}" FontWeight="Bold" />
-                                        <CheckBox IsChecked="{Binding Required,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
-                                  IsThreeState="{Binding MidState,Mode=OneWay}"/>
-                                    </StackPanel>
+                    <TreeView ItemsSource="{Binding Model.InspectorsItems}" Grid.Row="1">
+                        <TreeView.Resources>
+                            <!-- Template for HeaderItem -->
+                            <HierarchicalDataTemplate DataType="{x:Type mongoexport:HeaderItem}" ItemsSource="{Binding Items}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                                    <CheckBox IsChecked="{Binding Required,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                                                  IsThreeState="{Binding MidState,Mode=OneWay}"/>
+                                </StackPanel>
 
-                                    <HierarchicalDataTemplate.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <CheckBox IsChecked="{Binding Included,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                                <!--<TextBlock Text="{Binding Field}"/>-->
-                                                <TextBlock Margin="10,0" Text="{Binding AttributeName}"/>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </HierarchicalDataTemplate.ItemTemplate>
-                                </HierarchicalDataTemplate>
-                            </TreeView.Resources>
-                        </TreeView>
-                    </StackPanel>
-                </ScrollViewer>
+                                <HierarchicalDataTemplate.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <CheckBox IsChecked="{Binding Included,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                            <TextBlock Margin="10,0" Text="{Binding AttributeName}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </HierarchicalDataTemplate.ItemTemplate>
+                            </HierarchicalDataTemplate>
+                        </TreeView.Resources>
+                    </TreeView>
+                </Grid>
             </TabItem>
-        </TabControl> 
-        
-            
-       
+        </TabControl>
 
-        
-        
-        
-        
+
+
+
+
+
+
+
         <!--EXPORT NOW CARD-->
         <materialDesign:Card Grid.Row="0" Grid.Column="1"  Margin="50" Background="{StaticResource Surface}">
             <Grid>
@@ -133,7 +136,7 @@
                     <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="Export Settings" Style="{StaticResource HeaderStyle}"/>
+                <TextBlock Text="{x:Static properties:strings.ExportSettings}" Style="{StaticResource HeaderStyle}"/>
 
                 <Grid Grid.Row="1" Margin="20">
                     <Grid.ColumnDefinitions>
@@ -142,7 +145,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox materialDesign:HintAssist.HelperText="Output location" MinWidth="150" >
+                    <TextBox materialDesign:HintAssist.HelperText="{x:Static properties:strings.OutputLocation}" MinWidth="150" >
                         <TextBox.Text>
                             <Binding Path="OutputLocation"
                                      Mode="TwoWay"
@@ -160,49 +163,69 @@
                     </TextBox>
 
                     <vortexs:PermissionBox Grid.Column="1" Permissions="Administrator|can_export_data" SecurityMode="Disabled">
-                        <Button  Content="Browse" Margin="10" Command="{Binding Browse}"/>
+                        <Button  Content="{x:Static properties:strings.Browse}" Margin="10" Command="{Binding Browse}"/>
                     </vortexs:PermissionBox>
-                    
+
                 </Grid>
 
 
 
 
-                <CheckBox Grid.Row="2" Margin="20,0" Content="Exact time" x:Name="timeEnable" IsChecked="{Binding ExactTime,Mode=TwoWay}"/>
+                <CheckBox Grid.Row="2" Margin="20,0" Content="{x:Static properties:strings.ExactTime}" x:Name="timeEnable" IsChecked="{Binding ExactTime,Mode=TwoWay}"/>
 
 
                 <DatePicker Grid.Row="3" MinWidth="150" MinHeight="50" Margin="20"
                         
-                        materialDesign:HintAssist.HelperText="From"
-                        materialDesign:HintAssist.Hint="Pick Date"
+                        materialDesign:HintAssist.HelperText="{x:Static properties:strings.From}"
+                        materialDesign:HintAssist.Hint="{x:Static properties:strings.PickDate}"
                             SelectedDate="{Binding SelectedFromDate, Mode=TwoWay}"/>
 
                 <materialDesign:TimePicker Grid.Row="4" Margin="20"
                         Visibility="{Binding ExactTime, Converter={StaticResource BooleanToVisibilityConverter}}"
                         SelectedTime="{Binding SelectedFromDate, Mode=TwoWay}"
                         Is24Hours="True"
-                        materialDesign:HintAssist.HelperText="From"
-                        materialDesign:HintAssist.Hint="Pick Time"/>
+                        materialDesign:HintAssist.HelperText="{x:Static properties:strings.From}"
+                        materialDesign:HintAssist.Hint="{x:Static properties:strings.PickTime}"/>
 
 
 
                 <DatePicker Grid.Row="5" MinWidth="150" MinHeight="50" Margin="20"
-                        materialDesign:HintAssist.HelperText="To"
-                        materialDesign:HintAssist.Hint="Pick Date"
+                        materialDesign:HintAssist.HelperText="{x:Static properties:strings.ToDT}"
+                        materialDesign:HintAssist.Hint="{x:Static properties:strings.PickDate}"
                         SelectedDate="{Binding SelectedToDate, Mode=TwoWay}"/>
 
                 <materialDesign:TimePicker Grid.Row="6" Margin="20"
                         Visibility="{Binding ExactTime, Converter={StaticResource BooleanToVisibilityConverter}}"
                         SelectedTime="{Binding SelectedToDate, Mode=TwoWay}"
                         Is24Hours="True"
-                        materialDesign:HintAssist.HelperText="To"
-                        materialDesign:HintAssist.Hint="Pick Time"/>
+                        materialDesign:HintAssist.HelperText="{x:Static properties:strings.ToDT}"
+                        materialDesign:HintAssist.Hint="{x:Static properties:strings.PickTime}"/>
 
-                <!--<Button Grid.Row="5" Content="Save Settings"  Margin="10" Command="{Binding Save}"/>-->
-                <vortexs:PermissionBox Grid.Row="7" Permissions="Administrator|can_export_data" SecurityMode="Disabled">
-                    <Button  Margin="10" Content="Export" Command="{Binding Export}"/>
-                </vortexs:PermissionBox>
-                
+                <Grid Grid.Row="7" Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <vortexs:PermissionBox  Grid.ColumnSpan="2" Permissions="Administrator|can_export_data" SecurityMode="Disabled">
+                        <Button   Content="{x:Static properties:strings.Export}" Command="{Binding Export}" Visibility="{Binding Exporting, Converter={StaticResource InverseBoolToVisConverter}}"/>
+                    </vortexs:PermissionBox>
+
+                    <vortexs:PermissionBox  Grid.ColumnSpan="2" Permissions="Administrator|can_export_data" SecurityMode="Disabled">
+                        <Button   Content="{x:Static properties:strings.Cancel}" Command="{Binding CancelExport}" Visibility="{Binding Exporting, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    </vortexs:PermissionBox>
+
+
+                    <ProgressBar
+                      Grid.Column="1"
+                      Margin="0,0,10,0"
+                      IsIndeterminate="True"
+                      Visibility="{Binding Exporting, Converter={StaticResource BooleanToVisibilityConverter}}"
+                      Foreground="{StaticResource Secondary}"
+                      Style="{StaticResource MaterialDesignCircularProgressBar}"
+                      Value="35" />
+                </Grid>
+
             </Grid>
         </materialDesign:Card>
     </Grid>

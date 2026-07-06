@@ -7,38 +7,58 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using Microsoft.Win32;
 using TcOpen.Inxton.Input;
 using Vortex.Connector;
 using Vortex.Connector.ValueTypes;
-using MessageBox = System.Windows.MessageBox;
+using System.Threading;
+using Microsoft.WindowsAPICodePack.Dialogs;
+using System.Windows.Threading;
 
 namespace x_template_xHmi.Wpf.Data.MongoExport
 
 {
-    public class MongoExportViewModel : INotifyPropertyChanged
+    public class MongoExportViewModel : INotifyPropertyChanged, IDisposable
     {
+        #region SETTINGS
+        private static readonly string _path = AppDomain.CurrentDomain.BaseDirectory;
+        private static readonly string _fieldFile = "ExportFieldList";
+        private static readonly string _settingsFile = "ExportSettings";
+        private static readonly string _mongoExportPath = @"C:\Program Files\MongoDB\Tools\bin\mongoexport.exe";
+        #endregion
+
+        #region COMMANDS
+        public RelayCommand Save { get; private set; }
+        public RelayCommand Export { get; private set; }
+        public RelayCommand Browse { get; private set; }
+        public RelayCommand CancelExport { get; private set; }
+        #endregion
+
+
+        #region PRIVATE FIELDS
         private ProcessData _data;
         private PropertyInfo[] _info;
         private List<FieldItem> _searchResults = new List<FieldItem>();
         private bool _exactTime;
+        private bool _exporting = false;
+        private CancellationTokenSource _cts;
+        private readonly object _saveLock = new object();
+        private readonly DispatcherTimer _saveTimer;
+        private bool _saving;
 
-        private static readonly string _path = AppDomain.CurrentDomain.BaseDirectory;
-        private static readonly string _fieldFile = "ExportFieldList";
-        private static readonly string _settingsFile = "ExportSettings";
+        private static List<string> _digitalInspfields = new List<string>();// { "TimeStamp", "PassTime", "FailTime", "Result", "IsExcluded", "IsByPassed", "FailureDescription", "NumberOfAllowedRetries", "RetryAttemptsCount", "ErrorCode", "RequiredStatus", "DetectedStatus" };
+        private static List<string> _dataInspfields = new List<string>();// (_digitalInspfields) { "StarNotationEnabled" };
+        private static List<string> _analogInspfields = new List<string>();//(_digitalInspfields) { "RequiredMin", "RequiredMax" };
+        private bool disposedValue;
+        #endregion
 
-        ///TODO make Inspector fields dynamic!
-        private static List<string> _digitalInspfields = new List<string>();// { ".TimeStamp", ".PassTime", ".FailTime", ".Result", ".IsExcluded", ".IsByPassed", ".FailureDescription", ".NumberOfAllowedRetries", ".RetryAttemptsCount", ".ErrorCode", ".RequiredStatus", ".DetectedStatus" };
-        private static List<string> _dataInspfields = new List<string>();// (_digitalInspfields) { ".StarNotationEnabled" };
-        private static List<string> _analogInspfields = new List<string>();//(_digitalInspfields) { ".RequiredMin", ".RequiredMax" };
+
+        #region CONSTRUCTOR
         public MongoExportViewModel()
         {
             Populate();
@@ -48,16 +68,46 @@ namespace x_template_xHmi.Wpf.Data.MongoExport
             Export = new RelayCommand(a => ExportNow());
 
             Browse = new RelayCommand(a => SelectOutputLocation());
+
+            CancelExport = new RelayCommand(a => Cancel(), a => Exporting);
+
+            _saveTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(2)
+            };
+
+            _saveTimer.Tick += async (_, __) =>
+            {
+                _saveTimer.Stop();
+
+                if (_saving) return;
+
+                try
+                {
+                    _saving = true;
+
+                    await Task.Run(() => SerializeJson());
+                }
+                finally
+                {
+                    _saving = false;
+                }
+            };
+
+            Application.Current.Exit -= OnExit;
+            Application.Current.Exit += OnExit;
+
         }
+        #endregion
 
 
-
+        #region CRUD
         // read property/field named "_data" (public or non-public)
         private static List<string> GetInspectorDataObject(object inspector)
         {
             var list = new List<string>();
             object dataObj = null;
-            if (inspector == null) new List<string>();
+            if (inspector == null) return new List<string>();
 
             var t = inspector.GetType();
             const BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
@@ -67,22 +117,18 @@ namespace x_template_xHmi.Wpf.Data.MongoExport
             if (p != null && p.CanRead)
             {
                 dataObj = SafeGet(() => p.GetValue(inspector, null));
-                if (dataObj != null) ;
-
-                foreach (var item in dataObj.GetType().GetProperties())
+                if (dataObj != null)
                 {
-                    list.Add(item.Name);
+                    foreach (var item in dataObj.GetType().GetProperties())
+                    {
+                        list.Add(item.Name);
+                    }
                 }
             }
 
-
-
             return list;
         }
-        private static object SafeGet(Func<object> getter)
-        {
-            try { return getter(); } catch { return null; }
-        }
+
         private void Populate()
         {
             Model = new TreeModel();
@@ -100,6 +146,7 @@ namespace x_template_xHmi.Wpf.Data.MongoExport
                 itm.Items.Add(new FieldItem() { AttributeName = item, Included = true });
             }
 
+            itm.Required = true;
             // Update or add into Model
             int idx = Model.InspectorsItems.FindIndex(x => x.Name.Equals(itm.Name));
             if (idx == -1)
@@ -116,7 +163,7 @@ namespace x_template_xHmi.Wpf.Data.MongoExport
                 itm.Required = Model.InspectorsItems[idx].Required;
                 Model.InspectorsItems[idx] = itm;
             }
-      
+
 
             itm = new HeaderItem();
             itm.Name = nameof(TcoInspectors.TcoAnalogueInspector);
@@ -125,8 +172,11 @@ namespace x_template_xHmi.Wpf.Data.MongoExport
             {
                 itm.Items.Add(new FieldItem() { AttributeName = item, Included = true });
             }
+
+            itm.Required = true;
+
             // Update or add into Model
-             idx = Model.InspectorsItems.FindIndex(x => x.Name.Equals(itm.Name));
+            idx = Model.InspectorsItems.FindIndex(x => x.Name.Equals(itm.Name));
             if (idx == -1)
             {
                 Model.InspectorsItems.Add(itm);
@@ -148,11 +198,15 @@ namespace x_template_xHmi.Wpf.Data.MongoExport
             {
                 itm.Items.Add(new FieldItem() { AttributeName = item, Included = true });
             }
+
+            itm.Required = true;
+
             // Update or add into Model
-             idx = Model.InspectorsItems.FindIndex(x => x.Name.Equals(itm.Name));
+            idx = Model.InspectorsItems.FindIndex(x => x.Name.Equals(itm.Name));
             if (idx == -1)
             {
                 Model.InspectorsItems.Add(itm);
+
             }
             else
             {
@@ -164,46 +218,152 @@ namespace x_template_xHmi.Wpf.Data.MongoExport
                 itm.Required = Model.InspectorsItems[idx].Required;
                 Model.InspectorsItems[idx] = itm;
             }
-
+            Model.InspectorsItems.ForEach(x => x.Subscribe());
 
 
             _data = Entry.Plc.MAIN._technology._processSettings._data;
             _info = _data.GetType().GetProperties();
             PopulateHeader(_data);
             PopulateStations();
+
+            Model.Items.ForEach(i => i.PropertyChanged -= TreeModel_PropertyChanged);
+            Model.Items.ForEach(i => i.PropertyChanged += TreeModel_PropertyChanged);
+
+            Model.InspectorsItems.ForEach(i => i.PropertyChanged -= TreeModel_PropertyChanged);
+            Model.InspectorsItems.ForEach(i => i.PropertyChanged += TreeModel_PropertyChanged);
+
+
         }
         private void WriteFieldFile()
         {
             string fields = "_EntityId" + Environment.NewLine;
+            FieldItem[] attributes;
 
-            foreach (HeaderItem item in Model.Items) { fields += item.ToString(); }
+            foreach (HeaderItem item in Model.Items)
+            {
+
+
+                ///TcoDataInspector
+                if (item.ToString().Contains("StarNotationEnabled"))
+                {
+                    attributes = Model.InspectorsItems.Where(ii => ii.Name.Equals("TcoDataInspector"))
+                                                          .SelectMany(ii => ii.Items)
+                                                          .Where(i => i.Included).ToArray();
+
+                    fields += CheckAttributes(item, attributes);
+                }
+                ///TcoAnalougeInspector
+                else if (item.ToString().Contains("RequiredMin"))
+                {
+                    attributes = Model.InspectorsItems.Where(ii => ii.Name.Equals("TcoAnalogueInspector"))
+                                                          .SelectMany(ii => ii.Items)
+                                                          .Where(i => i.Included).ToArray();
+
+                    fields += CheckAttributes(item, attributes);
+                }
+                ///TcoDigitalInspector
+                else if (item.ToString().Contains("NumberOfAllowedRetries"))
+                {
+                    attributes = Model.InspectorsItems.Where(ii => ii.Name.Equals("TcoDigitalInspector"))
+                                                          .SelectMany(ii => ii.Items)
+                                                          .Where(i => i.Included).ToArray();
+
+                    fields += CheckAttributes(item, attributes);
+                }
+                else fields += item.ToString();
+
+            }
 
             File.WriteAllText(_path + _fieldFile, fields);
 
-            SerilaizeJson();
-        }
-        private void SerilaizeJson()
-        {
-            var obj = JsonConvert.SerializeObject(Model, Formatting.None, new JsonSerializerSettings()
-            {
-                TypeNameHandling = TypeNameHandling.Objects,
-                TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
-            });
+            Console.WriteLine(fields);
 
-            File.WriteAllText(_path + _settingsFile, obj);
+            SerializeJson();
         }
+
+        private static string CheckAttributes(HeaderItem item, FieldItem[] attributes)
+        {
+            string fields = string.Empty;
+
+            string[] lines = item.ToString().Split('\n');
+
+            foreach (string line in lines)
+            {
+                if (string.IsNullOrWhiteSpace(line)) continue;
+
+                if (!line.Contains("_data"))
+                {
+                    fields += $"{line}\n";
+                    continue;
+                }
+
+                string fieldName = line.Split('.').Last();
+
+                if (attributes.Any(a => fieldName == a.AttributeName)) fields += $"{line}\n";
+            }
+
+            return fields;
+        }
+
+
+
+        private void SerializeJson()
+        {
+            lock (_saveLock)
+            {
+                string path = _path + _settingsFile;
+                string tempPath = path + ".tmp";
+                string backupPath = path + ".bak";
+
+                var obj = JsonConvert.SerializeObject(Model, Formatting.None, new JsonSerializerSettings()
+                {
+                    TypeNameHandling = TypeNameHandling.Objects,
+                    TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple
+                });
+
+
+                File.WriteAllText(tempPath, obj);
+
+                if (File.Exists(path))
+                {
+                    File.Replace(tempPath, path, backupPath);
+                }
+                else
+                {
+                    File.Move(tempPath, path);
+                }
+            }
+        }
+        #endregion
+
+
+        #region POPULATE MODEL
         private void PopulateModel()
         {
             string path = _path + _settingsFile;
             if (!File.Exists(path)) return;
 
-            var bData = File.ReadAllBytes(path);
-            Model = (TreeModel)JsonConvert.DeserializeObject(Encoding.UTF8.GetString(bData), typeof(TreeModel),
-                new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Objects }
-            );
-
-
+            try
+            {
+                var bData = File.ReadAllBytes(path);
+                Model = (TreeModel)JsonConvert.DeserializeObject(Encoding.UTF8.GetString(bData), typeof(TreeModel),
+                    new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Objects }
+                );
+            }
+            catch ///if data read fails try backup
+            {
+                string backup = path + ".bak";
+                if (File.Exists(backup))
+                {
+                    var bData = File.ReadAllBytes(backup);
+                    Model = (TreeModel)JsonConvert.DeserializeObject(Encoding.UTF8.GetString(bData), typeof(TreeModel),
+                        new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Objects }
+                    );
+                }
+            }
         }
+
+
         private void PopulateHeader(object data)
         {
             if (data == null) return;
@@ -246,7 +406,11 @@ namespace x_template_xHmi.Wpf.Data.MongoExport
                 mainHeader.Required = Model.Items[idx].Required;
                 Model.Items[idx] = mainHeader;
             }
+
+
         }
+
+
         private void PopulateStations()
         {
             List<PropertyInfo> stationList = _info.AsQueryable().Where(x => typeof(CUProcessDataBase).IsAssignableFrom(x.PropertyType)).ToList();
@@ -298,6 +462,7 @@ namespace x_template_xHmi.Wpf.Data.MongoExport
             }
             Model.Items.ForEach(x => x.Subscribe());/// reattach events to handlers 
         }
+
         /// <summary>
         /// Recursively finds Inspectors and Primitives in structures then add them to _searchResults 
         /// </summary>
@@ -350,11 +515,13 @@ namespace x_template_xHmi.Wpf.Data.MongoExport
                 }
             }
         }
-        private string SafeRelativePath(object obj)
+
+        private static string SafeRelativePath(object obj)
         {
             if (!TryGetSymbol(obj, out var s)) return null;
             return s.Replace("MAIN._technology._processSettings._data.", "");
         }
+
         private static bool TryGetSymbol(object obj, out string symbol)
         {
             symbol = null;
@@ -378,8 +545,7 @@ namespace x_template_xHmi.Wpf.Data.MongoExport
             return false;
         }
 
-
-        private bool FindPrimitive(Object obj, out FieldItem fi)
+        private static bool FindPrimitive(object obj, out FieldItem fi)
         {
             if (obj is OnlinerBool b)
             {
@@ -492,14 +658,16 @@ namespace x_template_xHmi.Wpf.Data.MongoExport
             fi = new FieldItem();
             return false;
         }
-        private bool FindInspector(Object obj, out FieldItem fi)
+
+
+        private static bool FindInspector(object obj, out FieldItem fi)
         {
             string inspectorFields = string.Empty;
             if (obj is TcoInspectors.TcoDataInspector dataInspector)
             {
                 foreach (var field in _dataInspfields)
                 {
-                    inspectorFields += RelativePath(RelativePath(dataInspector.Symbol)) + "._data" + field + '\n';
+                    inspectorFields += RelativePath(dataInspector.Symbol) + "._data." + field + '\n';
                 }
 
                 fi = new FieldItem() { AttributeName = RelativePath(dataInspector.Symbol), Field = inspectorFields };
@@ -510,7 +678,7 @@ namespace x_template_xHmi.Wpf.Data.MongoExport
             {
                 foreach (var field in _digitalInspfields)
                 {
-                    inspectorFields += RelativePath(logicInspector.Symbol) + "._data" + field + '\n';
+                    inspectorFields += RelativePath(logicInspector.Symbol) + "._data." + field + '\n';
                 }
                 fi = new FieldItem() { AttributeName = RelativePath(logicInspector.Symbol), Field = inspectorFields };
                 return true;
@@ -521,33 +689,44 @@ namespace x_template_xHmi.Wpf.Data.MongoExport
                 inspectorFields = string.Empty;
                 foreach (var field in _analogInspfields)
                 {
-                    inspectorFields += RelativePath(analougeInspector.Symbol) + "._data" + field + '\n';
+                    inspectorFields += RelativePath(analougeInspector.Symbol) + "._data." + field + '\n';
                 }
                 fi = new FieldItem() { AttributeName = RelativePath(analougeInspector.Symbol), Field = inspectorFields };
                 return true; ;
             }
             fi = new FieldItem();
             return false;
-
         }
-        public string RelativePath(string s)
+
+        public static string RelativePath(string s)
         {
             return s.Replace("MAIN._technology._processSettings._data.", "");
         }
-        private void ExportNow()
+        #endregion
+
+
+        #region EXPORT
+        private async void ExportNow() { await ExportAsync(); }
+
+        private async Task ExportAsync()
         {
-            string mongoExportPath = @"C:\Program Files\MongoDB\Tools\bin\mongoexport.exe";
+            Exporting = true;
 
-
-            if (!File.Exists(mongoExportPath))
+            TaskDialog td = new TaskDialog();
+            //td.Opened += new EventHandler(td_Opened);
+            //td.OwnerWindowHandle = this.Handle;
+            TaskDialogStandardButtons button = TaskDialogStandardButtons.Ok;
+            td.Caption = Properties.strings.MongoExport;
+            td.StandardButtons = button;
+            if (!File.Exists(_mongoExportPath))
             {
-                MessageBox.Show(
-                $"Cannot loacate Mongo Export at: {mongoExportPath} Please check if it is installed at the default location!",
-                "Mongo Export",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-);
-
+                td.Icon = TaskDialogStandardIcon.Error;
+                td.InstructionText = Properties.strings.Error;
+                td.Text = string.Format(
+                                Properties.strings.MongoExportPathErrorMsg,
+                                _mongoExportPath);
+                td.Show();
+                Exporting = false;
                 return;
             }
             WriteFieldFile();
@@ -561,10 +740,6 @@ namespace x_template_xHmi.Wpf.Data.MongoExport
             DateTime toQueryDate = SelectedFromDate != SelectedToDate
                                                             ? SelectedToDate
                                                             : SelectedToDate.AddDays(1);
-
-
-
-
 
 
             string outputFile = $"\\{Entry.Settings.DbName}_{date}.csv";
@@ -581,9 +756,10 @@ namespace x_template_xHmi.Wpf.Data.MongoExport
             };
 
             string host = new Func<string>(() => { var a = Entry.Settings.GetConnectionString().Split('/'); return a.Last(); })();/// remove "mongodb://"
+
             var psi = new ProcessStartInfo()
             {
-                FileName = mongoExportPath,
+                FileName = _mongoExportPath,
                 Arguments = $"--host {host} " +
                 $"--db {Entry.Settings.DbName} " +
                 $"--collection Traceability " +
@@ -593,25 +769,89 @@ namespace x_template_xHmi.Wpf.Data.MongoExport
                 $"--fieldFile {_path + _fieldFile} " +
                 $"--out {OutputLocation + outputFile}",
                 UseShellExecute = false,
-                CreateNoWindow = false,
+                CreateNoWindow = true,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true
             };
-            var p = new Process() { StartInfo = psi };
 
-            p.Start();
+            string errorOutput = string.Empty;
+
+            _cts = new CancellationTokenSource();
+            CancellationToken token = _cts.Token;
+            Task<string> stderrTask;
+
+            try
+            {
+                await Task.Run(() =>
+                {
+                    using (var process = new Process { StartInfo = psi })
+                    {
+                        try
+                        {
+                            process.Start();
+
+                            stderrTask = Task.Run(() => process.StandardError.ReadToEnd());
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Process failed to start:");
+                            Console.WriteLine(ex.ToString());
+
+                            td.Icon = TaskDialogStandardIcon.Error;
+                            td.InstructionText = Properties.strings.ExportError;
+                            td.Text = string.Format(
+                                Properties.strings.StartingProcessFailed,
+                                ex.Message);
+                            td.Show();
+                            Exporting = false;
+                            return;
+                        }
 
 
+                        while (!process.HasExited)
+                        {
+                            if (token.IsCancellationRequested)
+                            {
+                                try { process.Kill(); } catch { }
+                                token.ThrowIfCancellationRequested();
+                            }
 
-            string e = p.StandardError.ReadToEnd(); //MongoExport sends all its output to StandardError
+                            Thread.Sleep(100); ///Polling delay to reduce load on CPU
+                        }
 
-            string[] msg = e.Split('\t');
+                        Task.WaitAll(stderrTask);///MongoExport sends all its output to StandardError
 
+                        errorOutput = stderrTask.Result;
+
+                    }
+                }, token);
+            }
+            catch (OperationCanceledException)
+            {
+                td.Icon = TaskDialogStandardIcon.Warning;
+                td.InstructionText = Properties.strings.ExportCancelled;
+                td.Text = Properties.strings.TheExportOperationWasCancelled;
+                Exporting = false;
+                td.Show();
+                return;
+            }
+            finally
+            {
+                _cts?.Dispose();
+                _cts = null;
+            }
+
+
+            Console.WriteLine($"Mongo export args: {psi.Arguments}");
+
+            string[] msg = errorOutput.Split('\t');
 
             bool error = !msg.Last().StartsWith("exported");
+            td.Icon = error ? TaskDialogStandardIcon.Error : TaskDialogStandardIcon.Information;
 
-
-
+            td.InstructionText = error
+                                ? Properties.strings.Error
+                                : (msg.Length > 1 ? msg[1].Split('\n')[0] : string.Empty);
 
             string infoText = string.Empty;
             if (error)
@@ -625,61 +865,64 @@ namespace x_template_xHmi.Wpf.Data.MongoExport
                 }
             }
             if (infoText.Length == 0) infoText = msg.Last();
+            td.Text = infoText;
 
-            if (error)
-            {
-                MessageBox.Show(
-                infoText,
-                 error ? "Error" : msg[1].Split('\n')[0],
-                 MessageBoxButton.OK,
-                 MessageBoxImage.Error);
-            }
-            else
-                MessageBox.Show(
-                              infoText,
-                               error ? "Error" : msg[1].Split('\n')[0],
-                               MessageBoxButton.OK,
-                               MessageBoxImage.Information);
+
+            Exporting = false;
+            TaskDialogResult res = td.Show();
         }
+
+
         private void SelectOutputLocation()
         {
-            var dialog = new OpenFileDialog
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog
             {
                 InitialDirectory = OutputLocation != string.Empty ? OutputLocation : @"C:\Users",
-
+                IsFolderPicker = true
             };
 
-            if (dialog.ShowDialog() == true)
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
                 OutputLocation = dialog.FileName;
+                SerializeJson();
             }
-        }
-        public TreeModel Model { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-        protected void NotifyPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
-        public RelayCommand Save { get; private set; }
-        public RelayCommand Export { get; private set; }
-        public RelayCommand Browse { get; private set; }
-        public DateTime SelectedFromDate { get; set; } = DateTime.Today;
-        public DateTime SelectedToDate { get; set; } = DateTime.Today;
+        }
+        #endregion
+
 
 
         protected void ResetTime()
         {
             SelectedFromDate = SelectedFromDate.Date;
             SelectedToDate = SelectedToDate.Date;
+        }
+
+        private static object SafeGet(Func<object> getter)
+        {
+            try { return getter(); } catch { return null; }
+        }
+
+        private void Cancel()
+        {
+            _cts?.Cancel();
+        }
+
+
+        #region PUBLIC PROPERTIES
+        public TreeModel Model { get; set; }
+        public DateTime SelectedFromDate { get; set; } = DateTime.Today;
+        public DateTime SelectedToDate { get; set; } = DateTime.Today;
+
+        public bool Exporting
+        {
+            get => _exporting;
+            set
+            {
+                _exporting = value; OnPropertyChanged(nameof(Exporting));
+                CancelExport?.RaiseCanExecuteChanged();
+            }
         }
 
         public bool ExactTime
@@ -702,5 +945,62 @@ namespace x_template_xHmi.Wpf.Data.MongoExport
             get => Model.OutputLocation;
             set { Model.OutputLocation = value; NotifyPropertyChanged(nameof(OutputLocation)); }
         }
+        #endregion
+
+        #region INOTIFYPROPERTYCHANGED
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        protected void NotifyPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
+
+        #region EVENT HANDLERS
+        private void TreeModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            _saveTimer.Stop();
+            _saveTimer.Start();
+        }
+
+        private void OnExit(object sender, ExitEventArgs e)
+        {
+            _saveTimer.Stop();
+
+            if (!_saving)
+            {
+                SerializeJson();
+            }
+        }
+        #endregion
+
+
+        #region IDISPOSABLE
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _saveTimer?.Stop();
+                    _cts?.Dispose();
+                    Application.Current.Exit -= OnExit;
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
+
+
     }
 }

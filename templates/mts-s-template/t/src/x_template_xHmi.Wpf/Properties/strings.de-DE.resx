@@ -444,4 +444,61 @@
   <data name="InProgress" xml:space="preserve">
     <value>Wird verarbeitet</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Fehler</value>
+  </data>
+  <data name="MongoExportPathErrorMsg" xml:space="preserve">
+    <value>Mongo Export nicht gefunden unter: {0} Bitte überprüfen Sie, ob es am Standardort installiert ist!</value>
+  </data>
+  <data name="ExportError" xml:space="preserve">
+    <value>Exportfehler</value>
+  </data>
+  <data name="StartingProcessFailed" xml:space="preserve">
+    <value>Prozessstart fehlgeschlagen: {0}</value>
+  </data>
+  <data name="ExportCancelled" xml:space="preserve">
+    <value>Export abgebrochen</value>
+  </data>
+  <data name="TheExportOperationWasCancelled" xml:space="preserve">
+    <value>Der Exportvorgang wurde abgebrochen.</value>
+  </data>
+  <data name="DataToExport" xml:space="preserve">
+    <value>Daten zum Exportieren</value>
+  </data>
+  <data name="InspectorsDataFieldsToExport" xml:space="preserve">
+    <value>Datenfelder der Inspektoren zum Exportieren</value>
+  </data>
+  <data name="ExportSettings" xml:space="preserve">
+    <value>Exporteinstellungen</value>
+  </data>
+  <data name="OutputLocation" xml:space="preserve">
+    <value>Ausgabeort</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Suchen</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>Von</value>
+  </data>
+  <data name="PickDate" xml:space="preserve">
+    <value>Datum wählen</value>
+  </data>
+  <data name="PickTime" xml:space="preserve">
+    <value>Uhrzeit wählen</value>
+  </data>
+  <data name="ToDT" xml:space="preserve">
+    <value>An</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Exportieren</value>
+  </data>
+  <data name="ExactTime" xml:space="preserve">
+    <value>Genaues Zeit</value>
+  </data>
+  <data name="DirectoryDoesNotExist" xml:space="preserve">
+    <value>Verzeichnis existiert nicht!</value>
+  </data>
+  <data name="AnExportPathIsRequired" xml:space="preserve">
+    <value>Ein Exportpfad ist erforderlich!</value>
+  </data>
 </root>

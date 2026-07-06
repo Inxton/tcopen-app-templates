@@ -13,9 +13,9 @@ namespace x_template_xHmi.Wpf.Data.MongoExport
         {
             string path = Convert.ToString(value);
 
-            if (string.IsNullOrEmpty(path)) return new ValidationResult(false, $"An export path is required!");
+            if (string.IsNullOrEmpty(path)) return new ValidationResult(false, Properties.strings.AnExportPathIsRequired);
             ///Not possible to check if Directoty is ReadOnly on Windows
-            return File.Exists(path) || Directory.Exists(path) ? new ValidationResult(true, null) : new ValidationResult(false, $"Directory does not exist!");
+            return File.Exists(path) || Directory.Exists(path) ? new ValidationResult(true, null) : new ValidationResult(false, Properties.strings.DirectoryDoesNotExist);
         }
     }
 }
